@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADMIN - SALVATION PREDICT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0a0618;color:#fff;padding:16px;padding-bottom:100px}
+.h{background:#12102a;padding:14px;border-radius:12px;display:flex;justify-content:space-between;margin-bottom:16px;border:1px solid #2a2560}
+.logo{font-weight:900;font-size:18px}.logo span{color:#FFD600}
+.card{background:#16122f;padding:16px;border-radius:16px;border:1px solid #25204d;margin-bottom:12px}
+input,textarea{width:100%;background:#0f0d24;color:#fff;border:1px solid #2a2560;padding:12px;border-radius:10px;margin:6px 0 10px;font-size:14px}
+label{font-size:12px;opacity:.8;font-weight:700}
+.btn{width:100%;background:#FFD600;color:#000;border:none;padding:14px;border-radius:12px;font-weight:900;margin-top:10px;cursor:pointer}
+.btn2{background:#1e1a3f;color:#fff;border:1px solid #2a2560}
+.match-item{background:#1f1a42;padding:12px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;border:1px solid #2a2560}
+#loginScreen{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0618;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.loginBox{background:#16122f;padding:24px;border-radius:20px;border:1px solid #2a2560;width:100%;max-width:340px;text-align:center}
+</style>
+</head>
+<body>
+<div id="loginScreen">
+<div class="loginBox">
+<div style="font-size:40px;margin-bottom:10px">🔐</div>
+<h2 style="color:#FFD600">SALVATION ADMIN</h2>
+<p style="opacity:.7;font-size:13px;margin:8px 0 16px">Enter password</p>
+<input id="passInput" type="password" placeholder="Enter password" style="text-align:center">
+<button class="btn" onclick="checkPass()">🔓 UNLOCK</button>
+<p id="passError" style="color:#ff4444;font-size:12px;margin-top:10px;display:none">Wrong password!</p>
+<p style="opacity:.5;font-size:11px;margin-top:14px">Password: salvation123</p>
+</div>
+</div>
+<div class="h">
+<div class="logo">SALVATION <span>ADMIN</span> 🔐</div>
+<div><button onclick="logout()" style="background:#ff4444;color:#fff;border:none;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900">LOGOUT</button></div>
+</div>
+<div class="card">
+<h3 style="color:#FFD600;margin-bottom:8px">➕ ADD MATCH</h3>
+<label>LEAGUE</label>
+<input id="league" value="🌍 AFCON QUALIFIERS U17 • TODAY 17:00">
+<label>HOME TEAM</label>
+<input id="home" placeholder="🇳🇬 Nigeria">
+<label>AWAY TEAM</label>
+<input id="away" placeholder="🇲🇬 Madagascar">
+<label>ODD</label>
+<input id="odd" value="1.45">
+<label>OUR PICK</label>
+<input id="pick" placeholder="NIGERIA TO WIN + OVER 1.5 @1.85">
+<label>STATS</label>
+<textarea id="stats" rows="2" placeholder="Last: Madagascar 0-2 Nigeria"></textarea>
+<label>PICK DETAIL</label>
+<input id="pickDetail" placeholder="HOME WIN + OVER 1.5">
+<button class="btn" onclick="addMatch()">✅ ADD MATCH</button>
+</div>
+<div class="card">
+<h3>📅 Today's Matches (<span id="count">0</span>)</h3>
+<div id="list"></div>
+<button class="btn btn2" onclick="clearAll()">🗑️ CLEAR ALL</button>
+<button class="btn" onclick="saveAndGo()">💾 SAVE & VIEW APP →</button>
+<a href="index.html" style="background:#00FF88;color:#000;padding:14px;display:block;text-align:center;border-radius:12px;font-weight:900;text-decoration:none;margin-top:10px">👁️ VIEW APP</a>
+</div>
+<script>
+const ADMIN_PASSWORD = "salvation123";
+function checkPass(){
+  const p=document.getElementById('passInput').value;
+  if(p===ADMIN_PASSWORD){
+    localStorage.setItem('salvation_admin_auth','true');
+    document.getElementById('loginScreen').style.display='none';
+    render();
+  } else {
+    document.getElementById('passError').style.display='block';
+  }
+}
+function logout(){localStorage.removeItem('salvation_admin_auth');location.reload();}
+if(localStorage.getItem('salvation_admin_auth')==='true'){document.getElementById('loginScreen').style.display='none';}
+let matches = JSON.parse(localStorage.getItem('salvation_matches') || '[]');
+function addMatch(){
+  const m={
+    league:document.getElementById('league').value||'TODAY',
+    home:document.getElementById('home').value||'Home',
+    away:document.getElementById('away').value||'Away',
+    odd:document.getElementById('odd').value||'1.50',
+    pick:document.getElementById('pick').value||'HOME WIN',
+    stats:document.getElementById('stats').value||'No stats',
+    pickDetail:document.getElementById('pickDetail').value||document.getElementById('pick').value
+  };
+  if(!m.home||!m.away){alert('Add home and away');return}
+  matches.push(m);
+  localStorage.setItem('salvation_matches',JSON.stringify(matches));
+  render();
+  document.getElementById('home').value='';
+  document.getElementById('away').value='';
+  document.getElementById('pick').value='';
+}
+function render(){
+  document.getElementById('count').innerText=matches.length;
+  let html='';
+  matches.forEach((m,i)=>{
+    html+=`<div class="match-item"><div><b>${m.home} vs ${m.away}</b><br><small>${m.pick} @${m.odd}</small></div><button onclick="removeMatch(${i})" style="background:#ff4444;color:#fff;border:none;padding:6px 10px;border-radius:8px">X</button></div>`;
+  });
+  document.getElementById('list').innerHTML=html||'<small style="opacity:.6">No matches yet</small>';
+}
+function removeMatch(i){matches.splice(i,1);localStorage.setItem('salvation_matches',JSON.stringify(matches));render();}
+function clearAll(){if(confirm('Clear all?')){matches=[];localStorage.removeItem('salvation_matches');render();}}
+function saveAndGo(){localStorage.setItem('salvation_matches',JSON.stringify(matches));location.href='index.html';}
+render();
+</script>
+</body>
+</html>

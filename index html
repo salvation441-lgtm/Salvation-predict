@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SALVATION</title>
+<style>body{background:#0f0f0f;color:#fff;font-family:Arial;padding:10px} .c{background:#1e1e1e;border-radius:12px;padding:12px;margin:10px 0;border-left:3px solid #00FF66} .c.live{border-left-color:red} .o{display:flex;gap:6px;margin-top:8px} .o div{background:#2a3a2a;color:#0f6;padding:6px 10px;border-radius:8px;font-weight:800} button{padding:8px 14px;border-radius:20px;border:none;margin:4px;background:#2a2a2a;color:#ccc} button.active{background:#fff;color:#000} button.live{background:red;color:#fff}</style>
+</head><body>
+<h2 style="color:#00FF66">SALVATION PREDICT</h2>
+<button class="active" onclick="show('today')" id="bt">TODAY</button>
+<button onclick="show('live')" id="bl" class="live">LIVE 3</button>
+<button onclick="show('all')">ALL</button>
+<div id="box" style="margin-top:15px"></div>
+<script>
+let today=[{h:"Nigeria U17",a:"Madagascar U17",l:"AFCON U17",o:"1.72"},{h:"Senegal U17",a:"Gambia U17",l:"AFCON U17",o:"1.81"},{h:"England Women",a:"France Women",l:"Women Friendly",o:"2.10"}];
+let live=[{h:"Portugal",a:"Gibraltar",l:"EUROPE Friendlies • 28:19 H1",s:"0-0",o:"1.72",hot:1},{h:"Eastleigh",a:"Truro",l:"ENGLAND National • 6:15 H1",s:"0-0",o:"1.01"},{h:"Arsenal Tula U19",a:"Strogino U19",l:"RUSSIA U19 • 15:36 H1",s:"0-1",o:"1.55",hot:1}];
+function card(m,isLive){return `<div class="c ${isLive?'live':''}"><small>${m.l} ${m.s||''} ${m.hot?'🔥 HOT':''}</small><div style="font-weight:800;margin:5px 0">${m.h}<br>${m.a}</div><div style="color:#00FF66">👉 ${m.h} WIN @${m.o}</div><div style="background:#111;padding:6px;border-radius:6px;margin:6px 0;font-size:12px"><b style="color:#0f6">STATAREA: </b>1 55% | X 25% | 2 20%<br>Over 2.5: 65% | BTTS Yes: 62%</div><div class="o"><div>1<br>${m.o}</div><div>X<br>3.20</div><div>2<br>4.50</div></div></div>`}
+function show(t){let b=document.getElementById('box');if(t=='today')b.innerHTML=today.map(m=>card(m,0)).join('');if(t=='live')b.innerHTML=live.map(m=>card(m,1)).join('');if(t=='all')b.innerHTML=[...today,...live].map(m=>card(m,0)).join('')}
+show('live');
+</script></body></html>

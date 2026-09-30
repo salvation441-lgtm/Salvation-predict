@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salvation Predict</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0e0e0e;color:#fff;font-family:Arial;padding:10px}
+.header{display:flex;justify-content:space-between;align-items:center;background:#111;padding:12px;border-radius:12px}
+.logo{font-weight:900} .logo span{color:#00ff88}
+.badge{background:#00ff88;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:900}
+.tabs{display:flex;gap:8px;margin:12px 0;overflow-x:auto}
+.tab{padding:9px 16px;border-radius:22px;background:#222;color:#fff;border:none;font-weight:900;white-space:nowrap}
+.tab.active{background:#00ff88;color:#000}
+.tab.live{background:#ff1a1a;color:#fff}
+.match-card{background:#1a1a1a;border-radius:14px;padding:12px;margin:10px 0;border-left:4px solid #00ff88}
+.odd{background:#00ff8820;color:#00ff88;padding:8px;border-radius:10px;text-align:center;font-weight:900;margin-top:8px}
+.top{display:flex;justify-content:space-between;align-items:center;margin:10px 0}
+.refresh{background:#222;color:#fff;border:none;padding:8px 12px;border-radius:20px}
+.live-card{background:#1e1e1e;border-radius:14px;padding:12px;margin:12px 0}
+.odds-box{background:#2a3a2a;color:#00e676;padding:10px;border-radius:10px;text-align:center;font-weight:900;font-size:18px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo"><span style="color:#00ff88">SALVATION</span> PREDICT <span class="badge" id="modeBadge">AUTO</span></div>
+<div style="font-size:12px" id="dateText"></div>
+</div>
+<div class="top">
+<div style="font-size:13px;font-weight:800;color:#00ff88" id="countText">Loading...</div>
+<button class="refresh" onclick="location.reload()">🔄 Refresh</button>
+</div>
+<div class="tabs">
+<button class="tab active" id="todayTab" onclick="loadToday()">TODAY 30 SEPT</button>
+<button class="tab" onclick="loadTomorrow()">TOMORROW</button>
+<button class="tab live" id="liveTab" onclick="showLive()">🔴 LIVE <span id="liveCount">2</span></button>
+</div>
+<div id="matchesContainer"><div style="text-align:center;padding:40px">Loading...</div></div>
+<script>
+document.getElementById('dateText').textContent=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+' • '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+let TODAY=[];
+async function loadToday(){
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ document.getElementById('todayTab').classList.add('active');
+ const box=document.getElementById('matchesContainer');
+ if(TODAY.length>0){renderToday(TODAY);return;}
+ box.innerHTML='<div style="text-align:center;padding:40px">Fetching picks...</div>';
+ try{
+  const r=await fetch('/api/auto-picks?t='+Date.now()); const d=await r.json();
+  TODAY=d.matches||d.picks||[];
+  document.getElementById('countText').textContent=`${TODAY.length} MATCHES - OUR PICKS READY • AUTO MODE`;
+  document.getElementById('modeBadge').textContent=d.fallback?'FALLBACK':'AUTO';
+  renderToday(TODAY);
+ }catch(e){ TODAY=[]; renderToday(TODAY); }
+}
+function renderToday(list){
+ const box=document.getElementById('matchesContainer');
+ box.innerHTML=list.map(m=>`<div class="match-card"><div style="font-size:11px;opacity:.6">${m.league}</div><div style="display:flex;justify-content:space-between;font-weight:900;margin:8px 0"><span>${m.home}</span><span style="color:#00ff88">VS</span><span>${m.away}</span></div><div style="font-size:11px;opacity:.6">${m.stats||''}</div><div class="odd">✅ ${m.pick||m.pickDetail||'HOME WIN'}</div></div>`).join('');
+}
+async function showLive(){
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ document.getElementById('liveTab').classList.add('active');
+ const box=document.getElementById('matchesContainer');
+ box.innerHTML='<div style="text-align:center;padding:30px;font-weight:900">🔴 Loading LIVE...</div>';
+ try{
+  const r=await fetch('/api/live?t='+Date.now()); const d=await r.json();
+  document.getElementById('liveCount').textContent=d.liveCount;
+  document.getElementById('countText').innerHTML=`<span style="color:#ff3333">🔴 LIVE NOW: ${d.liveCount} MATCHES</span>`;
+  let html=`<div style="display:flex;gap:8px;margin:10px 0;overflow-x:auto"><button style="background:#ff1a1a;color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:900">1X2</button><button style="background:#222;color:#fff;border:none;padding:8px 16px;border-radius:20px">Over/Under</button><button style="background:#222;color:#fff;border:none;padding:8px 16px;border-radius:20px">Double Chance</button></div>`;
+  d.live.forEach(m=>{
+    html+=`<div class="live-card">
+     <div style="display:flex;gap:8px;align-items:center;font-size:11px;color:#aaa">${m.hot?'<span style="background:#ff1a1a;color:#fff;padding:3px 8px;border-radius:6px;font-weight:900">HOT 🔥</span>':''}<span style="color:#fff;font-weight:800">${m.time}</span><span>${m.league}</span></div>
+     <div style="margin:12px 0">
+      <div style="display:flex;justify-content:space-between;margin:6px 0"><span>${m.home}</span><b>${m.homeScore}</b></div>
+      <div style="display:flex;justify-content:space-between;margin:6px 0"><span>${m.away}</span><b>${m.awayScore}</b></div>
+     </div>
+     <div style="display:flex;justify-content:space-between;color:#888;font-size:11px;margin-bottom:6px"><span>${m.market==='Next Goal'?'ⓘ Next Goal':''}</span><span>1</span><span>X</span><span>2</span></div>
+     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+      <div class="odds-box">${m.odds['1']}</div>
+      <div class="odds-box">${m.odds['X']}</div>
+      <div class="odds-box">${m.odds['2']}</div>
+     </div>
+     <div style="margin-top:8px;color:#666;font-size:11px">${m.markets} ›</div>
+    </div>`;
+  });
+  box.innerHTML=html;
+  setTimeout(showLive,60000);
+ }catch(e){ box.innerHTML='<div style="text-align:center;padding:30px">No live now, check 7pm! ⚽</div>'; }
+}
+function loadTomorrow(){ document.getElementById('matchesContainer').innerHTML='<div style="text-align:center;padding:40px">Tomorrow picks dey come 6am! Check TODAY ✅</div>'; }
+async function init(){ await loadToday(); try{ const r=await fetch('/api/live'); const d=await r.json(); document.getElementById('liveCount').textContent=d.liveCount; }catch{} }
+init();
+</script>
+</body>
+</html>

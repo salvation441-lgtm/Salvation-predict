@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT - GHANA #1 FOOTBALL APP</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system}
+body{background:#0a0618;color:#fff;padding-bottom:85px}
+.header{background:#12102a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:20px}.logo span{color:#FFD600}
+.badge{background:#00FF88;color:#000;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.tabs{display:flex;gap:8px;padding:12px;overflow:auto}
+.tab{padding:10px 18px;border-radius:25px;background:#1e1a3f;border:1px solid #2a2560;font-weight:700;font-size:13px;white-space:nowrap}
+.tab.active{background:#FFD600;color:#000}
+.card{background:#16122f;margin:10px 12px;border-radius:16px;padding:14px;border:1px solid #25204d}
+.match{background:#1f1a42;border-radius:12px;padding:12px;margin-top:10px;position:relative}
+.league{font-size:11px;opacity:.6;letter-spacing:.5px}
+.teams{font-weight:800;font-size:16px;margin:6px 0;display:flex;justify-content:space-between}
+.vs{opacity:.5;font-size:12px}
+.odds{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.odd{background:#2a2558;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid #3a356e}
+.odd.hot{background:#FFD600;color:#000;border-color:#FFD600}
+.pred{margin-top:8px;background:#0f0d24;padding:8px 10px;border-radius:10px;font-size:12px;border-left:3px solid #00FF88}
+.btn{width:100%;background:#FFD600;color:#000;border:none;padding:14px;border-radius:12px;font-weight:900;margin-top:10px}
+.btn-wa{background:#25D366;color:#fff}
+.live-dot{width:8px;height:8px;background:#FF2D55;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;z-index:999;overflow:auto;padding:14px}
+.modalBox{background:#16122f;border-radius:18px;padding:16px;margin-top:40px;border:1px solid #333}
+.close{float:right;background:#2a2558;border:none;color:#fff;width:32px;height:32px;border-radius:50%}
+.bottomNav{position:fixed;bottom:0;left:0;right:0;background:#12102a;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
+.navItem{font-size:10px;text-align:center;opacity:.6}.navItem.active{opacity:1;color:#FFD600}
+.navItem b{font-size:20px;display:block}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px}
+th{opacity:.5;text-align:left;padding:6px}td{padding:8px 6px;border-top:1px solid #222}
+.blur{filter:blur(10px);user-select:none}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">SALVATION <span>PREDICT</span></div>
+<div class="badge"><span class="live-dot"></span> LIVE</div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('today',this)">🔥 TODAY</div>
+<div class="tab" onclick="showTab('live',this)">● LIVE 12</div>
+<div class="tab" onclick="showTab('vip',this)">👑 VIP BANKER</div>
+<div class="tab" onclick="showTab('table',this)">📊 STANDINGS</div>
+<div class="tab" onclick="showTab('h2h',this)">⚔️ H2H</div>
+</div>
+
+<div id="todaySec">
+<div class="card">
+<div class="league">🇬🇧 PREMIER LEAGUE • TODAY 18:30 • CONFIDENCE 94%</div>
+<div class="teams"><span>Man City</span><span class="vs">vs</span><span>Arsenal</span><span style="color:#00FF88">1.32</span></div>
+<div class="odds"><div class="odd hot">Over 1.5 ✅</div><div class="odd">1 - 1.85</div><div class="odd">X - 3.40</div><div class="odd">2 - 4.20</div></div>
+<div class="pred">💡 PREDICTION: Over 1.5 Goals • Form: City WWWDW | Arsenal WWLWD • H2H: 3-1-1</div>
+<button class="btn" onclick="openH2H('Man City','Arsenal')">VIEW H2H + LINEUP + STATS →</button>
+</div>
+<div class="card">
+<div class="league">🇪🇸 LA LIGA • TODAY 20:00 • CONFIDENCE 91%</div>
+<div class="teams"><span>Real Madrid</span><span class="vs">vs</span><span>Barcelona</span><span style="color:#00FF88">1.75</span></div>
+<div class="odds"><div class="odd hot">BTTS YES ✅</div><div class="odd">Over 2.5 - 1.70</div></div>
+<div class="pred">💡 El Clasico: Both scored last 8/10 meetings</div>
+<button class="btn" onclick="openH2H('Real Madrid','Barcelona')">VIEW H2H + LINEUP + STATS →</button>
+</div>
+<div class="card">
+<div class="league">🇮🇹 SERIE A • TODAY 19:45 • CONFIDENCE 89%</div>
+<div class="teams"><span>Inter</span><span class="vs">vs</span><span>Juventus</span><span style="color:#00FF88">1.85</span></div>
+<div class="odds"><div class="odd hot">1X Double Chance ✅</div><div class="odd">Under 3.5 - 1.35</div></div>
+<div class="pred">💡 Inter unbeaten home 12 games</div>
+<button class="btn" onclick="openH2H('Inter','Juventus')">VIEW H2H + LINEUP + STATS →</button>
+</div>
+</div>
+
+<div id="liveSec" style="display:none">
+<div class="card">
+<div class="league"><span class="live-dot"></span> LIVE 67'</div>
+<div class="teams"><span>Liverpool 2</span><span>-</span><span>1 Chelsea</span></div>
+<div class="odds"><div class="odd">Next Goal: LIV 2.10 | CHE 2

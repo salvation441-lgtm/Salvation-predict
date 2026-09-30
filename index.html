@@ -1,16 +1,67 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SALVATION</title>
-<style>body{background:#0f0f0f;color:#fff;font-family:Arial;padding:10px} .c{background:#1e1e1e;border-radius:12px;padding:12px;margin:10px 0;border-left:3px solid #00FF66} .c.live{border-left-color:red} .o{display:flex;gap:6px;margin-top:8px} .o div{background:#2a3a2a;color:#0f6;padding:6px 10px;border-radius:8px;font-weight:800} button{padding:8px 14px;border-radius:20px;border:none;margin:4px;background:#2a2a2a;color:#ccc} button.active{background:#fff;color:#000} button.live{background:red;color:#fff}</style>
-</head><body>
-<h2 style="color:#00FF66">SALVATION PREDICT</h2>
-<button class="active" onclick="show('today')" id="bt">TODAY</button>
-<button onclick="show('live')" id="bl" class="live">LIVE 3</button>
-<button onclick="show('all')">ALL</button>
-<div id="box" style="margin-top:15px"></div>
-<script>
-let today=[{h:"Nigeria U17",a:"Madagascar U17",l:"AFCON U17",o:"1.72"},{h:"Senegal U17",a:"Gambia U17",l:"AFCON U17",o:"1.81"},{h:"England Women",a:"France Women",l:"Women Friendly",o:"2.10"}];
-let live=[{h:"Portugal",a:"Gibraltar",l:"EUROPE Friendlies • 28:19 H1",s:"0-0",o:"1.72",hot:1},{h:"Eastleigh",a:"Truro",l:"ENGLAND National • 6:15 H1",s:"0-0",o:"1.01"},{h:"Arsenal Tula U19",a:"Strogino U19",l:"RUSSIA U19 • 15:36 H1",s:"0-1",o:"1.55",hot:1}];
-function card(m,isLive){return `<div class="c ${isLive?'live':''}"><small>${m.l} ${m.s||''} ${m.hot?'🔥 HOT':''}</small><div style="font-weight:800;margin:5px 0">${m.h}<br>${m.a}</div><div style="color:#00FF66">👉 ${m.h} WIN @${m.o}</div><div style="background:#111;padding:6px;border-radius:6px;margin:6px 0;font-size:12px"><b style="color:#0f6">STATAREA: </b>1 55% | X 25% | 2 20%<br>Over 2.5: 65% | BTTS Yes: 62%</div><div class="o"><div>1<br>${m.o}</div><div>X<br>3.20</div><div>2<br>4.50</div></div></div>`}
-function show(t){let b=document.getElementById('box');if(t=='today')b.innerHTML=today.map(m=>card(m,0)).join('');if(t=='live')b.innerHTML=live.map(m=>card(m,1)).join('');if(t=='all')b.innerHTML=[...today,...live].map(m=>card(m,0)).join('')}
-show('live');
-</script></body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT - Statarea Clone</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:Inter,Arial,sans-serif;padding-bottom:80px}
+.header{position:sticky;top:0;z-index:10;background:#0f0f0f;padding:12px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:20px;color:#00FF66;letter-spacing:1px} .logo span{color:#fff}
+.search-wrap{padding:10px;background:#0f0f0f}
+.search{width:100%;background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:13px 15px;color:#fff;font-size:14px;outline:none}
+.top-filters{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;background:#0f0f0f}
+.f-btn{white-space:nowrap;padding:9px 16px;border-radius:22px;border:1px solid #333;background:#1e1e1e;color:#aaa;font-weight:800;font-size:12px}
+.f-btn.active{background:#fff;color:#000;border-color:#fff}
+.f-btn.live-active{background:#FF3B30;color:#fff;border-color:#FF3B30}
+.statarea-bar{background:#111;padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s-item{background:#1e1e1e;border-radius:10px;padding:11px;font-size:13px;font-weight:600;color:#ccc;border:1px solid #222}
+.s-item:active{background:#2a2a2a}
+.status{padding:10px 12px;font-weight:900;font-size:13px;color:#00FF66;display:flex;justify-content:space-between}
+.match-card{background:#161616;border-radius:16px;margin:10px 12px;padding:12px;border:1px solid #222;border-left:4px solid #00FF66}
+.match-card.live{border-left-color:#FF3B30;box-shadow:0 0 0 1px rgba(255,59,48,.2)}
+.m-top{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:6px}
+.m-teams{font-size:17px;font-weight:800;line-height:1.25}
+.m-pick{color:#00FF66;font-weight:800;margin:8px 0;font-size:13px}
+.statarea-box{background:#0f0f0f;border-radius:10px;padding:9px;margin:8px 0;border:1px solid #222}
+.row{display:flex;justify-content:space-between;font-size:11px;margin:4px 0;color:#aaa}
+.bar{height:5px;background:#222;border-radius:10px;overflow:hidden;margin:5px 0}
+.fill{height:100%;background:linear-gradient(90deg,#00FF66,#00cc52)}
+.odds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.odd{background:#1e2a1e;border:1px solid #2a3a2a;border-radius:10px;padding:10px;text-align:center}
+.odd b{color:#00FF66;font-size:16px} .odd small{display:block;color:#888;font-size:10px;margin-bottom:2px}
+.vip-btn{width:100%;background:#00FF66;color:#000;border:none;border-radius:10px;padding:12px;font-weight:900;margin-top:10px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
+.nav-i{text-align:center;color:#666;font-size:10px;font-weight:700} .nav-i.active{color:#00FF66} .nav-i div{font-size:20px}
+.badge{background:#FF3B30;color:#fff;font-size:9px;padding:2px 6px;border-radius:10px;margin-left:5px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">SALVATION <span>PREDICT</span></div>
+<div style="font-size:11px;color:#888" id="date"></div>
+</div>
+
+<div class="search-wrap"><input id="q" class="search" placeholder="🔍 Search teams, leagues, Women, Men, Ghana..." oninput="doSearch(this.value)"></div>
+
+<div class="top-filters">
+<button class="f-btn active" id="btnToday" onclick="loadToday()">TODAY</button>
+<button class="f-btn" id="btnTom" onclick="loadTomorrow()">TOMORROW</button>
+<button class="f-btn live-active" id="btnLive" onclick="loadLive()">🔴 LIVE <span class="badge" id="liveCount">3</span></button>
+<button class="f-btn" id="btnAll" onclick="loadAll()">ALL EVENTS</button>
+<button class="f-btn" id="btnTop" onclick="loadTop()">TOP 🔥</button>
+</div>
+
+<div class="statarea-bar">
+<div class="s-item" onclick="loadAll()">📋 All predictions ›</div>
+<div class="s-item" onclick="loadToday()">📅 Today tips ›</div>
+<div class="s-item" onclick="loadTop()">🔥 TOP predictions ›</div>
+<div class="s-item" onclick="loadLive()">🔴 Live predictions ›</div>
+</div>
+
+<div class="status"><span id="statusTxt">🔴 LIVE NOW: 3 MATCHES</span><span id="totalTxt" style="color:#888;font-weight:600">8 tips</span></div>
+
+<div id="list"></div>
+
+<div class="bottom-nav">
+<div class="

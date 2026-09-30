@@ -1,140 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SALVATION PREDICT - STATAREA PRO</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0f0f;color:#fff;font-family:Arial;padding:8px;padding-bottom:80px}
-.logo{color:#00FF66;font-weight:900;font-size:20px}
-.search-box{width:100%;background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:12px;color:#fff;margin:10px 0;outline:none}
-.top-filters{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
-.f-btn{white-space:nowrap;padding:8px 14px;border-radius:20px;border:none;background:#2a2a2a;color:#ccc;font-weight:700;font-size:13px}
-.f-btn.active{background:#fff;color:#000}
-.f-btn.live{background:#FF3B30;color:#fff}
-.f-btn.live.active{background:#FF3B30}
-.statarea-menu{background:#1e1e1e;border-radius:12px;padding:8px;margin:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.s-link{padding:10px;background:#2a2a2a;border-radius:8px;font-size:13px;display:flex;justify-content:space-between}
-.s-link span{color:#888}
-.match-card{background:#1e1e1e;border-radius:14px;padding:12px;margin-bottom:10px;border-left:3px solid #00FF66}
-.match-card.live{border-left-color:#FF3B30}
-.time{color:#888;font-size:11px}
-.teams{font-size:16px;font-weight:700;margin:4px 0}
-.pick{color:#00FF66;font-size:12px;margin:6px 0}
-.statarea-pred{background:#111;border-radius:8px;padding:8px;margin:8px 0;font-size:11px}
-.pred-row{display:flex;justify-content:space-between;margin:3px 0}
-.bar{height:4px;background:#333;border-radius:2px;overflow:hidden;margin-top:2px}
-.bar-fill{height:100%;background:#00FF66}
-.odds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
-.odd{background:#2a3a2a;border-radius:8px;padding:8px;text-align:center;color:#00FF66;font-weight:800}
-.odd small{color:#888;font-size:10px;display:block}
-.modal{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-radius:20px 20px 0 0;padding:16px;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:0.3s;z-index:99}
-.modal.open{transform:translateY(100px);transform:translateY(0)}
-.tabs{display:flex;gap:6px;overflow-x:auto;margin:10px 0}
-.tab{padding:6px 12px;background:#2a2a2a;border-radius:20px;font-size:12px;white-space:nowrap}
-.tab.active{background:#00FF66;color:#000}
-.row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2a2a2a;font-size:13px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #333;z-index:100}
-.b-item{font-size:11px;text-align:center;color:#888}
-.b-item.active{color:#00FF66}
-</style>
-</head>
-<body>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SALVATION PREDICT</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0f0f0f;color:#fff;font-family:Arial;padding:8px;padding-bottom:80px}.logo{color:#00FF66;font-weight:900;font-size:20px}.search-box{width:100%;background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:12px;color:#fff;margin:10px 0}.top-filters{display:flex;gap:6px;overflow-x:auto;padding:8px 0}.f-btn{white-space:nowrap;padding:8px 14px;border-radius:20px;border:none;background:#2a2a2a;color:#ccc;font-weight:700;font-size:13px}.f-btn.active{background:#fff;color:#000}.f-btn.live{background:#FF3B30;color:#fff}.statarea-menu{background:#1e1e1e;border-radius:12px;padding:8px;margin:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:6px}.s-link{padding:10px;background:#2a2a2a;border-radius:8px;font-size:13px}.match-card{background:#1e1e1e;border-radius:14px;padding:12px;margin-bottom:10px;border-left:3px solid #00FF66}.match-card.live{border-left-color:#FF3B30}.time{color:#888;font-size:11px}.teams{font-size:16px;font-weight:700;margin:4px 0}.pick{color:#00FF66;font-size:12px;margin:6px 0}.statarea-pred{background:#111;border-radius:8px;padding:8px;margin:8px 0;font-size:11px}.pred-row{display:flex;justify-content:space-between;margin:3px 0}.bar{height:4px;background:#333;border-radius:2px;overflow:hidden}.bar-fill{height:100%;background:#00FF66}.odds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}.odd{background:#2a3a2a;border-radius:8px;padding:8px;text-align:center;color:#00FF66;font-weight:800}.odd small{color:#888;font-size:10px;display:block}.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #333}.b-item{font-size:11px;text-align:center;color:#888}.b-item.active{color:#00FF66}</style>
+</head><body>
 <div style="display:flex;justify-content:space-between"><div class="logo">SALVATION <span style="color:#fff">PREDICT</span></div><div id="dt" style="font-size:11px;color:#888"></div></div>
-
 <input id="search" class="search-box" placeholder="🔍 Search teams, leagues, Women, Men, Ghana..." oninput="doSearch(this.value)">
-
 <div class="top-filters">
-<button class="f-btn active" id="bToday" onclick="loadToday()">TODAY <span id="cToday"></span></button>
+<button class="f-btn active" id="bToday" onclick="loadToday()">TODAY</button>
 <button class="f-btn" id="bTom" onclick="loadTomorrow()">TOMORROW</button>
-<button class="f-btn live" id="bLive" onclick="loadLive()">🔴 LIVE <span id="cLive">3</span></button>
+<button class="f-btn live active" id="bLive" onclick="loadLive()">🔴 LIVE 3</button>
 <button class="f-btn" id="bAll" onclick="loadAll()">ALL EVENTS</button>
-<button class="f-btn" id="bTop" onclick="loadTop()">🔥 TOP</button>
 </div>
-
-<!-- STATAREA LINKS -->
-<div class="statarea-menu">
-<div class="s-link" onclick="loadToday()">All predictions <span>›</span></div>
-<div class="s-link" onclick="loadToday()">Tips for 2026-09-30 <span>›</span></div>
-<div class="s-link" onclick="loadTop()">TOP predictions <span>›</span></div>
-<div class="s-link" onclick="openModal('','','International')">Match predictions, statistics <span>›</span></div>
-</div>
-
-<div id="status" style="color:#FF3B30;font-weight:800;font-size:13px;margin:8px 0">🔴 LIVE NOW: <span id="liveNow">3 MATCHES</span></div>
-<div id="list">Loading...</div>
-
-<div id="modal" class="modal">
-<div style="display:flex;justify-content:space-between"><h3 id="mTitle">Match</h3><span onclick="closeM()" style="font-size:20px">✕</span></div>
-<div class="tabs">
-<div class="tab active" onclick="showTab('stats')">📊 Statistics</div>
-<div class="tab" onclick="showTab('stand')">🏆 Standings</div>
-<div class="tab" onclick="showTab('h2h')">⚔️ H2H</div>
-<div class="tab" onclick="showTab('home')">🏠 Home/Away</div>
-</div>
-<div id="mContent"></div>
-</div>
-
-<div class="bottom-nav">
-<div class="b-item active" onclick="loadToday()">⚽<br>Today</div>
-<div class="b-item" onclick="loadAll()">📋<br>All</div>
-<div class="b-item" onclick="loadLive()">🔴<br>Live</div>
-<div class="b-item" onclick="loadTop()">🔥<br>Top</div>
-<div class="b-item" onclick="loadTomorrow()">📅<br>Tomorrow</div>
-</div>
-
+<div class="statarea-menu"><div class="s-link" onclick="loadToday()">All predictions ›</div><div class="s-link" onclick="loadToday()">Tips for 2026-09-30 ›</div><div class="s-link" onclick="loadTop()">TOP predictions ›</div><div class="s-link" onclick="loadAll()">Match predictions, statistics ›</div></div>
+<div id="status" style="color:#FF3B30;font-weight:800;font-size:13px;margin:8px 0">🔴 LIVE NOW: 3 MATCHES</div>
+<div id="list"></div>
+<div class="bottom-nav"><div class="b-item" onclick="loadToday()">⚽<br>Today</div><div class="b-item" onclick="loadAll()">📋<br>All</div><div class="b-item active" onclick="loadLive()">🔴<br>Live</div><div class="b-item" onclick="loadTop()">🔥<br>Top</div><div class="b-item" onclick="loadTomorrow()">📅<br>Tomorrow</div></div>
 <script>
-let all=[], live=[], active='live';
-function tick(){document.getElementById('dt').innerText=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+' '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
-setInterval(tick,1000);tick();
-function setA(id){document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active')}
-
-function statareaPerc(odd){
- // Convert odds to realistic % like Statarea
- let p1=Math.round(70/parseFloat(odd||1.8)); if(p1>65)p1=65; if(p1<30)p1=35;
- let p2=Math.round((100-p1)*0.3); let px=100-p1-p2;
- let over=Math.round(50+Math.random()*25); let btts=Math.round(45+Math.random()*30);
- return {p1,px,p2,over,btts,under:100-over}
-}
-
+let allData=[
+{home:"Nigeria U17",away:"Madagascar U17",league:"AFCON U17 TODAY",odd:"1.72",pick:"SENEGAL TO WIN + OVER 1.5"},
+{home:"Senegal U17",away:"Gambia U17",league:"AFCON U17 TODAY",odd:"1.81",pick:"SENEGAL WIN"},
+{home:"Morocco U17",away:"Algeria U17",league:"AFCON U17 TODAY",odd:"1.82",pick:"MOROCCO WIN"},
+{home:"England Women",away:"France Women",league:"Women International",odd:"2.10",pick:"BTTS YES"},
+{home:"Brazil",away:"Argentina",league:"International Men",odd:"1.95",pick:"OVER 2.5"},
+{home:"Ghana",away:"Egypt U17",league:"AFCON U17",odd:"1.90",pick:"HOME WIN"}
+];
+let liveData=[
+{home:"Portugal",away:"Gibraltar",league:"EUROPE - Elite Club Friendlies",time:"28:19 H1",hot:true,homeScore:0,awayScore:0,odds:{"1":"1.72","X":"3.20","2":"4.50"}},
+{home:"Eastleigh",away:"Truro",league:"ENGLAND - National League",time:"6:15 H1",hot:false,homeScore:0,awayScore:0,odds:{"1":"1.01","X":"19.00","2":"8.75"}},
+{home:"Arsenal Tula U19",away:"Strogino U19",league:"RUSSIA - U19 Championship",time:"15:36 H1",hot:true,homeScore:0,awayScore:1,odds:{"1":"1.55","X":"3.60","2":"5.00"}}
+];
+function sp(o){let p1=Math.round(70/parseFloat(o||1.8));if(p1>65)p1=60;if(p1<30)p1=35;let p2=Math.round((100-p1)*0.35);let px=100-p1-p2;let over=62+Math.floor(Math.random()*15);return{p1,px,p2,over}}
 function card(m,isLive){
- let sp=statareaPerc(m.odd||m.odds?.['1']||1.8);
- let border=isLive?'live':'';
- let score=(m.homeScore||m.awayScore)?`<b style="float:right">${m.homeScore||0}-${m.awayScore||0}</b>`:'';
- let time = m.time||m.league||'TODAY';
- return `<div class="match-card ${border}" onclick="openM('${m.home}','${m.away}','${m.league||''}')">
-  <div class="time">${isLive&&m.hot?'<span style="background:#FF3B30;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px">HOT 🔥</span> ':''}${time} • ${m.league||'Football'} ${score}</div>
-  <div class="teams">${m.home}</div>
-  <div class="teams">${m.away}</div>
-  <div class="pick">👉 ${m.pick||m.market||'HOME WIN'} @${m.odd||'1.81'} ${m.odd2?'(Statarea: '+m.odd2+')':''}</div>
-  
-  <div class="statarea-pred">
-   <b style="color:#00FF66">STATAREA PREDICTION:</b>
-   <div class="pred-row"><span>1</span><span>${sp.p1}%</span><span>X ${sp.px}%</span><span>2 ${sp.p2}%</span></div>
-   <div class="bar"><div class="bar-fill" style="width:${sp.p1}%"></div></div>
-   <div class="pred-row"><span>Over 2.5: ${sp.over}%</span><span>Under: ${sp.under}%</span><span>BTTS Yes: ${sp.btts}%</span></div>
-   <div class="pred-row"><span>Safe: ${sp.p1>50?'1':'X2'}</span><span>Goals: ${sp.over>60?'Over 1.5':'Under 3.5'}</span></div>
-  </div>
-
-  <div class="odds">
-   <div class="odd"><small>1</small>${(m.odd||m.odds?.['1']||'1.81')}</div>
-   <div class="odd"><small>X</small>${m.odds?.['X']||'3.20'}</div>
-   <div class="odd"><small>2</small>${m.odds?.['2']||'4.50'}</div>
-  </div>
-  ${isLive?`<div style="font-size:10px;color:#666;margin-top:4px">+${m.markets||30} markets ›</div>`:''}
- </div>`;
+let s=sp(m.odd||m.odds['1']);let sc=m.homeScore!=undefined?`<b style="float:right">${m.homeScore}-${m.awayScore}</b>`:'';
+return `<div class="match-card ${isLive?'live':''}"><div class="time">${isLive&&m.hot?'<span style="background:#FF3B30;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px">HOT 🔥</span> ':''}${m.time||m.league} • ${m.league} ${sc}</div><div class="teams">${m.home}</div><div class="teams">${m.away}</div><div class="pick">👉 ${m.pick||'HOME WIN'} @${m.odd||m.odds['1']}</div><div class="statarea-pred"><b style="color:#00FF66">STATAREA PREDICTION:</b><div class="pred-row"><span>1 ${s.p1}%</span><span>X ${s.px}%</span><span>2 ${s.p2}%</span></div><div class="bar"><div class="bar-fill" style="width:${s.p1}%"></div></div><div class="pred-row"><span>Over 2.5: ${s.over}%</span><span>BTTS Yes: 62%</span></div></div><div class="odds"><div class="odd"><small>1</small>${m.odd||m.odds['1']}</div><div class="odd"><small>X</small>${m.odds?.X||'3.20'}</div><div class="odd"><small>2</small>${m.odds?.['2']||'4.50'}</div></div></div>`;
 }
-
-function render(list,isLive){document.getElementById('list').innerHTML=list.map(m=>card(m,isLive)).join('')||'No matches found';}
-
-async function loadToday(){
- active='today';setA('bToday');document.getElementById('status').innerText='📅 TODAY: Tips for 2026-09-30';
- document.getElementById('list').innerHTML='Loading predictions...';
- try{
-  let r=await fetch('/api/auto-picks');let d=await r.json();all=d.matches||d.picks||[];
-  if(!all.length) throw 0;
-  document.getElementById('cToday').innerText=all.length; render(all,false);
- }catch{
-  let fallback=[
-   {home:"Nigeria U17",away:"Madagascar U17",league:"AFCON U17 TODAY",odd:"1.72",pick:"SENEGAL TO WIN + OVER 1.5 @1.81"},
-   {home:"Senegal U17",away:"Gambia U17",league:"AFCON U17 TODAY",odd:"1.81",pick:"SENEGAL TO WIN + OVER 1.5"},
-   {home:"Morocco U17",away:"Algeria U17
+function render(list,isLive){document.getElementById('list').innerHTML=list.map(m=>card(m,isLive)).join('')}
+function setA(id){document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function loadToday(){setA('bToday');document.getElementById('status').innerText='📅 TODAY: Tips for 2026-09-30';render(allData,false)}
+function loadLive(){setA('bLive');document.getElementById('status').innerText='🔴 LIVE NOW: 3 MATCHES';render(liveData,true)}
+function loadTomorrow(){setA('bTom');document.getElementById('status').innerText='📅 TOMORROW';render([{home:"Arsenal Women",away:"Chelsea Women",league:"WSL - Tomorrow",odd:"2.25",pick:"OVER 2.5"},{home:"Spain",away:"Germany",league:"UEFA Men - Tomorrow",odd:"2.00",pick:"BTTS YES"},{home:"USA Women",away:"Japan Women",league:"Women World Cup Q - Tomorrow",odd:"1.85",pick:"HOME WIN"}],false)}
+function loadAll(){setA('bAll');document.getElementById('status').innerText='📋 ALL PREDICTIONS';render([...allData,...liveData.map(l=>({home:l.home,away:l.away,league:l.league+' LIVE',odd:l.odds['1'],odds:l.odds}))],false)}
+function loadTop(){document.getElementById('status').innerText='🔥 TOP PREDICTIONS';render(allData.slice(0,3).map(m=>({...m,pick:m.pick+' 🔥 TOP'})),false)}
+function doSearch(q){q=q.toLowerCase();let pool=[...allData,...liveData];let f=pool.filter(m=>(m.home+m.away+m.league).toLowerCase().includes(q));render(f,q.includes('live'));if(!f.length)document.getElementById('list').innerHTML='<div style="text-align:center;padding:20px;color:#888">No results for '+q+'</div>'}
+loadLive();
+</script></body></html>

@@ -10,7 +10,12 @@
 <button class="fb" id="bAll">ALL EVENTS</button>
 <button class="fb" id="bTop">TOP 🔥</button>
 </div>
-<div class="grid"><div class="gi">📋 All predictions ›</div><div class="gi">📅 Today tips ›</div><div class="gi">🔥 TOP predictions ›</div><div class="gi">🔴 Live predictions ›</div></div>
+<div class="grid">
+<div class="gi" onclick="bAll.click()">📋 All predictions ›</div>
+<div class="gi" onclick="bToday.click()">📅 Today tips ›</div>
+<div class="gi" onclick="bTop.click()">🔥 TOP predictions ›</div>
+<div class="gi" onclick="bLive.click()">🔴 Live predictions ›</div>
+</div>
 <div class="status"><span id="st">📅 TODAY: 6 TIPS</span><span id="tt" style="color:#888">6 tips</span></div>
 <div id="list"></div>
 <script>
@@ -20,12 +25,12 @@ let tom=[{h:"Arsenal Women",a:"Chelsea Women",l:"WSL - Tomorrow",o:"2.25",p:"OVE
 function mk(m,isL){return '<div class="card '+(isL?'live':'')+'"><div style="font-size:11px;color:#888">'+(isL?'<b style="background:'+(m.hot?'#FF3B30':'#333')+';color:#fff;padding:2px 6px;border-radius:5px">'+(m.hot?'HOT 🔥':'LIVE')+'</b> '+m.l+' ':'📅 '+m.l)+' '+(isL?m.s:'')+'</div><div style="font-weight:800;margin:6px 0;font-size:16px">'+m.h+'<br><span style="color:#aaa">'+m.a+'</span></div><div class="pick">👉 '+(m.p||m.h+' WIN')+' @'+m.o+'</div><div class="box"><b style="color:#00FF66">STATAREA:</b> 1 58% | X 22% | 2 20%<br>Over 2.5: 65% | BTTS Yes: 62% | Form: WWW - LWL</div><div class="odds"><div class="odd"><small>1</small><br><b>'+m.o+'</b></div><div class="odd"><small>X</small><br><b>'+(m.x||'3.20')+'</b></div><div class="odd"><small>2</small><br><b>'+(m.o2||'4.50')+'</b></div></div></div>';}
 function draw(arr,isL){document.getElementById('list').innerHTML=arr.map(function(m){return mk(m,isL)}).join('');document.getElementById('tt').innerText=arr.length+' tips'}
 function on(id){document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on')});document.getElementById(id).classList.add('on')}
-document.getElementById('bToday').onclick=function(){on('bToday');document.getElementById('st').innerText='📅 TODAY: 6 TIPS';draw(today,false)};
-document.getElementById('bTom').onclick=function(){on('bTom');document.getElementById('st').innerText='📅 TOMORROW: 2 TIPS';draw(tom,false)};
-document.getElementById('bLive').onclick=function(){on('bLive');document.getElementById('st').innerText='🔴 LIVE NOW: 3 MATCHES';draw(live,true)};
-document.getElementById('bAll').onclick=function(){on('bAll');document.getElementById('st').innerText='📋 ALL PREDICTIONS: '+(today.length+live.length+tom.length)+' TIPS';draw(today.concat(live).concat(tom),false)};
-document.getElementById('bTop').onclick=function(){on('bTop');document.getElementById('st').innerText='🔥 TOP PREDICTIONS';draw(today.slice(0,3),false)};
-function searchQ(q){q=q.toLowerCase();if(!q){on('bToday');document.getElementById('st').innerText='📅 TODAY: 6 TIPS';draw(today,false);return}let pool=today.concat(live).concat(tom);let f=pool.filter(function(m){return (m.h+m.a+m.l).toLowerCase().indexOf(q)>-1});document.getElementById('st').innerText='🔍 "'+q+'" - '+f.length+' found';draw(f,false)}
-document.getElementById('dt').innerText=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+bToday.onclick=function(){on('bToday');st.innerText='📅 TODAY: 6 TIPS';draw(today,false)};
+bTom.onclick=function(){on('bTom');st.innerText='📅 TOMORROW: 2 TIPS';draw(tom,false)};
+bLive.onclick=function(){on('bLive');st.innerText='🔴 LIVE NOW: 3 MATCHES';draw(live,true)};
+bAll.onclick=function(){on('bAll');st.innerText='📋 ALL: '+(today.length+live.length+tom.length)+' TIPS';draw(today.concat(live).concat(tom),false)};
+bTop.onclick=function(){on('bTop');st.innerText='🔥 TOP PREDICTIONS';draw(today.slice(0,3),false)};
+function searchQ(q){q=q.toLowerCase();if(!q){on('bToday');st.innerText='📅 TODAY: 6 TIPS';draw(today,false);return}let pool=today.concat(live).concat(tom);let f=pool.filter(function(m){return (m.h+m.a+m.l).toLowerCase().indexOf(q)>-1});st.innerText='🔍 "'+q+'" - '+f.length+' found';draw(f,false)}
+dt.innerText=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
 draw(today,false);
 </script></body></html>

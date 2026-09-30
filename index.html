@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalvationPredict V23 AUTO</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial;background:#050a18;color:white}
+.header{background:linear-gradient(90deg,#9a4eff,#5a2a83);padding:15px;text-align:center}
+.card{background:#121f36;margin:8px;border-radius:10px;border:1px solid #1e2f4d}
+.top{padding:8px 12px;display:flex;justify-content:space-between;background:#1a2a44;font-size:11px}
+.vip-btn{background:gold;color:black;padding:14px 25px;font-weight:bold;border:none;border-radius:10px;font-size:16px;width:95%;margin:10px auto;display:block;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="header">
+<h2>SALVATION PREDICT V23 AUTO</h2>
+<p id="autoBanner">Today - Real Games</p>
+</div>
+
+<div class="card">
+<div class="top"><span id="g1-title">VIP TIPS</span><span style="color:gold">GHS 15</span></div>
+<div style="padding:15px;text-align:center">
+<button class="vip-btn" onclick="payVIP()">UNLOCK VIP - GHS 15 ONLY</button>
+<p style="font-size:11px;margin-top:8px;opacity:0.7">MoMo, Card - Paystack Secured</p>
+<div id="vipContent" style="display:none;margin-top:15px;text-align:left">
+<p>✅ Ticket 1 - 2.85 Odd</p>
+<p>Juventus vs Inter - Over 1.5</p>
+<p>Real Madrid vs Barca - BTTS</p>
+<p style="margin-top:10px;font-weight:bold;color:gold">Total Odd: 3.30</p>
+</div>
+</div>
+</div>
+
+<div class="card"><div class="top"><span>FREE TIP</span></div><div style="padding:10px">Man Utd vs Liverpool - Over 1.5 ✅</div></div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+function payVIP(){
+var handler = PaystackPop.setup({
+key: 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
+email: 'vip'+Date.now()+'@salvationpredict.com',
+amount: 1500,
+currency: 'GHS',
+ref: 'SALV_'+Math.floor(Math.random()*1000000000),
+onClose: function(){ alert('Payment closed'); },
+callback: function(res){
+alert('SUCCESS! Ref: '+res.reference);
+localStorage.setItem('vip','paid');
+document.getElementById('vipContent').style.display='block';
+}
+});
+handler.openIframe();
+}
+if(localStorage.getItem('vip')=='paid'){
+document.getElementById('vipContent').style.display='block';
+}
+document.getElementById('g1-title').innerHTML = 'VIP ' + new Date().toDateString();
+</script>
+</body>
+</html>

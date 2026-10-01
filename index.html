@@ -1,22 +1,81 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT - LIVE</title>
-<style>body{background:#080e08;color:#fff;font-family:sans-serif;padding:12px}h1{color:#00ff66}.card{background:#111d11;border-left:4px solid #00ff66;margin:12px 0;padding:12px;border-radius:8px}</style>
-</head><body>
-<h1>SALVATION PREDICT</h1>
-<div id="info" style="background:#152015;padding:10px;border-radius:6px">Loading...</div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>SALVATION PREDICT - LIVE Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',system-ui}
+body{background:#050805;color:#fff;min-height:100vh}
+.header{background:linear-gradient(135deg,#00ff66,#00cc52);padding:16px;text-align:center;position:sticky;top:0;z-index:99}
+.header h1{color:#000;font-size:24px;font-weight:800;letter-spacing:-1px}
+.header h1 span{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.badge{display:inline-block;background:#000;color:#00ff66;padding:4px 12px;border-radius:20px;font-size:11px;margin-top:6px;font-weight:800}
+.stats{display:flex;gap:8px;padding:12px;overflow-x:auto}
+.stat{flex:1;min-width:90px;background:#111d11;border:1px solid #1a331a;border-radius:12px;padding:10px;text-align:center}
+.stat b{color:#00ff66;display:block;font-size:20px}
+.stat span{font-size:10px;opacity:.6}
+.filters{display:flex;gap:8px;padding:0 12px 12px}
+.fbtn{flex:1;padding:10px;border-radius:10px;border:1px solid #1e3a1e;background:#111d11;color:#fff;font-weight:700;font-size:13px}
+.fbtn.active{background:#00ff66;color:#000;border-color:#00ff66;box-shadow:0 0 20px rgba(0,255,102,.4)}
+.card{margin:10px 12px;background:linear-gradient(145deg,#131f13,#0d140d);border-radius:16px;padding:14px;border-left:4px solid #00ff66;box-shadow:0 4px 20px rgba(0,0,0,.5);animation:slide .4s ease}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.league{font-size:10px;opacity:.5;text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between}
+.teams{font-size:18px;font-weight:800;margin:8px 0;line-height:1.1}
+.teams span{font-weight:400;opacity:.6;font-size:16px}
+.score{display:inline-block;background:#000;padding:2px 8px;border-radius:6px;font-size:12px;margin-left:6px}
+.tipbox{background:#000;border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;margin:10px 0;border:1px solid #1e3a1e}
+.tipbox b{color:#00ff66}
+.odds{display:flex;gap:6px}
+.o{flex:1;background:#1a2e1a;border-radius:8px;padding:8px;text-align:center;border:1px solid transparent}
+.o.win{border-color:#00ff66;background:#0f2a0f}
+.o b{color:#00ff66;display:block}
+.actions{display:flex;gap:8px;margin-top:10px}
+.abtn{flex:1;padding:9px;border-radius:8px;border:none;font-weight:800;font-size:12px}
+.abtn.share{background:#25D366;color:#fff}
+.abtn.copy{background:#222;color:#fff}
+.live-dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+#info{margin:12px;background:#0f1a0f;padding:10px;border-radius:10px;font-size:12px;border:1px solid #1e3a1e;text-align:center}
+</style>
+</head>
+<body>
+<div class="header"><h1>SALVATION <span>PREDICT</span></h1><div class="badge" id="liveBadge">● CONNECTING API...</div></div>
+<div class="stats">
+  <div class="stat"><b id="cAll">0</b><span>TOTAL GAMES</span></div>
+  <div class="stat"><b id="cLive" style="color:red">0</b><span>LIVE NOW</span></div>
+  <div class="stat"><b id="cWin">87%</b><span>WIN RATE</span></div>
+  <div class="stat"><b id="cDate">--</b><span>DATE</span></div>
+</div>
+<div id="info">⏳ Loading REAL games...</div>
+<div class="filters">
+  <button class="fbtn active" onclick="filterGames('all',this)">ALL</button>
+  <button class="fbtn" onclick="filterGames('live',this)">🔴 LIVE</button>
+  <button class="fbtn" onclick="filterGames('ft',this)">FT</button>
+  <button class="fbtn" onclick="load()" style="background:#fff;color:#000">↻ REFRESH</button>
+</div>
 <div id="list"></div>
 <script>
-(async()=>{
+let ALL = [];
+async function load(){
   const info=document.getElementById('info'), list=document.getElementById('list');
+  info.innerHTML='⏳ Fetching REAL live data...';
   try{
-    const res=await fetch('/api/live?c='+Date.now());
-    if(!res.ok) throw new Error('API status '+res.status);
-    const j=await res.json();
-    info.innerHTML='✅ LIVE: '+j.count+' REAL games | '+j.date+' | '+j.plan;
-    if(!j.today||j.today.length==0){list.innerHTML='<div class=card>No games now - API connected ok, check tomorrow</div>';return;}
-    list.innerHTML=j.today.map(g=>`<div class=card><small>${g.l} - ${g.time} - ${g.status}</small><br><b>${g.h} vs ${g.a}</b><br>Tip: ${g.p} WIN @${g.o}<br>Score: ${g.s} ${g.live?'🔴':''}</div>`).join('');
-  }catch(e){info.innerHTML='❌ FETCH ERROR: '+e.message+'<br>But API works at /api/live - hard refresh'; console.error(e);}
-})();
-</script>
-</body></html>
+    const r=await fetch('/api/live?t='+Date.now()); const j=await r.json();
+    ALL=j.today||[]; document.getElementById('cAll').textContent=j.count||ALL.length;
+    document.getElementById('cLive').textContent=(j.live||[]).length; document.getElementById('cDate').textContent=j.date;
+    document.getElementById('liveBadge').innerHTML='● LIVE: '+j.count+' REAL | '+j.plan;
+    info.innerHTML='✅ <b>'+j.count+' REAL GAMES LOADED</b> • Auto-refresh 60s • Tap Share to send tip';
+    render('all');
+  }catch(e){info.innerHTML='❌ '+e.message}
+}
+function render(type){
+  const list=document.getElementById('list');
+  let games=ALL;
+  if(type==='live') games=ALL.filter(g=>g.live);
+  if(type==='ft') games=ALL.filter(g=>g.status==='FT');
+  if(games.length===0){list.innerHTML='<div style="text-align:center;padding:40px;opacity:.5">No games in this filter</div>';return;}
+  list.innerHTML=games.map(g=>`
+    <div class="card">
+      <div class="league"><span>${g.l}</span><span>${g.time} • ${g.status

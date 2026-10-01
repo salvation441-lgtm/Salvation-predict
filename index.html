@@ -1,81 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>SALVATION PREDICT - LIVE Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',system-ui}
-body{background:#050805;color:#fff;min-height:100vh}
-.header{background:linear-gradient(135deg,#00ff66,#00cc52);padding:16px;text-align:center;position:sticky;top:0;z-index:99}
-.header h1{color:#000;font-size:24px;font-weight:800;letter-spacing:-1px}
-.header h1 span{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3)}
-.badge{display:inline-block;background:#000;color:#00ff66;padding:4px 12px;border-radius:20px;font-size:11px;margin-top:6px;font-weight:800}
-.stats{display:flex;gap:8px;padding:12px;overflow-x:auto}
-.stat{flex:1;min-width:90px;background:#111d11;border:1px solid #1a331a;border-radius:12px;padding:10px;text-align:center}
-.stat b{color:#00ff66;display:block;font-size:20px}
-.stat span{font-size:10px;opacity:.6}
-.filters{display:flex;gap:8px;padding:0 12px 12px}
-.fbtn{flex:1;padding:10px;border-radius:10px;border:1px solid #1e3a1e;background:#111d11;color:#fff;font-weight:700;font-size:13px}
-.fbtn.active{background:#00ff66;color:#000;border-color:#00ff66;box-shadow:0 0 20px rgba(0,255,102,.4)}
-.card{margin:10px 12px;background:linear-gradient(145deg,#131f13,#0d140d);border-radius:16px;padding:14px;border-left:4px solid #00ff66;box-shadow:0 4px 20px rgba(0,0,0,.5);animation:slide .4s ease}
-@keyframes slide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.league{font-size:10px;opacity:.5;text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between}
-.teams{font-size:18px;font-weight:800;margin:8px 0;line-height:1.1}
-.teams span{font-weight:400;opacity:.6;font-size:16px}
-.score{display:inline-block;background:#000;padding:2px 8px;border-radius:6px;font-size:12px;margin-left:6px}
-.tipbox{background:#000;border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;margin:10px 0;border:1px solid #1e3a1e}
-.tipbox b{color:#00ff66}
-.odds{display:flex;gap:6px}
-.o{flex:1;background:#1a2e1a;border-radius:8px;padding:8px;text-align:center;border:1px solid transparent}
-.o.win{border-color:#00ff66;background:#0f2a0f}
-.o b{color:#00ff66;display:block}
-.actions{display:flex;gap:8px;margin-top:10px}
-.abtn{flex:1;padding:9px;border-radius:8px;border:none;font-weight:800;font-size:12px}
-.abtn.share{background:#25D366;color:#fff}
-.abtn.copy{background:#222;color:#fff}
-.live-dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-#info{margin:12px;background:#0f1a0f;padding:10px;border-radius:10px;font-size:12px;border:1px solid #1e3a1e;text-align:center}
-</style>
-</head>
-<body>
-<div class="header"><h1>SALVATION <span>PREDICT</span></h1><div class="badge" id="liveBadge">● CONNECTING API...</div></div>
-<div class="stats">
-  <div class="stat"><b id="cAll">0</b><span>TOTAL GAMES</span></div>
-  <div class="stat"><b id="cLive" style="color:red">0</b><span>LIVE NOW</span></div>
-  <div class="stat"><b id="cWin">87%</b><span>WIN RATE</span></div>
-  <div class="stat"><b id="cDate">--</b><span>DATE</span></div>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Outfit}
+body{background:#020402;color:#fff}
+.head{background:linear-gradient(90deg,#00ff66 0%,#00ff88 100%);padding:12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:99}
+.logo{width:48px;height:48px;border-radius:12px;background:#000;padding:4px;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+.head h1{color:#000;font-weight:900;font-size:22px;line-height:.9}.head h1 span{color:#fff}
+.badge{background:#000;color:#00ff66;font-size:10px;padding:4px 10px;border-radius:20px;font-weight:900}
+.filters{display:flex;gap:8px;padding:12px}
+.fb{flex:1;padding:10px;border-radius:12px;border:1px solid #1a331a;background:#111d11;color:#fff;font-weight:800}
+.fb.on{background:#00ff66;color:#000}
+.card{margin:12px;background:linear-gradient(145deg,#131f13,#0a120a);border-radius:18px;padding:14px;border:1px solid #1d3d1d}
+.league{font-size:10px;opacity:.5;display:flex;justify-content:space-between}
+.teams{font-size:19px;font-weight:900;margin:6px 0}
+.tip{background:#000;border-radius:12px;padding:10px;display:flex;justify-content:space-between;margin:8px 0}
+.tip b{color:#00ff66}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.b{padding:10px;border-radius:10px;border:none;font-weight:800;font-size:11px;cursor:pointer}
+.b1{background:#1c1c1c;color:#fff;border:1px solid #333}
+.b2{background:#00ff66;color:#000}
+.b3{background:#25D366;color:#fff;grid-column:span 2}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999;display:none;padding:20px;overflow-y:auto}
+.modal.show{display:block}
+.box{background:#0f1a0f;border-radius:16px;padding:16px;border:1px solid #00ff66}
+.close{background:#fff;color:#000;border:none;padding:8px 14px;border-radius:8px;font-weight:900;float:right}
+.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a2e1a;font-size:13px}
+</style></head><body>
+<div class="head">
+<img src="logo.png" class="logo" onerror="this.src='https://i.imgur.com/8Km9tLL.png'">
+<div><h1>SALVATION<br><span>PREDICT</span></h1><div class="badge" id="badge">● LOADING REAL...</div></div>
 </div>
-<div id="info">⏳ Loading REAL games...</div>
 <div class="filters">
-  <button class="fbtn active" onclick="filterGames('all',this)">ALL</button>
-  <button class="fbtn" onclick="filterGames('live',this)">🔴 LIVE</button>
-  <button class="fbtn" onclick="filterGames('ft',this)">FT</button>
-  <button class="fbtn" onclick="load()" style="background:#fff;color:#000">↻ REFRESH</button>
+<button class="fb on" onclick="filt('all',this)">ALL</button>
+<button class="fb" onclick="filt('live',this)">🔴 LIVE</button>
+<button class="fb" onclick="filt('ft',this)">FT</button>
+<button class="fb" style="background:#fff;color:#000" onclick="load()">↻</button>
 </div>
+<div id="info" style="margin:12px;background:#111d11;padding:10px;border-radius:10px;text-align:center;font-size:12px">Loading...</div>
 <div id="list"></div>
+
+<div id="modal" class="modal"><div class="box"><button class="close" onclick="closeM()">X CLOSE</button><h2 id="mTitle" style="margin:10px 0;color:#00ff66">Details</h2><div id="mBody">Loading...</div></div></div>
+
 <script>
-let ALL = [];
-async function load(){
-  const info=document.getElementById('info'), list=document.getElementById('list');
-  info.innerHTML='⏳ Fetching REAL live data...';
-  try{
-    const r=await fetch('/api/live?t='+Date.now()); const j=await r.json();
-    ALL=j.today||[]; document.getElementById('cAll').textContent=j.count||ALL.length;
-    document.getElementById('cLive').textContent=(j.live||[]).length; document.getElementById('cDate').textContent=j.date;
-    document.getElementById('liveBadge').innerHTML='● LIVE: '+j.count+' REAL | '+j.plan;
-    info.innerHTML='✅ <b>'+j.count+' REAL GAMES LOADED</b> • Auto-refresh 60s • Tap Share to send tip';
-    render('all');
-  }catch(e){info.innerHTML='❌ '+e.message}
+let ALL=[]; async function load(){
+ try{let r=await fetch('/api/live?t='+Date.now()); let j=await r.json(); ALL=j.today; document.getElementById('badge').innerText='● LIVE: '+j.count+' | '+j.plan; document.getElementById('info').innerHTML='✅ '+j.count+' REAL games • Tap STATS/H2H for details'; render('all');}catch(e){document.getElementById('info').innerText='Error '+e}
 }
-function render(type){
-  const list=document.getElementById('list');
-  let games=ALL;
-  if(type==='live') games=ALL.filter(g=>g.live);
-  if(type==='ft') games=ALL.filter(g=>g.status==='FT');
-  if(games.length===0){list.innerHTML='<div style="text-align:center;padding:40px;opacity:.5">No games in this filter</div>';return;}
-  list.innerHTML=games.map(g=>`
-    <div class="card">
-      <div class="league"><span>${g.l}</span><span>${g.time} • ${g.status
+function render(t){
+ let g=ALL; if(t==='live') g=ALL.filter(x=>x.live); if(t==='ft') g=ALL.filter(x=>x.status==='FT');
+ document.getElementById('list').innerHTML=g.map(x=>`
+ <div class="card">
+  <div class="league"><span>${x.l}</span><span>${x.time} ${x.live?'🔴':''}</span></div>
+  <div class="teams">${x.h} <small style="background:#000;padding:2px 6px;border-radius:6px">${x.s}</small><br><span style="opacity:.6">${x.a}</span></div>
+  <div class="tip"><span>Tip: <b>${x.p} WIN @${x.o}</b></span><span style="font-size:10px;background:#00ff66;color:#000;padding:2px 6px;border-radius:6px">87%</span></div>
+  <div class="btns">
+   <button class="b b1" onclick="openDetails(${x.f},'${x.h} vs ${x.a}','stats')">📊 STATS</button>
+   <button class="b b1" onclick="openDetails(${x.f},'${x.h} vs ${x.a}','standings')">🏆 TABLE</button>
+   <button class="b b1" onclick="openDetails(${x.f},'${x.h} vs ${x.a}','h2h','${x.h}-${x.a}')">⚔️ H2H</button>
+   <button class="b b1" onclick="openDetails(${x.f},'${x.h} vs ${x.a}','fixtures')">📅 NEXT</button>
+   <button class="b b2" onclick="navigator.clipboard.writeText('${x.h} vs ${x.a} - ${x.p} WIN')">📋 COPY</button>
+   <button class="b b3" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🔥 SALVATION PREDICT\\n${x.h} vs ${x.a}\\nTip: ${x.p} WIN @${x.o}\\nLive: https://salvation-predict.vercel.app'))">📲 WHATSAPP SHARE</button>
+  </div>
+ </div>`).join('');
+}
+function filt(t,b){document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on')); b.classList.add('on'); render(t);}
+async function openDetails(id,title,type,h2hParam){
+ document.getElementById('modal').classList.add('show'); document.getElementById('mTitle').innerText=title+' - '+type.toUpperCase(); document.getElementById('mBody').innerHTML='⏳ Loading REAL '+type+' from API-Football...';
+ try{
+  let teams = h2hParam? h2hParam.split('-') : [];
+  let h2hQ = teams.length===2? teams[0]+'-'+teams[1] : '';
+  let url = `/api/details?id=${id}` + (type==='h2h' && h2hQ? `&h2h=${encodeURIComponent(h2hQ)}` : '&h2h='+encodeURIComponent(title.replace(' vs ','-')));
+  let r=await fetch(url); let d=await r.json();
+  let html='';
+  if(type==='stats'){
+    if(!d.statistics.length) html='<div style="opacity:.6">Stats not available yet - match not started</div>';
+    else html=d.statistics.map(s=>`<h3 style="color:#00ff66;margin:10px 0">${s.team.name}</h3>`+s.statistics.map(st=>`<div class=row><span>${st.type}</span><b>${st.value||0}</b></div>`).join('')).join('');
+  } else if(type==='h2h'){
+    if(!d.h2h.length) html='<div style="opacity:.6">No H2H found</div>';
+    else html=d.h2h.map(h=>`<div class=row><span>${h.league.name}</span><span>${h.teams.home.name} ${h.goals.home}-${h.goals.away} ${h.teams.away.name}<br><small>${h.fixture.date.slice(0,10)}</small></span></div>`).join('');
+  } else if(type==='standings'){
+    if(!d.standings.length) html='<div style="opacity:.6">Table not available for this league</div>';
+    else html='<div class=row><b># Team</b><b>Pts</b></div>'+d.standings.map(s=>`<div class=row><span>${s.rank}. ${s.team.name}</span><b>${s.points}pts (${s.all.played}P)</b></div>`).join('');
+  } else {
+    html=`<div style="line-height:1.6"><b>Fixture ID:</b> ${id}<br><b>League:</b> ${d.fixture?.league?.name||''}<br><b>Venue:</b> ${d.fixture?.fixture?.venue?.name||'TBD'}<br><br>Next fixtures coming soon - API will show upcoming games for both teams.</div>`;
+    if(d.fixture) html+=`<br><div class=row><span>Status</span><b>${d.fixture.fixture.status.long}</b></div><div class=row><span>Referee</span><b>${d.fixture.fixture.referee||'TBD'}</b></div>`;
+  }
+  document.getElementById('mBody').innerHTML=html;
+ }catch(e){document.getElementById('mBody').innerHTML='Error: '+e.message}
+}
+function closeM(){document.getElementById('modal').classList.remove('show')}
+load();
+</script></body></html>

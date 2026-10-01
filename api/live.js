@@ -1,54 +1,29 @@
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin','*');
-  res.setHeader('Cache-Control','s-maxage=30, stale-while-revalidate=60');
-
-  const KEY = "05664b71f6f9c3972c37046d8953b13b";
-
-  const today = new Date().toISOString().split('T')[0];
-  try {
-    const url = `https://v3.football.api-sports.io/fixtures?date=${today}`;
-    const r = await fetch(url, { headers: { "x-apisports-key": KEY } });
-    const data = await r.json();
-
-    // Check if quota finished
-    if(data.errors && Object.keys(data.errors).length > 0){
-      return res.status(200).json({ today: [], error: "Quota error", details: data.errors, plan: "FREE 0/100 - wait 1 hour" });
-    }
-
-    if(!data.response || data.response.length === 0){
-      return res.status(200).json({
-        today: [],
-        live: [],
-        count: 0,
-        date: today,
-        note: "No games today (international break) - will show games tomorrow",
-        plan: "FREE Active ✅"
-      });
-    }
-
-    const games = data.response.slice(0,15).map(f=>({
-      h: f.teams.home.name,
-      a: f.teams.away.name,
-      l: `${f.league.name}`,
-      time: new Date(f.fixture.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-      s: `${f.goals.home?? 0}-${f.goals.away?? 0}`,
-      o: "1.85",
-      x: "3.40",
-      o2: "4.20",
-      p: f.teams.home.name,
-      live: ["1H","2H","HT","ET","P","LIVE"].includes(f.fixture.status.short),
-      status: f.fixture.status.short + " - " + f.fixture.status.long
-    }));
-
-    return res.status(200).json({
-      today: games,
-      live: games.filter(g=>g.live),
-      count: games.length,
-      date: today,
-      plan: "FREE Active ✅ - 0/100 used"
-    });
-
-  } catch(e){
-    return res.status(200).json({ today: [], live: [], error: e.message, date: today });
-  }
+export default async function handler(req,res){
+res.setHeader('Access-Control-Allow-Origin','*');
+res.setHeader('Cache-Control','s-maxage=30');
+const KEY=process.env.API_FOOTBALL_KEY;
+if(!KEY) return res.status(500).json({error:'No KEY'});
+const today=new Date().toISOString().slice(0,10);
+try{
+const r=await fetch(`https://v3.football.api-sports.io/fixtures?date=${today}`,{headers:{'x-apisports-key':KEY}});
+const j=await r.json();
+if(!j.response) return res.json({today:[],count:0});
+function hashOdds(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%100;return h;}
+let games=j.response.slice(0,20).map(f=>{
+ let h=f.teams.home.name, a=f.teams.away.name;
+ let rnd=hashOdds(h+a);
+ let homeOdd=(1.55 + (rnd%85)/100).toFixed(2);
+ let awayOdd=(2.1 + ((rnd*2)%120)/100).toFixed(2);
+ let drawOdd=(3.0 + ((rnd*3)%90)/100).toFixed(2);
+ let pred=rnd>50?h:a;
+ return{
+  f:f.fixture.id, h, a, s:`${f.goals.home??0}-${f.goals.away??0}`,
+  l:f.league.name, time:new Date(f.fixture.date).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
+  status:f.fixture.status.short, live:['1H','2H','HT','LIVE'].includes(f.fixture.status.short),
+  p:pred, o:pred===h?homeOdd:awayOdd, o2:pred===h?awayOdd:homeOdd, x:drawOdd
+ }
+});
+let live=games.filter(g=>g.live);
+res.json({today:games,live,count:games.length,date:today,plan:`FREE Active - ${j.results||games.length} used`});
+}catch(e){res.status(500).json({error:e.message})}
 }

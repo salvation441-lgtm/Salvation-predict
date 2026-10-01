@@ -1,0 +1,17 @@
+{
+  "name": "Salvation Predict GH",
+  "short_name": "Salvation Predict",
+  "description": "Live football predictions, tips and odds - Ghana",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1a0f",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

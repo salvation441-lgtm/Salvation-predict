@@ -1,21 +1,54 @@
-export default function handler(req,res){
- res.setHeader('Access-Control-Allow-Origin','*');
- res.setHeader('Cache-Control','s-maxage=30');
- const today = new Date().toISOString().slice(0,10);
- // REAL fixtures Sept 30 2026 - International break (no Premier today)
- const real=[
-  {h:"Eritrea",a:"South Africa",l:"AFCON Qual • Today 19:00 GMT",s:"-:-",o:"6.50",x:"3.80",o2:"1.55",p:"South Africa WIN",live:false},
-  {h:"Lithuania",a:"Andorra",l:"Friendly • Today 17:00",s:"-:-",o:"1.65",x:"3.60",o2:"5.00",p:"Lithuania WIN",live:false},
-  {h:"Fiji",a:"New Caledonia",l:"Friendly • Today 08:00",s:"-:-",o:"2.30",x:"3.20",o2:"2.90",p:"OVER 2.5 GOALS",live:false},
-  {h:"Papua New Guinea",a:"Solomon Islands",l:"Friendly • Today 05:00",s:"-:-",o:"2.40",x:"3.10",o2:"2.80",p:"BTTS YES",live:false},
-  {h:"Medeama SC",a:"Port City FC",l:"GHA Premier • Today",s:"-:-",o:"2.10",x:"3.10",o2:"3.40",p:"Medeama WIN or DRAW",live:false},
-  {h:"Roma Women",a:"Barcelona Women",l:"UWCL • Today 17:45",s:"-:-",o:"5.20",x:"4.00",o2:"1.55",p:"Barcelona WIN",live:false},
-  {h:"Paris FC Women",a:"Arsenal Women",l:"UWCL • Today 17:45",s:"-:-",o:"3.20",x:"3.50",o2:"2.10",p:"BTTS YES",live:false},
-  {h:"BK Hacken Women",a:"Juventus Women",l:"UWCL • Today 17:45",s:"-:-",o:"3.00",x:"3.40",o2:"2.20",p:"OVER 2.5",live:false},
-  {h:"Lyon Women",a:"Chelsea Women",l:"UWCL • Today 20:00",s:"-:-",o:"1.80",x:"3.60",o2:"4.20",p:"Lyon WIN",live:false},
-  {h:"Benfica Women",a:"Bayern Women",l:"UWCL • Today 20:00",s:"-:-",o:"4.50",x:"3.80",o2:"1.70",p:"Bayern WIN",live:false},
-  {h:"Argentina",a:"Bolivia",l:"Friendly • Tonight 00:00 ET",s:"-:-",o:"1.25",x:"5.50",o2:"12.0",p:"Argentina WIN",live:false},
-  {h:"Bahrain",a:"Yemen",l:"Arabian Gulf Cup • Tonight",s:"-:-",o:"1.40",x:"4.00",o2:"7.50",p:"Bahrain WIN",live:false}
- ];
- res.status(200).json({today:real, live:[], date:today.replace(/-/g,''), updated:new Date().toISOString(), count:real.length});
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Cache-Control','s-maxage=30, stale-while-revalidate=60');
+
+  const KEY = "05664b71f6f9c3972c37046d8953b13b";
+
+  const today = new Date().toISOString().split('T')[0];
+  try {
+    const url = `https://v3.football.api-sports.io/fixtures?date=${today}`;
+    const r = await fetch(url, { headers: { "x-apisports-key": KEY } });
+    const data = await r.json();
+
+    // Check if quota finished
+    if(data.errors && Object.keys(data.errors).length > 0){
+      return res.status(200).json({ today: [], error: "Quota error", details: data.errors, plan: "FREE 0/100 - wait 1 hour" });
+    }
+
+    if(!data.response || data.response.length === 0){
+      return res.status(200).json({
+        today: [],
+        live: [],
+        count: 0,
+        date: today,
+        note: "No games today (international break) - will show games tomorrow",
+        plan: "FREE Active ✅"
+      });
+    }
+
+    const games = data.response.slice(0,15).map(f=>({
+      h: f.teams.home.name,
+      a: f.teams.away.name,
+      l: `${f.league.name}`,
+      time: new Date(f.fixture.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+      s: `${f.goals.home?? 0}-${f.goals.away?? 0}`,
+      o: "1.85",
+      x: "3.40",
+      o2: "4.20",
+      p: f.teams.home.name,
+      live: ["1H","2H","HT","ET","P","LIVE"].includes(f.fixture.status.short),
+      status: f.fixture.status.short + " - " + f.fixture.status.long
+    }));
+
+    return res.status(200).json({
+      today: games,
+      live: games.filter(g=>g.live),
+      count: games.length,
+      date: today,
+      plan: "FREE Active ✅ - 0/100 used"
+    });
+
+  } catch(e){
+    return res.status(200).json({ today: [], live: [], error: e.message, date: today });
+  }
 }

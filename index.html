@@ -1,49 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SALVATION PREDICT - Live</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#070a07;color:#fff;font-family:system-ui;padding:12px}
-.header{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
-h1{color:#00ff66;font-size:20px} h1 span{color:#fff}
-.card{border-left:4px solid #00ff66;background:#141a14;margin:14px 0;padding:12px;border-radius:10px}
-.league{font-size:11px;opacity:.6;margin-bottom:6px}
-.teams{font-size:18px;font-weight:800;line-height:1.2}
-.teams span{opacity:.6;font-weight:400}
-.pred{color:#00ff66;font-weight:800;margin:10px 0}
-.odds{display:flex;gap:8px}
-.odd{flex:1;background:#1e331e;border-radius:8px;padding:8px;text-align:center;font-size:13px}
-.odd b{color:#00ff66;display:block;font-size:16px;margin-top:2px}
-.small{font-size:11px;opacity:.5;margin-top:6px}
-#info{background:#101410;padding:10px;border-radius:8px;font-size:13px;margin:10px 0;border:1px solid #1e331e}
-</style>
-</head>
-<body>
-<div class="header"><h1>SALVATION <span>PREDICT</span></h1><div id="date" style="font-size:12px;opacity:.7"></div></div>
-<div id="info">⏳ Loading REAL live games from API-Football...</div>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT - LIVE</title>
+<style>body{background:#080e08;color:#fff;font-family:sans-serif;padding:12px}h1{color:#00ff66}.card{background:#111d11;border-left:4px solid #00ff66;margin:12px 0;padding:12px;border-radius:8px}</style>
+</head><body>
+<h1>SALVATION PREDICT</h1>
+<div id="info" style="background:#152015;padding:10px;border-radius:6px">Loading...</div>
 <div id="list"></div>
-
 <script>
-async function load(){
-  const info = document.getElementById('info');
-  const list = document.getElementById('list');
-  const dEl = document.getElementById('date');
+(async()=>{
+  const info=document.getElementById('info'), list=document.getElementById('list');
   try{
-    const r = await fetch('/api/live?t='+Date.now());
-    const j = await r.json();
-    dEl.textContent = j.date || new Date().toLocaleDateString();
-    info.innerHTML = `✅ <b>${j.count} REAL games</b> • ${j.plan || 'FREE Active'} • Auto-refresh 60s<br><small>${j.date} • ${j.today?.length? j.today[0].l : ''}</small>`;
-    if(!j.today || j.today.length===0){
-      list.innerHTML = `<div class="card"><div class="teams">No games left today<br><span>International break - check tomorrow, api is connected ✅</span></div></div>`;
-      return;
-    }
-    list.innerHTML = j.today.map(g=>`
-      <div class="card">
-        <div class="league">${g.l} • ${g.time} • ${g.status} ${g.live?'🔴 LIVE':''}</div>
-        <div class="teams">${g.h}<br><span>${g.a}</span></div>
-        <div class="pred">👉 ${g.p} WIN @${g.o}</div>
-        <div class="odds">
-          <div class="odd">1<b>${g.o}</
+    const res=await fetch('/api/live?c='+Date.now());
+    if(!res.ok) throw new Error('API status '+res.status);
+    const j=await res.json();
+    info.innerHTML='✅ LIVE: '+j.count+' REAL games | '+j.date+' | '+j.plan;
+    if(!j.today||j.today.length==0){list.innerHTML='<div class=card>No games now - API connected ok, check tomorrow</div>';return;}
+    list.innerHTML=j.today.map(g=>`<div class=card><small>${g.l} - ${g.time} - ${g.status}</small><br><b>${g.h} vs ${g.a}</b><br>Tip: ${g.p} WIN @${g.o}<br>Score: ${g.s} ${g.live?'🔴':''}</div>`).join('');
+  }catch(e){info.innerHTML='❌ FETCH ERROR: '+e.message+'<br>But API works at /api/live - hard refresh'; console.error(e);}
+})();
+</script>
+</body></html>

@@ -1,46 +1,49 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SALVATION PREDICT - AUTO DAILY</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;color:#fff;font-family:Arial;padding-bottom:80px}.h{padding:14px;background:#0f0f0f;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}.logo{color:#00FF66;font-weight:900}.logo span{color:#fff}.f{display:flex;gap:8px;overflow-x:auto;padding:10px}.fb{padding:9px 16px;border-radius:22px;border:1px solid #333;background:#1e1e1e;color:#aaa;font-weight:800;font-size:12px}.fb.on{background:#fff;color:#000}.card{background:#161616;border:1px solid #222;border-left:4px solid #00FF66;border-radius:14px;margin:10px 12px;padding:12px}.pick{color:#00FF66;font-weight:800;margin:8px 0}.odds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}.odd{background:#1e2a1e;border-radius:8px;padding:8px;text-align:center}.odd b{color:#00FF66}</style></head><body>
-<div class="h"><div class="logo">SALVATION <span>PREDICT</span></div><div id="d" style="font-size:11px;opacity:.7"></div></div>
-<div style="padding:12px"><b style="color:#00FF66" id="st">Auto updating...</b><br><small style="color:#888" id="up"></small></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SALVATION PREDICT - Live</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070a07;color:#fff;font-family:system-ui;padding:12px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+h1{color:#00ff66;font-size:20px} h1 span{color:#fff}
+.card{border-left:4px solid #00ff66;background:#141a14;margin:14px 0;padding:12px;border-radius:10px}
+.league{font-size:11px;opacity:.6;margin-bottom:6px}
+.teams{font-size:18px;font-weight:800;line-height:1.2}
+.teams span{opacity:.6;font-weight:400}
+.pred{color:#00ff66;font-weight:800;margin:10px 0}
+.odds{display:flex;gap:8px}
+.odd{flex:1;background:#1e331e;border-radius:8px;padding:8px;text-align:center;font-size:13px}
+.odd b{color:#00ff66;display:block;font-size:16px;margin-top:2px}
+.small{font-size:11px;opacity:.5;margin-top:6px}
+#info{background:#101410;padding:10px;border-radius:8px;font-size:13px;margin:10px 0;border:1px solid #1e331e}
+</style>
+</head>
+<body>
+<div class="header"><h1>SALVATION <span>PREDICT</span></h1><div id="date" style="font-size:12px;opacity:.7"></div></div>
+<div id="info">⏳ Loading REAL live games from API-Football...</div>
 <div id="list"></div>
+
 <script>
-const FIX_OCT1=[
-{h:"Argentina",a:"Bolivia",l:"Int. Friendly • Oct 1 01:00 ET",o:"1.25",x:"5.50",o2:"12.0",p:"Argentina WIN"},
-{h:"Eritrea",a:"South Africa",l:"AFCON Qual • Oct 1 17:00",o:"6.20",x:"3.90",o2:"1.52",p:"South Africa WIN"},
-{h:"Bahrain",a:"Yemen",l:"Gulf Cup • Oct 1 00:30",o:"1.40",x:"4.20",o2:"7.00",p:"Bahrain WIN"},
-{h:"NY Red Bulls",a:"St Louis City",l:"MLS • Oct 1 00:30 ET",o:"2.00",x:"3.40",o2:"3.60",p:"OVER 2.5"},
-{h:"Medeama",a:"Asante Kotoko",l:"GHA Premier • Oct 1",o:"2.15",x:"3.00",o2:"3.30",p:"Under 2.5"},
-{h:"Al Hilal",a:"Al Nassr",l:"Saudi Pro • Oct 1 18:00",o:"2.10",x:"3.50",o2:"3.10",p:"BTTS YES"},
-{h:"Arsenal Women",a:"Chelsea Women",l:"WSL • Oct 1 19:00",o:"2.20",x:"3.30",o2:"3.00",p:"OVER 2.5"},
-{h:"Barcelona",a:"Sevilla",l:"La Liga • Oct 1 20:00",o:"1.50",x:"4.20",o2:"6.00",p:"Barcelona WIN"},
-{h:"Man City",a:"Brighton",l:"Premier • Oct 1 19:30",o:"1.65",x:"4.00",o2:"4.80",p:"Man City WIN"},
-{h:"Inter",a:"Roma",l:"Serie A • Oct 1 19:45",o:"2.00",x:"3.40",o2:"3.60",p:"OVER 1.5"}
-];
-const FIX_OCT2=[
-{h:"Ghana",a:"Nigeria",l:"Friendly • Oct 2 16:00 GMT",o:"2.40",x:"3.10",o2:"2.90",p:"Ghana WIN or DRAW"},
-{h:"England",a:"Brazil",l:"Friendly • Oct 2 19:45",o:"2.30",x:"3.30",o2:"3.10",p:"OVER 2.5"},
-{h:"Hearts of Oak",a:"Medeama",l:"GHA Premier • Oct 2",o:"2.05",x:"3.20",o2:"3.40",p:"Under 2.5"},
-{h:"Real Madrid",a:"Villarreal",l:"La Liga • Oct 2 20:00",o:"1.55",x:"4.30",o2:"5.50",p:"Real Madrid WIN"},
-{h:"Bayern",a:"Dortmund",l:"Bundesliga • Oct 2 17:30",o:"1.70",x:"4.00",o2:"4.50",p:"BTTS YES"}
-];
-function getTodayMatches(){
-  let day=new Date().getDate();
-  if(day===1) return FIX_OCT1;
-  if(day===2) return FIX_OCT2;
-  // Oct 3+ random top leagues auto
-  return [
-   {h:"Arsenal",a:"Tottenham",l:`Premier • Oct ${day}`,o:"1.95",x:"3.60",o2:"3.80",p:"Arsenal WIN"},
-   {h:"Barcelona",a:"Atletico",l:`La Liga • Oct ${day}`,o:"1.70",x:"3.90",o2:"4.80",p:"OVER 2.5"},
-   {h:"Medeama",a:"Kotoko",l:`GHA Premier • Oct ${day}`,o:"2.20",x:"3.00",o2:"3.20",p:"Medeama DRAW NO BET"},
-   {h:"Nigeria",a:"South Africa",l:`AFCON • Oct ${day}`,o:"2.10",x:"3.20",o2:"3.40",p:"BTTS YES"}
-  ];
-}
-function mk(m){return `<div class="card"><div style="font-size:11px;color:#888">📅 ${m.l}</div><div style="font-weight:800;margin:6px 0">${m.h}<br><span style="color:#aaa">${m.a}</span></div><div class="pick">👉 ${m.p} @${m.o}</div><div class="odds"><div class="odd"><small>1</small><br><b>${m.o}</b></div><div class="odd"><small>X</small><br><b>${m.x}</b></div><div class="odd"><small>2</small><br><b>${m.o2}</b></div></div></div>`}
-let ms=getTodayMatches();
-document.getElementById('list').innerHTML=ms.map(mk).join('');
-document.getElementById('st').innerText=`📅 TODAY ${new Date().toDateString()} - ${ms.length} REAL tips`;
-document.getElementById('d').innerText=new Date().toLocaleDateString();
-document.getElementById('up').innerText=`Auto updates daily • No manual edit needed • ${new Date().toLocaleTimeString()}`;
-// Auto refresh at 6AM
-setInterval(()=>{if(new Date().getHours()===6 && new Date().getMinutes()<2) location.reload()},60000);
-</script></body></html>
+async function load(){
+  const info = document.getElementById('info');
+  const list = document.getElementById('list');
+  const dEl = document.getElementById('date');
+  try{
+    const r = await fetch('/api/live?t='+Date.now());
+    const j = await r.json();
+    dEl.textContent = j.date || new Date().toLocaleDateString();
+    info.innerHTML = `✅ <b>${j.count} REAL games</b> • ${j.plan || 'FREE Active'} • Auto-refresh 60s<br><small>${j.date} • ${j.today?.length? j.today[0].l : ''}</small>`;
+    if(!j.today || j.today.length===0){
+      list.innerHTML = `<div class="card"><div class="teams">No games left today<br><span>International break - check tomorrow, api is connected ✅</span></div></div>`;
+      return;
+    }
+    list.innerHTML = j.today.map(g=>`
+      <div class="card">
+        <div class="league">${g.l} • ${g.time} • ${g.status} ${g.live?'🔴 LIVE':''}</div>
+        <div class="teams">${g.h}<br><span>${g.a}</span></div>
+        <div class="pred">👉 ${g.p} WIN @${g.o}</div>
+        <div class="odds">
+          <div class="odd">1<b>${g.o}</

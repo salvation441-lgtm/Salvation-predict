@@ -1,30 +1,99 @@
-<!-- PRO FILTERS -->
-<div style="padding:12px; background:#0a0a0a; position:sticky; top:0; z-index:99;">
-  <!-- Main Filters -->
-  <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px;">
-    <button class="filter-btn active" style="background:#00ff88; color:#000; padding:8px 16px; border-radius:20px; border:none; font-weight:bold; white-space:nowrap;">ALL</button>
-    <button class="filter-btn" style="background:#222; color:#fff; padding:8px 16px; border-radius:20px; border:1px solid #333; white-space:nowrap;">Today</button>
-    <button class="filter-btn" style="background:#222; color:#fff; padding:8px 16px; border-radius:20px; border:1px solid #333; white-space:nowrap;">🔴 Live</button>
-    <button class="filter-btn" style="background:#222; color:#00ff88; padding:8px 16px; border-radius:20px; border:1px solid #00ff88; white-space:nowrap;">87%+ Confidence</button>
-    <button class="filter-btn" style="background:#222; color:#fff; padding:8px 16px; border-radius:20px; border:1px solid #333; white-space:nowrap;">BTTS</button>
-    <button class="filter-btn" style="background:#222; color:#fff; padding:8px 16px; border-radius:20px; border:1px solid #333; white-space:nowrap;">Over 2.5</button>
-  </div>
-  
-  <!-- League Chips -->
-  <div style="display:flex; gap:8px; overflow-x:auto;">
-    <span style="background:#1a1a1a; color:#aaa; padding:6px 12px; border-radius:15px; font-size:12px; border:1px solid #2a2a2a; white-space:nowrap;">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</span>
-    <span style="background:#1a1a1a; color:#aaa; padding:6px 12px; border-radius:15px; font-size:12px; border:1px solid #2a2a2a; white-space:nowrap;">🇪🇸 La Liga</span>
-    <span style="background:#1a1a1a; color:#aaa; padding:6px 12px; border-radius:15px; font-size:12px; border:1px solid #2a2a2a; white-space:nowrap;">🇮🇹 Serie A</span>
-    <span style="background:#1a1a1a; color:#aaa; padding:6px 12px; border-radius:15px; font-size:12px; border:1px solid #2a2a2a; white-space:nowrap;">🇩🇪 Bundesliga</span>
-    <span style="background:#1a1a1a; color:#aaa; padding:6px 12px; border-radius:15px; font-size:12px; border:1px solid #2a2a2a; white-space:nowrap;">🏆 UCL</span>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salvation Predict</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#00ff88">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0a0a0a;color:#fff;padding-bottom:70px}
+.header{background:#111;padding:15px;text-align:center;border-bottom:2px solid #00ff88}
+.header h1{color:#00ff88;font-size:22px}
+.filter-bar{background:#0a0a0a;padding:12px;position:sticky;top:0;z-index:99;border-bottom:1px solid #222}
+.filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.filter-btn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;white-space:nowrap;font-size:13px}
+.filter-btn.active{background:#00ff88;color:#000;border-color:#00ff88;font-weight:bold}
+.league-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.league-chip{background:#1a1a1a;color:#aaa;padding:6px 12px;border-radius:15px;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap}
+.card{background:#151515;margin:12px;border-radius:12px;padding:14px;border:1px solid #222}
+.card-top{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:8px}
+.card-match{display:flex;justify-content:space-between;align-items:center;margin:10px 0}
+.team{font-weight:bold;font-size:14px}
+.vs{color:#666;font-size:12px}
+.tip-box{background:#1a1a1a;padding:10px;border-radius:8px;margin:10px 0;border-left:3px solid #00ff88}
+.tip-box b{color:#00ff88}
+.action-row{display:flex;gap:8px;margin-top:10px}
+.action-row button{flex:1;padding:8px;border-radius:8px;font-size:12px;border:1px solid #333;cursor:pointer}
+.btn-copy{background:#00ff88;color:#000;border:none;font-weight:bold}
+.btn-stat,.btn-share{background:#222;color:#fff}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;z-index:100}
+.nav-item{text-align:center;color:#888;font-size:10px}
+.nav-item.active{color:#00ff88}
+.nav-item div:first-child{font-size:18px}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>SALVATION PREDICT</h1>
+<p style="font-size:11px;color:#888;margin-top:4px;">DEMO MODE - 87% ACCURACY</p>
 </div>
 
-<!-- BOTTOM NAV -->
-<div style="position:fixed; bottom:0; left:0; right:0; background:#111; border-top:1px solid #222; display:flex; justify-content:space-around; padding:10px 0; z-index:100;">
-  <div style="text-align:center; color:#00ff88;"><div>🏠</div><div style="font-size:10px;">Home</div></div>
-  <div style="text-align:center; color:#888;"><div>🔴</div><div style="font-size:10px;">Live</div></div>
-  <div style="text-align:center; color:#888;"><div>⭐</div><div style="font-size:10px;">VIP</div></div>
-  <div style="text-align:center; color:#888;"><div>📊</div><div style="font-size:10px;">Results</div></div>
-  <div style="text-align:center; color:#888;"><div>⚙️</div><div style="font-size:10px;">Settings</div></div>
+<div class="filter-bar">
+<div class="filter-row">
+<button class="filter-btn active">ALL</button>
+<button class="filter-btn">Today</button>
+<button class="filter-btn">Live</button>
+<button class="filter-btn">87%+ Confidence</button>
+<button class="filter-btn">BTTS</button>
+<button class="filter-btn">Over 2.5</button>
 </div>
+<div class="league-row">
+<span class="league-chip">Premier League</span>
+<span class="league-chip">La Liga</span>
+<span class="league-chip">Serie A</span>
+<span class="league-chip">Bundesliga</span>
+<span class="league-chip">UCL</span>
+</div>
+</div>
+
+<div id="games"></div>
+
+<div class="bottom-nav">
+<div class="nav-item active"><div>H</div>Home</div>
+<div class="nav-item"><div>L</div>Live</div>
+<div class="nav-item"><div>*</div>VIP</div>
+<div class="nav-item"><div>R</div>Results</div>
+<div class="nav-item"><div>S</div>Settings</div>
+</div>
+
+<script>
+async function load(){
+try{
+const res = await fetch('/api/today');
+const data = await res.json();
+let html='';
+(data.games||[]).forEach(g=>{
+html+=`
+<div class="card">
+<div class="card-top"><span>${g.league||'Premier League'}</span><span>${g.time||'Today'}</span></div>
+<div class="card-match"><span class="team">${g.home||'Arsenal'}</span><span class="vs">VS</span><span class="team">${g.away||'Man City'}</span></div>
+<div class="tip-box">Tip: <b>${g.prediction||'Home Win'}</b> @${g.odds||'2.17'} <span style="float:right;color:#00ff88">${g.confidence||87}%</span></div>
+<div class="action-row">
+<button class="btn-stat">Stats</button>
+<button class="btn-copy" onclick="navigator.clipboard.writeText('${g.home} WIN @${g.odds}')">Copy Tip</button>
+<button class="btn-share">Share</button>
+</div>
+</div>`;
+});
+if(!html) html='<div class="card"><div class="card-top"><span>Premier League</span><span>18:00</span></div><div class="card-match"><span class="team">Arsenal</span><span class="vs">VS</span><span class="team">Man City</span></div><div class="tip-box">Tip: <b>Arsenal WIN</b> @2.17 <span style="float:right;color:#00ff88">87%</span></div><div class="action-row"><button class="btn-stat">Stats</button><button class="btn-copy">Copy Tip</button><button class="btn-share">Share</button></div></div>';
+document.getElementById('games').innerHTML=html;
+}catch(e){console.log(e)}
+}
+load();
+</script>
+</body>
+</html>

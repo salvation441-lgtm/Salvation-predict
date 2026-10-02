@@ -90,6 +90,53 @@ render();
 fetch('/api/live').then(r=>r.json()).then(data=>{
  if(data && data.length){ allGames = [...data, ...allGames]; render(); }
 }).catch(()=>{});
-</script>
+</script><!-- ADD PAYSTACK SCRIPT IN HEAD -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+let activeType='ALL', activeLeague='ALL';
+let allGames=[];
+
+function setType(t,el){
+ activeType=t;
+ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.replace('bg-white','bg-gray-800'));
+ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.replace('text-black','text-white'));
+ el.classList.replace('bg-gray-800','bg-white'); el.classList.replace('text-white','text-black');
+ render();
+}
+function setLeague(l,el){
+ activeLeague=l;
+ render();
+}
+function render(){
+ let f=allGames.filter(g=>{
+  return (activeType==='ALL'||g.type===activeType) && (activeLeague==='ALL'||g.league.includes(activeLeague)||g.league===activeLeague);
+ });
+ document.getElementById('games').innerHTML=f.map(g=>`
+  <div class="bg-gray-900 rounded-xl p-4 border border-gray-800">
+   <div class="flex justify-between text-xs text-gray-400"><span>${g.league}</span><span class="text-green-400">${g.conf}%</span></div>
+   <div class="font-bold mt-1">${g.home} vs ${g.away}</div>
+   <div class="mt-2 flex justify-between"><span class="bg-white text-black px-3 py-1 rounded-full text-xs font-bold">${g.pred}</span><span class="text-xs text-green-400">${g.live||g.result||''}</span></div>
+  </div>`).join('');
+}
+async function loadLive(){
+ let r=await fetch('/api/live'); let d=await r.json();
+ allGames=d.length?d:[
+  {home:"Arsenal",away:"Bournemouth",league:"PL",type:"1",pred:"HOME WIN",conf:88,result:"WON"},
+  {home:"Barcelona",away:"Espanyol",league:"LaLiga",type:"1",pred:"HOME WIN",conf:94,live:"1-0 67'"},
+  {home:"Hearts of Oak",away:"Kotoko",league:"GPL",type:"1",pred:"HOME WIN",conf:85,live:"15:00"},
+  {home:"Chelsea",away:"Liverpool",league:"PL",type:"OVER",pred:"OVER 2.5",conf:90}
+ ]; render();
+}
+function payVIP(){
+ PaystackPop.setup({
+  key: 'pk_test_YOUR_KEY_HERE', // replace with your Paystack public key
+  email: 'user@gmail.com',
+  amount: 5000*100, // 50 GHS
+  currency: 'GHS',
+  callback: function(){ alert('VIP Activated! 🔥'); }
+ }).openIframe();
+}
+loadLive();
+  </script>
 </body>
 </html>

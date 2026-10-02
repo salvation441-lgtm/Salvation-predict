@@ -2,72 +2,94 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Salvation</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#0a0a0a;color:#fff;padding-bottom:60px}
-.header{background:#111;padding:14px;text-align:center;border-bottom:2px solid #0f8}
-.header h1{color:#0f8;font-size:20px}
-.f{padding:8px;display:flex;gap:5px;overflow-x:auto}
-.f button{padding:6px 10px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;font-size:11px}
-.f button.on{background:#0f8;color:#000;font-weight:bold}
-.card{background:#151515;margin:8px;border-radius:10px;padding:10px;border:1px solid #222}
-.top{color:#888;font-size:10px;display:flex;justify-content:space-between}
-.mid{margin:8px 0;font-weight:bold;display:flex;justify-content:space-between}
-.b{padding:2px 6px;border-radius:5px;font-size:10px;font-weight:bold;background:#0f8;color:#000}
-.tip{background:#1e1e1e;padding:8px;border-radius:6px;border-left:3px solid #0f8;margin-top:6px;font-size:12px}
-.sec{display:none;padding:10px}.sec.on{display:block}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
-.nav div{color:#666;font-size:10px;text-align:center;flex:1}.nav div.on{color:#0f8}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALVATION PREDICT</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{background:#0f0f0f;color:white;font-family:sans-serif}</style>
 </head>
-<body>
-<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:9px;color:#666">OCT 2 2026 - WORKING</p></div>
+<body class="pb-20">
+<header class="p-4 flex justify-between items-center border-b border-gray-800">
+<h1 class="font-black text-xl">SALVATION PREDICT</h1>
+<span class="text-xs bg-green-600 px-2 py-1 rounded">OCT 2 2026 - WORKING</span>
+</header>
 
-<div id="home" class="sec on">
-<div class="f">
-<button class="on" onclick="a('all',this)">ALL</button>
-<button onclick="a('1',this)">1</button>
-<button onclick="a('x',this)">X</button>
-<button onclick="a('2',this)">2</button>
-<button onclick="a('btts',this)">BTTS</button>
-<button onclick="a('over',this)">OVER</button>
-</div>
-<div class="f">
-<button class="on" onclick="b('all',this)">All</button>
-<button onclick="b('premier',this)">PL</button>
-<button onclick="b('laliga',this)">La Liga</button>
-<button onclick="b('seriea',this)">Serie A</button>
-<button onclick="b('bundes',this)">Bundes</button>
-</div>
-<div class="card" data-m="over" data-l="premier"><div class="top"><span>PL FT 1-2</span><span style="color:#0f8">88%</span></div><div class="mid"><span>Arsenal vs Bournemouth</span><span class="b">OVER</span></div><div class="tip">Over 2.5 @1.95 <b style="color:#0f8">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="laliga"><div class="top"><span>LIVE 18:30</span><span style="color:#0f8">90%</span></div><div class="mid"><span>Barcelona vs Espanyol</span><span class="b">1</span></div><div class="tip">Barca WIN @1.55</div></div>
-<div class="card" data-m="btts" data-l="laliga"><div class="top"><span>FT 3-3</span><span style="color:#0f8">94%</span></div><div class="mid"><span>Sociedad vs Alaves</span><span class="b">BTTS</span></div><div class="tip">BTTS @1.80 <b style="color:#0f8">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="premier"><div class="top"><span>PL 18:30</span><span style="color:#0f8">92%</span></div><div class="mid"><span>Liverpool vs Fulham</span><span class="b">1</span></div><div class="tip">Liverpool WIN @1.45</div></div>
-<div class="card" data-m="1" data-l="bundes"><div class="top"><span>Bundes FT 1-0</span><span style="color:#0f8">86%</span></div><div class="mid"><span>Leverkusen vs Dortmund</span><span class="b">1</span></div><div class="tip">Home @2.10 <b style="color:#0f8">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="seriea"><div class="top"><span>Serie A 18:00</span><span style="color:#0f8">89%</span></div><div class="mid"><span>AC Milan vs Udinese</span><span class="b">1</span></div><div class="tip">Milan WIN @1.70</div></div>
+<!-- TOP FILTERS - 1 X 2 with content -->
+<div class="flex gap-2 p-3 overflow-x-auto">
+<button onclick="setType('ALL')" class="filter-btn active bg-white text-black px-4 py-1 rounded-full text-sm font-bold">ALL</button>
+<button onclick="setType('1')" class="filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm">1</button>
+<button onclick="setType('X')" class="filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm">X</button>
+<button onclick="setType('2')" class="filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm">2</button>
+<button onclick="setType('BTTS')" class="filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm">BTTS</button>
+<button onclick="setType('OVER')" class="filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm">OVER</button>
 </div>
 
-<div id="live" class="sec"><div class="card"><div class="top"><span style="color:red">● LIVE</span><span>Barca 1-0 Espanyol 67'</span></div></div></div>
-<div id="vip" class="sec"><div class="card"><div class="mid"><span>VIP - GH₵50/month</span><span style="color:#0f8">JOIN</span></div></div></div>
-<div id="results" class="sec"><div class="card"><div class="mid"><span>This week: 18 WON - 3 LOST</span><span style="color:#0f8">85%</span></div></div></div>
-<div id="settings" class="sec"><div class="card"><div class="mid"><span>Share App</span><span>📤</span></div></div></div>
-
-<div class="nav">
-<div class="on" onclick="t('home',this)">H<br>Home</div>
-<div onclick="t('live',this)">L<br>Live</div>
-<div onclick="t('vip',this)">*<br>VIP</div>
-<div onclick="t('results',this)">R<br>Results</div>
-<div onclick="t('settings',this)">S<br>Settings</div>
+<!-- LEAGUE FILTERS + GPL ADDED -->
+<div class="flex gap-2 px-3 overflow-x-auto">
+<button onclick="setLeague('ALL')" class="league-btn active border border-green-500 text-green-500 px-3 py-1 rounded-full text-xs">ALL</button>
+<button onclick="setLeague('PL')" class="league-btn border border-gray-700 px-3 py-1 rounded-full text-xs">PL</button>
+<button onclick="setLeague('LaLiga')" class="league-btn border border-gray-700 px-3 py-1 rounded-full text-xs">La Liga</button>
+<button onclick="setLeague('SerieA')" class="league-btn border border-gray-700 px-3 py-1 rounded-full text-xs">Serie A</button>
+<button onclick="setLeague('Bundes')" class="league-btn border border-gray-700 px-3 py-1 rounded-full text-xs">Bundes</button>
+<button onclick="setLeague('GPL')" class="league-btn border border-yellow-500 text-yellow-500 px-3 py-1 rounded-full text-xs">GPL 🇬🇭</button>
+<button onclick="setLeague('UCL')" class="league-btn border border-blue-500 text-blue-500 px-3 py-1 rounded-full text-xs">UCL</button>
 </div>
+
+<div id="games" class="p-3 space-y-3 mt-2">
+<!-- Games will load here -->
+</div>
+
+<nav class="fixed bottom-0 w-full bg-black border-t border-gray-800 flex justify-around p-3 text-xs">
+<span>🏠 Home</span><span class="text-green-500">● LIVE</span><span>👑 VIP</span><span>📊 Results</span><span>⚙️ Settings</span>
+</nav>
 
 <script>
-var m='all',l='all';
-function a(v,e){m=v;var c=e.parentNode.children;for(i=0;i<c.length;i++)c[i].className='';e.className='on';f()}
-function b(v,e){l=v;var c=e.parentNode.children;for(i=0;i<c.length;i++)c[i].className='';e.className='on';f()}
-function f(){var d=document.querySelectorAll('#home.card');for(i=0;i<d.length;i++){var x=d[i];x.style.display=(m=='all'||x.dataset.m==m)&&(l=='all'||x.dataset.l==l)?'':'none'}}
-function t(i,e){var s=document.querySelectorAll('.sec');for(j=0;j<s.length;j++)s[j].classList.remove('on');document.getElementById(i).classList.add('on');var n=document.querySelectorAll('.nav div');for(j=0;j<n.length;j++)n[j].className='';e.className='on'}
+let activeType = 'ALL';
+let activeLeague = 'ALL';
+
+let allGames = [
+ {home:"Arsenal", away:"Bournemouth", league:"PL", type:"1", pred:"HOME WIN", conf:88, result:"WON"},
+ {home:"Barcelona", away:"Espanyol", league:"LaLiga", type:"1", pred:"HOME WIN", conf:94, live:"Barca 1-0 67'"},
+ {home:"Hearts of Oak", away:"Kotoko", league:"GPL", type:"1", pred:"HOME WIN", conf:85, time:"15:00"},
+ {home:"Chelsea", away:"Liverpool", league:"PL", type:"OVER", pred:"OVER 2.5", conf:90},
+ {home:"Bayern", away:"Dortmund", league:"Bundes", type:"2", pred:"AWAY WIN", conf:82},
+ {home:"Inter", away:"AC Milan", league:"SerieA", type:"X", pred:"DRAW", conf:78},
+ {home:"Man City", away:"Arsenal", league:"PL", type:"BTTS", pred:"BTTS YES", conf:92}
+];
+
+function render(){
+ let filtered = allGames.filter(g=>{
+   let typeOk = activeType==='ALL' || g.type===activeType;
+   let leagueOk = activeLeague==='ALL' || g.league===activeLeague;
+   return typeOk && leagueOk;
+ });
+ document.getElementById('games').innerHTML = filtered.map(g=>`
+   <div class="bg-gray-900 rounded-xl p-4 border border-gray-800">
+     <div class="flex justify-between text-xs text-gray-400"><span>${g.league}</span><span class="text-green-400">${g.conf}%</span></div>
+     <div class="font-bold mt-1">${g.home} vs ${g.away}</div>
+     <div class="mt-2 flex justify-between items-center">
+       <span class="bg-white text-black px-3 py-1 rounded-full text-xs font-bold">${g.pred}</span>
+       <span class="text-xs ${g.result?'text-green-400':''}">${g.live||g.result||g.time||''}</span>
+     </div>
+   </div>
+ `).join('') || '<p class="text-center text-gray-500 mt-10">No games for this filter</p>';
+}
+
+function setType(t){
+ activeType=t;
+ document.querySelectorAll('.filter-btn').forEach(b=>b.className='filter-btn bg-gray-800 px-4 py-1 rounded-full text-sm');
+ event.target.className='filter-btn active bg-white text-black px-4 py-1 rounded-full text-sm font-bold';
+ render();
+}
+function setLeague(l){
+ activeLeague=l;
+ render();
+}
+render();
+
+// Load real live data from your API
+fetch('/api/live').then(r=>r.json()).then(data=>{
+ if(data && data.length){ allGames = [...data, ...allGames]; render(); }
+}).catch(()=>{});
 </script>
 </body>
 </html>

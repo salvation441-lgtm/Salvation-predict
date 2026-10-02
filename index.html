@@ -5,69 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Salvation Predict</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#0a0a0a;color:#fff;padding-bottom:75px}
-.header{background:#111;padding:16px;text-align:center;border-bottom:2px solid #00ff88;position:sticky;top:0;z-index:10}
-.header h1{color:#00ff88;font-size:22px}
-.filters{padding:12px;position:sticky;top:58px;background:#0a0a0a;z-index:9}
-.row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
-.row::-webkit-scrollbar{display:none}
-.fbtn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;white-space:nowrap;font-size:13px}
-.fbtn.on{background:#00ff88;color:#000;font-weight:bold}
-.chip{background:#1a1a1a;color:#aaa;padding:7px 14px;border-radius:15px;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap}
-.chip.on{background:#00ff88;color:#000}
-.card{background:#151515;margin:12px;border-radius:14px;padding:14px;border:1px solid #222}
-.top{display:flex;justify-content:space-between;color:#888;font-size:11px}
-.dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;margin-right:4px;animation:b 1s infinite}
-@keyframes b{0%,100%{opacity:1}50%{opacity:0}}
-.mid{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-weight:bold}
-.vs{color:#555;font-size:11px;background:#222;padding:2px 8px;border-radius:10px}
-.tip{background:#1e1e1e;padding:10px;border-radius:10px;border-left:3px solid #00ff88;margin:8px 0}
-.tip b{color:#00ff88}
-.btns{display:flex;gap:8px;margin-top:10px}
-.btns button{flex:1;padding:10px;border-radius:8px;border:1px solid #333;font-weight:bold;font-size:12px}
-.copy{background:#00ff88;color:#000;border:none}
-.stat,.share{background:#222;color:#fff}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
-.n{color:#666;font-size:10px;text-align:center;cursor:pointer}
-.n.on{color:#00ff88}
-.page{display:none;padding:12px}
-.page.show{display:block}
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:99;align-items:center;justify-content:center;padding:20px}
-.modal.show{display:flex}
-.box{background:#151515;border:1px solid #333;border-radius:12px;padding:18px;width:100%;max-width:320px}
+body{background:#0a0a0a;color:#fff;font-family:Arial;padding-bottom:60px}
+h1{color:#00ff88;text-align:center;padding:16px;background:#111}
+.card{background:#151515;margin:12px;border-radius:12px;padding:14px;border:1px solid #222}
+.tip{background:#1e1e1e;padding:10px;border-left:3px solid #00ff88;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#777">LIVE TODAY - OCT 2, 2026</p></div>
-
-<div id="home" class="page show">
-<div class="filters">
-<div class="row">
-<button class="fbtn on" onclick="setF('all',this)">ALL</button>
-<button class="fbtn" onclick="setF('live',this)"><span class="dot"></span>Live</button>
-<button class="fbtn" onclick="setF('high',this)">87%+ Confidence</button>
-<button class="fbtn" onclick="setF('btts',this)">BTTS</button>
-<button class="fbtn" onclick="setF('over',this)">Over 2.5</button>
+<h1>SALVATION PREDICT</h1>
+<div class="card">
+<div>PL - FT 1-2 - 88%</div>
+<div style="margin:10px 0;font-weight:bold">Arsenal vs Bournemouth</div>
+<div class="tip">Tip: Over 2.5 @1.95 - WON</div>
 </div>
-<div class="row">
-<span class="chip on" onclick="setL('all',this)">All Leagues</span>
-<span class="chip" onclick="setL('premier',this)">Premier League</span>
-<span class="chip" onclick="setL('laliga',this)">La Liga</span>
-<span class="chip" onclick="setL('seriea',this)">Serie A</span>
-<span class="chip" onclick="setL('bundesliga',this)">Bundesliga</span>
+<div class="card">
+<div>LIVE - La Liga 18:30 - 90%</div>
+<div style="margin:10px 0;font-weight:bold">Barcelona vs Espanyol</div>
+<div class="tip">Tip: Barcelona WIN @1.55</div>
 </div>
-</div>
-<div id="games"></div>
-</div>
-
-<div id="live" class="page"><div style="text-align:center;padding:20px"><h3 style="color:red"><span class="dot"></span> LIVE NOW</h3><div id="liveGames" style="margin-top:20px"></div></div></div>
-<div id="vip" class="page"><div style="text-align:center;padding:30px"><div style="font-size:40px">👑</div><h2 style="color:#FFD700">VIP TIPS</h2><p style="color:#888;font-size:12px;margin-top:10px">Join Telegram for 95% tips</p><button style="background:gold;color:#000;padding:12px 25px;border-radius:20px;border:none;font-weight:bold;margin-top:20px">Unlock VIP</button></div></div>
-<div id="results" class="page"><div style="padding:10px"><h3 style="color:#00ff88">Results Oct 2</h3><div class="card"><div class="top"><span>FT Sociedad 3-3 Alaves</span><span style="color:#00ff88">WON</span></div><div class="tip">BTTS YES @1.80 - WON</div></div><div class="card"><div class="top"><span>FT Arsenal 1-2 Bournemouth</span><span style="color:#00ff88">WON</span></div><div class="tip">Over 2.5 @1.95 - WON</div></div><div class="card"><div class="top"><span>FT Leverkusen 1-0 Dortmund</span><span style="color:#00ff88">WON</span></div><div class="tip">Home Win @2.10 - WON</div></div></div></div>
-<div id="settings" class="page"><div style="padding:20px"><h3 style="color:#00ff88;margin-bottom:15px">Settings</h3><div class="card">Notifications <span style="float:right;color:#00ff88">ON</span></div><div class="card">Version <span style="float:right">v2.0 Ghana</span></div></div></div>
-
-<div class="modal" id="m" onclick="this.classList.remove('show')"><div class="box" onclick="event.stopPropagation()"><h3 id="mt" style="color:#00ff88">Stats</h3><p id="mb" style="color:#ccc;font-size:13px;margin-top:10px;line-height:20px">Loading</p><button onclick="document.getElementById('m').classList.remove('show')" style="background:#00ff88;color:#000;width:100%;padding:10px;border:none;border-radius:8px;margin-top:12px;font-weight:bold">Close</button></div></div>
-
-<div class="nav">
-<div class="n on" onclick="page('home',this)">H<br>Home</div>
-<div
+</body>
+</html>

@@ -4,107 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Salvation Predict</title>
-<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#00ff88">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0a0a0a;color:#fff;padding-bottom:75px}
 .header{background:#111;padding:16px;text-align:center;border-bottom:2px solid #00ff88;position:sticky;top:0;z-index:100}
-.header h1{color:#00ff88;font-size:22px;letter-spacing:1px}
+.header h1{color:#00ff88;font-size:22px}
 .filter-bar{padding:12px;background:#0a0a0a;position:sticky;top:57px;z-index:99}
 .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
 .filter-row::-webkit-scrollbar{display:none}
 .filter-btn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;white-space:nowrap;font-size:13px}
-.filter-btn.active{background:#00ff88;color:#000;font-weight:bold;border-color:#00ff88}
-.league-row{display:flex;gap:8px;overflow-x:auto}
+.filter-btn.active{background:#00ff88;color:#000;font-weight:bold}
+.league-row{display:flex;gap:8px;overflow-x:auto;margin-top:6px}
 .league-chip{background:#1a1a1a;color:#aaa;padding:7px 14px;border-radius:15px;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer}
 .league-chip.active{background:#00ff88;color:#000}
-.card{background:#151515;margin:12px;border-radius:14px;padding:14px;border:1px solid #222}
+.card{background:#151515;margin:12px;border-radius:14px;padding:14px;border:1px solid #222;position:relative}
 .card-top{display:flex;justify-content:space-between;color:#888;font-size:11px}
+.live-dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;margin-right:5px;animation:blink 1s infinite}
+@keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
 .card-match{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-weight:bold;font-size:15px}
-.vs{color:#555;font-weight:normal;font-size:12px;background:#222;padding:2px 8px;border-radius:10px}
-.tip-box{background:#1e1e1e;padding:11px;border-radius:10px;border-left:3px solid #00ff88;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
+.vs{color:#555;font-size:11px;background:#222;padding:3px 8px;border-radius:10px}
+.tip-box{background:#1e1e1e;padding:11px;border-radius:10px;border-left:3px solid #00ff88;margin:10px 0;display:flex;justify-content:space-between}
 .tip-box b{color:#00ff88}
+.tip-box.vip{border-left-color:gold;filter:blur(4px);user-select:none}
 .action-row{display:flex;gap:8px;margin-top:12px}
 .action-row button{flex:1;padding:10px;border-radius:9px;border:1px solid #333;font-size:12px;font-weight:bold;cursor:pointer}
 .btn-copy{background:#00ff88;color:#000;border:none}
 .btn-stat,.btn-share{background:#222;color:#fff}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
-.nav-item{text-align:center;color:#666;font-size:10px;line-height:14px}
+.btn-vip{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:10px 20px;border-radius:20px;z-index:5}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;z-index:200}
+.nav-item{text-align:center;color:#666;font-size:10px;cursor:pointer}
 .nav-item.active{color:#00ff88}
+.page{display:none;padding:12px}
+.page.active{display:block}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:300;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-box{background:#151515;border:1px solid #333;border-radius:14px;padding:20px;width:100%;max-width:320px}
 </style>
 </head>
 <body>
-<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#777;margin-top:3px">AI POWERED - 87% ACCURACY</p></div>
+<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#777">AI POWERED - 87% ACCURACY</p></div>
+
+<div id="home-page" class="page active">
 <div class="filter-bar">
 <div class="filter-row">
 <button class="filter-btn active" data-filter="all">ALL</button>
 <button class="filter-btn" data-filter="today">Today</button>
-<button class="filter-btn" data-filter="live">Live</button>
-<button class="filter-btn" data-filter="high">87%+ Confidence</button>
-<button class="filter-btn" data-filter="btts">BTTS</button>
-<button class="filter-btn" data-filter="over">Over 2.5</button>
-</div>
-<div class="league-row">
-<span class="league-chip active" data-league="all">All Leagues</span>
-<span class="league-chip" data-league="premier">Premier League</span>
-<span class="league-chip" data-league="laliga">La Liga</span>
-<span class="league-chip" data-league="seriea">Serie A</span>
-<span class="league-chip" data-league="bundesliga">Bundesliga</span>
-</div>
-</div>
-<div id="games"></div>
-<div class="bottom-nav">
-<div class="nav-item active">H<br>Home</div>
-<div class="nav-item">L<br>Live</div>
-<div class="nav-item">*<br>VIP</div>
-<div class="nav-item">R<br>Results</div>
-<div class="nav-item">S<br>Settings</div>
-</div>
-<script>
-const ALL_GAMES=[
-{league:"Premier League - 18:00",home:"Arsenal",away:"Man City",tip:"Arsenal WIN",odd:"2.17",conf:87,tag:"premier",type:"home"},
-{league:"La Liga - 19:30",home:"Real Madrid",away:"Barcelona",tip:"BTTS YES",odd:"1.80",conf:91,tag:"laliga",type:"btts"},
-{league:"Serie A - 20:45",home:"Inter Milan",away:"AC Milan",tip:"Over 2.5",odd:"1.95",conf:84,tag:"seriea",type:"over"},
-{league:"Bundesliga - 17:30",home:"Bayern Munich",away:"Dortmund",tip:"Home Win",odd:"1.65",conf:89,tag:"bundesliga",type:"home"},
-{league:"Premier League - 20:00",home:"Chelsea",away:"Liverpool",tip:"BTTS YES",odd:"1.75",conf:90,tag:"premier",type:"btts"},
-{league:"La Liga - 21:00",home:"Atletico Madrid",away:"Sevilla",tip:"Over 2.5",odd:"2.05",conf:86,tag:"laliga",type:"over"}
-];
-let activeFilter="all", activeLeague="all";
-function render(){
-let filtered=ALL_GAMES.filter(g=>{
-let okFilter=true, okLeague=true;
-if(activeFilter=="high") okFilter=g.conf>=87;
-else if(activeFilter=="btts") okFilter=g.type=="btts";
-else if(activeFilter=="over") okFilter=g.type=="over";
-else if(activeFilter=="today") okFilter=true;
-else if(activeFilter=="live") okFilter=false;
-if(activeLeague!="all") okLeague=g.tag==activeLeague;
-return okFilter && okLeague;
-});
-let h="";
-filtered.forEach(g=>{
-h+=`<div class="card"><div class="card-top"><span>${g.league}</span><span style="color:#00ff88;font-weight:bold">${g.conf}%</span></div><div class="card-match"><span>${g.home}</span><span class="vs">VS</span><span>${g.away}</span></div><div class="tip-box"><span>Tip: <b>${g.tip}</b> @${g.odd}</span></div><div class="action-row"><button class="btn-stat">Stats</button><button class="btn-copy" onclick="navigator.clipboard.writeText('${g.home} vs ${g.away} - ${g.tip} @${g.odd}');let b=this;b.innerText='Copied!';setTimeout(()=>b.innerText='Copy Tip',1500)">Copy Tip</button><button class="btn-share" onclick="if(navigator.share){navigator.share({title:'Salvation Predict',text:'${g.home} vs ${g.away} - ${g.tip} @${g.odd}'})}">Share</button></div></div>`;
-});
-document.getElementById("games").innerHTML=h||"<div style='text-align:center;padding:50px;color:#666'>No games for this filter<br><small>Tap ALL to reset</small></div>";
-}
-render();
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-btn.addEventListener('click',()=>{
-document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-activeFilter=btn.dataset.filter;
-render();
-});
-});
-document.querySelectorAll('.league-chip').forEach(chip=>{
-chip.addEventListener('click',()=>{
-document.querySelectorAll('.league-chip').forEach(c=>c.classList.remove('active'));
-chip.classList.add('active');
-activeLeague=chip.dataset.league;
-render();
-});
-});
-</script>
-</body>
-</html>
+<button class="filter-btn" data-filter="live"><span class="live-dot"></span>Live</button>
+<button class="filter-btn

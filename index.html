@@ -8,47 +8,153 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0a0a0a;color:#fff;padding-bottom:75px}
-.header{background:#111;padding:16px;text-align:center;border-bottom:2px solid #00ff88;position:sticky;top:0;z-index:100}
+.header{background:#111;padding:16px;text-align:center;border-bottom:2px solid #00ff88;position:sticky;top:0;z-index:10}
 .header h1{color:#00ff88;font-size:22px}
-.filter-bar{padding:12px;background:#0a0a0a;position:sticky;top:57px;z-index:99}
-.filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
-.filter-row::-webkit-scrollbar{display:none}
-.filter-btn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;white-space:nowrap;font-size:13px}
-.filter-btn.active{background:#00ff88;color:#000;font-weight:bold}
-.league-row{display:flex;gap:8px;overflow-x:auto;margin-top:6px}
-.league-chip{background:#1a1a1a;color:#aaa;padding:7px 14px;border-radius:15px;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap;cursor:pointer}
-.league-chip.active{background:#00ff88;color:#000}
-.card{background:#151515;margin:12px;border-radius:14px;padding:14px;border:1px solid #222;position:relative}
-.card-top{display:flex;justify-content:space-between;color:#888;font-size:11px}
-.live-dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;margin-right:5px;animation:blink 1s infinite}
-@keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
-.card-match{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-weight:bold;font-size:15px}
-.vs{color:#555;font-size:11px;background:#222;padding:3px 8px;border-radius:10px}
-.tip-box{background:#1e1e1e;padding:11px;border-radius:10px;border-left:3px solid #00ff88;margin:10px 0;display:flex;justify-content:space-between}
-.tip-box b{color:#00ff88}
-.tip-box.vip{border-left-color:gold;filter:blur(4px);user-select:none}
-.action-row{display:flex;gap:8px;margin-top:12px}
-.action-row button{flex:1;padding:10px;border-radius:9px;border:1px solid #333;font-size:12px;font-weight:bold;cursor:pointer}
-.btn-copy{background:#00ff88;color:#000;border:none}
-.btn-stat,.btn-share{background:#222;color:#fff}
-.btn-vip{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;border:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:10px 20px;border-radius:20px;z-index:5}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;z-index:200}
-.nav-item{text-align:center;color:#666;font-size:10px;cursor:pointer}
-.nav-item.active{color:#00ff88}
-.page{display:none;padding:12px}
-.page.active{display:block}
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:300;align-items:center;justify-content:center;padding:20px}
-.modal.active{display:flex}
-.modal-box{background:#151515;border:1px solid #333;border-radius:14px;padding:20px;width:100%;max-width:320px}
+.filters{padding:12px;position:sticky;top:58px;background:#0a0a0a;z-index:9}
+.row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.row::-webkit-scrollbar{display:none}
+.fbtn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;white-space:nowrap;font-size:13px}
+.fbtn.on{background:#00ff88;color:#000;font-weight:bold}
+.chip{background:#1a1a1a;color:#aaa;padding:7px 14px;border-radius:15px;font-size:12px;border:1px solid #2a2a2a;white-space:nowrap}
+.chip.on{background:#00ff88;color:#000}
+.card{background:#151515;margin:12px;border-radius:14px;padding:14px;border:1px solid #222}
+.top{display:flex;justify-content:space-between;color:#888;font-size:11px}
+.dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;margin-right:4px;animation:b 1s infinite}
+@keyframes b{0%,100%{opacity:1}50%{opacity:0}}
+.mid{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-weight:bold}
+.vs{color:#555;font-size:11px;background:#222;padding:2px 8px;border-radius:10px}
+.tip{background:#1e1e1e;padding:10px;border-radius:10px;border-left:3px solid #00ff88;margin:8px 0}
+.tip b{color:#00ff88}
+.btns{display:flex;gap:8px;margin-top:10px}
+.btns button{flex:1;padding:10px;border-radius:8px;border:1px solid #333;font-weight:bold;font-size:12px}
+.copy{background:#00ff88;color:#000;border:none}
+.stat,.share{background:#222;color:#fff}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
+.n{color:#666;font-size:10px;text-align:center}
+.n.on{color:#00ff88}
+#vip,#live{display:none;padding:20px}
+#vip.show,#live.show,#home.show{display:block}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:99;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.box{background:#151515;border:1px solid #333;border-radius:12px;padding:18px;width:100%;max-width:320px}
 </style>
 </head>
 <body>
 <div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#777">AI POWERED - 87% ACCURACY</p></div>
 
-<div id="home-page" class="page active">
-<div class="filter-bar">
-<div class="filter-row">
-<button class="filter-btn active" data-filter="all">ALL</button>
-<button class="filter-btn" data-filter="today">Today</button>
-<button class="filter-btn" data-filter="live"><span class="live-dot"></span>Live</button>
-<button class="filter-btn
+<div id="home" class="show">
+<div class="filters">
+<div class="row" id="fRow">
+<button class="fbtn on" onclick="setF('all',this)">ALL</button>
+<button class="fbtn" onclick="setF('today',this)">Today</button>
+<button class="fbtn" onclick="setF('live',this)"><span class="dot"></span>Live</button>
+<button class="fbtn" onclick="setF('high',this)">87%+ Confidence</button>
+<button class="fbtn" onclick="setF('btts',this)">BTTS</button>
+<button class="fbtn" onclick="setF('over',this)">Over 2.5</button>
+</div>
+<div class="row">
+<span class="chip on" onclick="setL('all',this)">All Leagues</span>
+<span class="chip" onclick="setL('premier',this)">Premier League</span>
+<span class="chip" onclick="setL('laliga',this)">La Liga</span>
+<span class="chip" onclick="setL('seriea',this)">Serie A</span>
+<span class="chip" onclick="setL('bundesliga',this)">Bundesliga</span>
+</div>
+</div>
+<div id="games"></div>
+</div>
+
+<div id="vip">
+<div style="text-align:center;padding:30px 10px">
+<div style="font-size:40px">👑</div>
+<h2 style="color:#FFD700;margin:10px">VIP TIPS</h2>
+<p style="color:#888;font-size:12px">95%+ accuracy daily!</p>
+<div class="card" style="margin-top:20px;filter:blur(5px)">Man United vs Tottenham - HOME WIN @2.45</div>
+<button style="background:gold;color:#000;padding:12px 25px;border-radius:20px;border:none;font-weight:bold;margin-top:10px" onclick="window.open('https://t.me/')">Unlock - Join Telegram</button>
+</div>
+</div>
+
+<div id="live">
+<div style="text-align:center;padding:40px 10px">
+<h3 style="color:red"><span class="dot"></span>LIVE NOW</h3>
+<div id="liveGames" style="margin-top:20px"></div>
+</div>
+</div>
+
+<div class="modal" id="m" onclick="this.classList.remove('show')">
+<div class="box" onclick="event.stopPropagation()">
+<h3 style="color:#00ff88" id="mt">Stats</h3>
+<p style="color:#ccc;font-size:13px;margin-top:10px;line-height:20px">
+Form: WWWLD - WWWWW<br>
+H2H: 2W -1D -2W<br>
+Avg Goals: 2.8<br>
+AI: 87% Strong
+</p>
+<button onclick="document.getElementById('m').classList.remove('show')" style="background:#00ff88;color:#000;width:100%;padding:10px;border:none;border-radius:8px;margin-top:12px;font-weight:bold">Close</button>
+</div>
+</div>
+
+<div class="nav">
+<div class="n on" onclick="page('home',this)">H<br>Home</div>
+<div class="n" onclick="page('live',this)"><span style="color:red">L</span><br>Live</div>
+<div class="n" onclick="page('vip',this)">*<br>VIP</div>
+<div class="n">R<br>Results</div>
+<div class="n">S<br>Settings</div>
+</div>
+
+<script>
+var games=[
+{h:"Arsenal",a:"Man City",l:"Premier League - 18:00",t:"Arsenal WIN",o:"2.17",c:87,tag:"premier",type:"home",live:false},
+{h:"Real Madrid",a:"Barcelona",l:"La Liga - 19:30",t:"BTTS YES",o:"1.80",c:91,tag:"laliga",type:"btts",live:true},
+{h:"Inter Milan",a:"AC Milan",l:"Serie A - 20:45",t:"Over 2.5",o:"1.95",c:84,tag:"seriea",type:"over",live:false},
+{h:"Bayern Munich",a:"Dortmund",l:"Bundesliga - 17:30",t:"Home Win",o:"1.65",c:89,tag:"bundesliga",type:"home",live:true},
+{h:"Chelsea",a:"Liverpool",l:"Premier League - 20:00",t:"BTTS YES",o:"1.75",c:90,tag:"premier",type:"btts",live:false}
+];
+var curF="all", curL="all";
+function draw(){
+var gEl=document.getElementById("games");
+var liveEl=document.getElementById("liveGames");
+var html=""; var liveHtml="";
+games.forEach(function(g){
+var show=true;
+if(curF=="high" && g.c<87) show=false;
+if(curF=="btts" && g.type!="btts") show=false;
+if(curF=="over" && g.type!="over") show=false;
+if(curF=="live" && !g.live) show=false;
+if(curL!="all" && g.tag!=curL) show=false;
+if(show){
+var card='<div class="card"><div class="top"><span>'+(g.live?'<span class="dot"></span>LIVE - ':'')+g.l+'</span><span style="color:#00ff88;font-weight:bold">'+g.c+'%</span></div><div class="mid"><span>'+g.h+'</span><span class="vs">VS</span><span>'+g.a+'</span></div><div class="tip">Tip: <b>'+g.t+'</b> @'+g.o+'</div><div class="btns"><button class="stat" onclick="openM(\''+g.h+' vs '+g.a+'\')">Stats</button><button class="copy" onclick="navigator.clipboard.writeText(\''+g.h+' vs '+g.a+' - '+g.t+' @'+g.o+'\');this.innerText=\'Copied!\';setTimeout(()=>this.innerText=\'Copy Tip\',1500)">Copy Tip</button><button class="share" onclick="if(navigator.share)navigator.share({text:\''+g.h+' vs '+g.a+' - '+g.t+' @'+g.o+'\'})">Share</button></div></div>';
+html+=card;
+if(g.live) liveHtml+=card;
+}
+});
+gEl.innerHTML=html||'<div style="text-align:center;padding:40px;color:#666">No games</div>';
+liveEl.innerHTML=liveHtml||'<div style="color:#666">No live games now</div>';
+}
+function setF(f,el){
+document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("on"));
+el.classList.add("on");
+curF=f; draw();
+}
+function setL(l,el){
+document.querySelectorAll(".chip").forEach(b=>b.classList.remove("on"));
+el.classList.add("on");
+curL=l; draw();
+}
+function page(id,el){
+document.getElementById("home").classList.remove("show");
+document.getElementById("vip").classList.remove("show");
+document.getElementById("live").classList.remove("show");
+document.getElementById(id).classList.add("show");
+document.querySelectorAll(".n").forEach(n=>n.classList.remove("on"));
+if(el) el.classList.add("on");
+if(id=="live"){curF="live"; draw();}
+if(id=="home"){curF="all"; draw();}
+}
+function openM(title){
+document.getElementById("mt").innerText=title+" - Stats";
+document.getElementById("m").classList.add("show");
+}
+draw();
+</script>
+</body>
+</html>

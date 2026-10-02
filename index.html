@@ -28,49 +28,12 @@ body{background:#0a0a0a;color:#fff;padding-bottom:75px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
 .nav div{color:#666;font-size:10px;text-align:center}
 .nav div.on{color:#00ff88}
+.hide{display:none!important}
 </style>
 </head>
 <body>
-<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#666">1X2 + TODAY - OCT 2 2026</p></div>
+<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#666">CLICK FILTERS - THEY WORK NOW!</p></div>
 
-<div class="filters">
-<button class="on">ALL</button>
-<button>1</button>
-<button>X</button>
-<button>2</button>
-<button>BTTS</button>
-<button>Over 2.5</button>
-</div>
-<div class="filters">
-<button class="on">All Leagues</button>
-<button>Premier League</button>
-<button>La Liga</button>
-<button>Serie A</button>
-<button>Bundesliga</button>
-</div>
-
-<div class="card"><div class="top"><span>PL - FT 1-2</span><span style="color:#00ff88">88% - Over</span></div><div class="mid"><span>Arsenal</span><span class="vs">VS</span><span>Bournemouth</span></div><div class="tip"><span>Tip: <b>Over 2.5 @1.95</b> - WON ✅</span><span class="badge b1">OVER</span></div></div>
-
-<div class="card"><div class="top"><span><span class="dot"></span> LIVE - 18:30 DERBY</span><span style="color:#00ff88">90% - 1</span></div><div class="mid"><span>Barcelona</span><span class="vs">VS</span><span>Espanyol</span></div><div class="tip"><span>Tip: <b>Barcelona WIN @1.55</b></span><span class="badge b1">1</span></div></div>
-
-<div class="card"><div class="top"><span>La Liga - FT 3-3</span><span style="color:#00ff88">94% - BTTS</span></div><div class="mid"><span>Sociedad</span><span class="vs">VS</span><span>Alaves</span></div><div class="tip"><span>Tip: <b>BTTS YES @1.80</b> - WON ✅</span><span class="badge bx">BTTS</span></div></div>
-
-<div class="card"><div class="top"><span>PL - 18:30 Tonight</span><span style="color:#00ff88">92% - 1</span></div><div class="mid"><span>Liverpool</span><span class="vs">VS</span><span>Fulham</span></div><div class="tip"><span>Tip: <b>Liverpool WIN @1.45</b></span><span class="badge b1">1</span></div></div>
-
-<div class="card"><div class="top"><span>Bundesliga - FT 1-0</span><span style="color:#00ff88">86% - 1</span></div><div class="mid"><span>Leverkusen</span><span class="vs">VS</span><span>Dortmund</span></div><div class="tip"><span>Tip: <b>Home WIN @2.10</b> - WON ✅</span><span class="badge b1">1</span></div></div>
-
-<div class="card"><div class="top"><span>Serie A - 18:00</span><span style="color:#00ff88">89% - 1</span></div><div class="mid"><span>AC Milan</span><span class="vs">VS</span><span>Udinese</span></div><div class="tip"><span>Tip: <b>AC Milan WIN @1.70</b></span><span class="badge b1">1</span></div></div>
-
-<div class="card" style="border:1px dashed #00ff88"><div class="top"><span>Example - Draw</span><span style="color:#888">75% - X</span></div><div class="mid"><span>Chelsea</span><span class="vs">VS</span><span>Man United</span></div><div class="tip"><span>Tip: <b>DRAW @3.20</b></span><span class="badge bx">X</span></div></div>
-
-<div class="card" style="border:1px dashed #ff4444"><div class="top"><span>Example - Away</span><span style="color:#888">80% - 2</span></div><div class="mid"><span>Getafe</span><span class="vs">VS</span><span>Real Madrid</span></div><div class="tip"><span>Tip: <b>Away WIN @1.90</b></span><span class="badge b2">2</span></div></div>
-
-<div class="nav">
-<div class="on">H<br>Home</div>
-<div>L<br>Live</div>
-<div>*<br>VIP</div>
-<div>R<br>Results</div>
-<div>S<br>Settings</div>
-</div>
-</body>
-</html>
+<div class="filters" id="f1">
+<button class="on" onclick="setM('all',this)">ALL</button>
+<button onclick="setM('1',this)">1</button>

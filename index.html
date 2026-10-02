@@ -5,23 +5,62 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Salvation Predict</title>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:Arial;padding-bottom:60px}
-h1{color:#00ff88;text-align:center;padding:16px;background:#111}
-.card{background:#151515;margin:12px;border-radius:12px;padding:14px;border:1px solid #222}
-.tip{background:#1e1e1e;padding:10px;border-left:3px solid #00ff88;margin-top:8px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#0a0a0a;color:#fff;padding-bottom:75px}
+.header{background:#111;padding:16px;text-align:center;border-bottom:2px solid #00ff88}
+.header h1{color:#00ff88;font-size:22px}
+.filters{padding:10px;display:flex;gap:6px;overflow-x:auto}
+.filters button{padding:7px 12px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;font-size:12px;white-space:nowrap}
+.filters button.on{background:#00ff88;color:#000;font-weight:bold}
+.card{background:#151515;margin:10px;border-radius:12px;padding:12px;border:1px solid #222}
+.top{color:#888;font-size:11px;display:flex;justify-content:space-between}
+.mid{margin:10px 0;font-weight:bold;display:flex;justify-content:space-between}
+.vs{background:#222;padding:2px 8px;border-radius:10px;font-size:10px;color:#666}
+.tip{background:#1e1e1e;padding:9px;border-radius:8px;border-left:3px solid #00ff88;margin-top:8px;font-size:13px}
+.tip b{color:#00ff88}
+.dot{width:7px;height:7px;background:red;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
+.nav div{color:#666;font-size:10px;text-align:center}
+.nav div.on{color:#00ff88}
 </style>
 </head>
 <body>
-<h1>SALVATION PREDICT</h1>
-<div class="card">
-<div>PL - FT 1-2 - 88%</div>
-<div style="margin:10px 0;font-weight:bold">Arsenal vs Bournemouth</div>
-<div class="tip">Tip: Over 2.5 @1.95 - WON</div>
+<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:10px;color:#666">LIVE TODAY - OCT 2 2026</p></div>
+
+<div class="filters">
+<button class="on">ALL</button>
+<button><span class="dot"></span> Live</button>
+<button>87%+</button>
+<button>BTTS</button>
+<button>Over 2.5</button>
 </div>
-<div class="card">
-<div>LIVE - La Liga 18:30 - 90%</div>
-<div style="margin:10px 0;font-weight:bold">Barcelona vs Espanyol</div>
-<div class="tip">Tip: Barcelona WIN @1.55</div>
+<div class="filters">
+<button class="on">All Leagues</button>
+<button>Premier League</button>
+<button>La Liga</button>
+<button>Serie A</button>
+<button>Bundesliga</button>
+</div>
+
+<div class="card"><div class="top"><span>PL - FT 1-2</span><span style="color:#00ff88">88%</span></div><div class="mid"><span>Arsenal</span><span class="vs">VS</span><span>Bournemouth</span></div><div class="tip">Tip: <b>Over 2.5 @1.95</b> - WON ✅</div></div>
+
+<div class="card"><div class="top"><span><span class="dot"></span> LIVE - 18:30 DERBY</span><span style="color:#00ff88">90%</span></div><div class="mid"><span>Barcelona</span><span class="vs">VS</span><span>Espanyol</span></div><div class="tip">Tip: <b>Barcelona WIN @1.55</b></div></div>
+
+<div class="card"><div class="top"><span>La Liga - FT 3-3</span><span style="color:#00ff88">94%</span></div><div class="mid"><span>Sociedad</span><span class="vs">VS</span><span>Alaves</span></div><div class="tip">Tip: <b>BTTS YES @1.80</b> - WON ✅</div></div>
+
+<div class="card"><div class="top"><span>PL - 18:30 Tonight</span><span style="color:#00ff88">92%</span></div><div class="mid"><span>Liverpool</span><span class="vs">VS</span><span>Fulham</span></div><div class="tip">Tip: <b>Liverpool WIN @1.45</b></div></div>
+
+<div class="card"><div class="top"><span>Bundesliga - FT 1-0</span><span style="color:#00ff88">86%</span></div><div class="mid"><span>Leverkusen</span><span class="vs">VS</span><span>Dortmund</span></div><div class="tip">Tip: <b>Home WIN @2.10</b> - WON ✅</div></div>
+
+<div class="card"><div class="top"><span>Serie A - 18:00</span><span style="color:#00ff88">89%</span></div><div class="mid"><span>AC Milan</span><span class="vs">VS</span><span>Udinese</span></div><div class="tip">Tip: <b>AC Milan WIN @1.70</b></div></div>
+
+<div class="nav">
+<div class="on">H<br>Home</div>
+<div>L<br>Live</div>
+<div>*<br>VIP</div>
+<div>R<br>Results</div>
+<div>S<br>Settings</div>
 </div>
 </body>
 </html>

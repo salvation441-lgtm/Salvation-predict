@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Salvation Predict</title>
-<meta name="theme-color" content="#00ff88">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0a0a0a;color:#fff;padding-bottom:75px}
@@ -46,7 +45,6 @@ body{background:#0a0a0a;color:#fff;padding-bottom:75px}
 <div class="filters">
 <div class="row">
 <button class="fbtn on" onclick="setF('all',this)">ALL</button>
-<button class="fbtn" onclick="setF('today',this)">Today</button>
 <button class="fbtn" onclick="setF('live',this)"><span class="dot"></span>Live</button>
 <button class="fbtn" onclick="setF('high',this)">87%+ Confidence</button>
 <button class="fbtn" onclick="setF('btts',this)">BTTS</button>
@@ -63,29 +61,13 @@ body{background:#0a0a0a;color:#fff;padding-bottom:75px}
 <div id="games"></div>
 </div>
 
-<div id="live" class="page"><div style="text-align:center;padding:20px 10px"><h3 style="color:red"><span class="dot"></span> LIVE NOW</h3><div id="liveGames" style="margin-top:20px"></div></div></div>
-<div id="vip" class="page"><div style="text-align:center;padding:30px 10px"><div style="font-size:40px">👑</div><h2 style="color:#FFD700;margin:10px">VIP TIPS</h2><p style="color:#888;font-size:12px">95%+ accuracy today!</p><div class="card" style="margin-top:20px;filter:blur(5px)">Man United vs Tottenham - HOME WIN @2.45</div><button style="background:gold;color:#000;padding:12px 25px;border-radius:20px;border:none;font-weight:bold;margin-top:10px" onclick="window.open('https://t.me/')">Unlock VIP</button></div></div>
-<div id="results" class="page"><div style="padding:20px"><h3 style="color:#00ff88">✅ Today's Results</h3><div class="card"><div class="top"><span>FT - Real Sociedad 3-3 Alaves</span><span style="color:#00ff88">WON ✅</span></div><div class="tip">Tip: BTTS YES @1.80 - WON</div></div><div class="card"><div class="top"><span>FT - Arsenal 1-2 Bournemouth</span><span style="color:#00ff88">WON ✅</span></div><div class="tip">Tip: Over 2.5 @1.95 - WON (3 goals)</div></div><div class="card"><div class="top"><span>FT - Leverkusen 1-0 Dortmund</span><span style="color:#00ff88">WON ✅</span></div><div class="tip">Tip: Home Win @2.10 - WON</div></div></div></div>
-<div id="settings" class="page"><div style="padding:20px"><h3 style="color:#00ff88;margin-bottom:20px">⚙️ Settings</h3><div class="card"><div style="display:flex;justify-content:space-between">Notifications <span style="color:#00ff88">ON</span></div></div><div class="card"><div style="display:flex;justify-content:space-between">Theme <span>Dark + Green</span></div></div><div class="card"><div style="display:flex;justify-content:space-between">Version <span>v2.0 - Oct 2 Live</span></div></div></div></div>
+<div id="live" class="page"><div style="text-align:center;padding:20px"><h3 style="color:red"><span class="dot"></span> LIVE NOW</h3><div id="liveGames" style="margin-top:20px"></div></div></div>
+<div id="vip" class="page"><div style="text-align:center;padding:30px"><div style="font-size:40px">👑</div><h2 style="color:#FFD700">VIP TIPS</h2><p style="color:#888;font-size:12px;margin-top:10px">Join Telegram for 95% tips</p><button style="background:gold;color:#000;padding:12px 25px;border-radius:20px;border:none;font-weight:bold;margin-top:20px">Unlock VIP</button></div></div>
+<div id="results" class="page"><div style="padding:10px"><h3 style="color:#00ff88">Results Oct 2</h3><div class="card"><div class="top"><span>FT Sociedad 3-3 Alaves</span><span style="color:#00ff88">WON</span></div><div class="tip">BTTS YES @1.80 - WON</div></div><div class="card"><div class="top"><span>FT Arsenal 1-2 Bournemouth</span><span style="color:#00ff88">WON</span></div><div class="tip">Over 2.5 @1.95 - WON</div></div><div class="card"><div class="top"><span>FT Leverkusen 1-0 Dortmund</span><span style="color:#00ff88">WON</span></div><div class="tip">Home Win @2.10 - WON</div></div></div></div>
+<div id="settings" class="page"><div style="padding:20px"><h3 style="color:#00ff88;margin-bottom:15px">Settings</h3><div class="card">Notifications <span style="float:right;color:#00ff88">ON</span></div><div class="card">Version <span style="float:right">v2.0 Ghana</span></div></div></div>
 
-<div class="modal" id="m" onclick="this.classList.remove('show')"><div class="box" onclick="event.stopPropagation()"><h3 style="color:#00ff88" id="mt">Stats</h3><p style="color:#ccc;font-size:13px;margin-top:10px;line-height:20px" id="mb">Loading...</p><button onclick="document.getElementById('m').classList.remove('show')" style="background:#00ff88;color:#000;width:100%;padding:10px;border:none;border-radius:8px;margin-top:12px;font-weight:bold">Close</button></div></div>
+<div class="modal" id="m" onclick="this.classList.remove('show')"><div class="box" onclick="event.stopPropagation()"><h3 id="mt" style="color:#00ff88">Stats</h3><p id="mb" style="color:#ccc;font-size:13px;margin-top:10px;line-height:20px">Loading</p><button onclick="document.getElementById('m').classList.remove('show')" style="background:#00ff88;color:#000;width:100%;padding:10px;border:none;border-radius:8px;margin-top:12px;font-weight:bold">Close</button></div></div>
 
 <div class="nav">
 <div class="n on" onclick="page('home',this)">H<br>Home</div>
-<div class="n" onclick="page('live',this)"><span style="color:red">L</span><br>Live</div>
-<div class="n" onclick="page('vip',this)">*<br>VIP</div>
-<div class="n" onclick="page('results',this)">R<br>Results</div>
-<div class="n" onclick="page('settings',this)">S<br>Settings</div>
-</div>
-
-<script>
-// TODAY REAL GAMES - Oct 2, 2026 - From Flashscore live
-var games=[
-{h:"Arsenal",a:"Bournemouth",l:"Premier League - FT 1-2",t:"Over 2.5 Goals",o:"1.95",c:88,tag:"premier",type:"over",live:false,stats:"Arsenal lost! Bournemouth won 2-1 at Emirates. Huge upset!"},
-{h:"Liverpool",a:"Fulham",l:"Premier League - 18:30",t:"Liverpool WIN",o:"1.45",c:92,tag:"premier",type:"home",live:false,stats:"Liverpool desperate to end 3-game losing streak. Fulham tough away."},
-{h:"Real Sociedad",a:"Alaves",l:"La Liga - FT 3-3",t:"BTTS YES",o:"1.80",c:94,tag:"laliga",type:"btts",live:false,stats:"Epic 3-3 Basque derby! 6 goals, both teams scored."},
-{h:"Barcelona",a:"Espanyol",l:"La Liga - 18:30 DERBY",t:"Barcelona WIN",o:"1.55",c:90,tag:"laliga",type:"home",live:true,stats:"Big Barcelona derby! Barca home favorite."},
-{h:"Elche",a:"Valencia",l:"La Liga - 16:30",t:"BTTS YES",o:"1.85",c:87,tag:"laliga",type:"btts",live:true,stats:"Relegation battle! Both need goals."},
-{h:"AC Milan",a:"Udinese",l:"Serie A - 18:00",t:"AC Milan WIN",o:"1.70",c:89,tag:"seriea",type:"home",live:false,stats:"Milan can go 2nd if win vs Udinese."},
-{h:"Bayer Leverkusen",a:"Dortmund",l:"Bundesliga - FT 1-0",t:"Leverkusen WIN",o:"2.10",c:86,tag:"bundesliga",type:"home",live:false,stats:"Leverkusen beat Dortmund 1-0, Andrich scored."},
-{h:"RB Leipzig",a:"Mönchengladbach",l:"Bundesliga - FT 1-0",t
+<div

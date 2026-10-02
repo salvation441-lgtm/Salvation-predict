@@ -6,94 +6,68 @@
 <title>Salvation</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#0a0a0a;color:#fff;padding-bottom:70px}
-.header{background:#111;padding:14px;text-align:center;border-bottom:2px solid #00ff88}
-.header h1{color:#00ff88;font-size:20px}
+body{background:#0a0a0a;color:#fff;padding-bottom:60px}
+.header{background:#111;padding:14px;text-align:center;border-bottom:2px solid #0f8}
+.header h1{color:#0f8;font-size:20px}
 .f{padding:8px;display:flex;gap:5px;overflow-x:auto}
-.f::-webkit-scrollbar{display:none}
-.f button{padding:6px 10px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;font-size:11px;white-space:nowrap}
-.f button.on{background:#00ff88;color:#000;font-weight:bold}
+.f button{padding:6px 10px;border-radius:20px;border:1px solid #333;background:#222;color:#fff;font-size:11px}
+.f button.on{background:#0f8;color:#000;font-weight:bold}
 .card{background:#151515;margin:8px;border-radius:10px;padding:10px;border:1px solid #222}
 .top{color:#888;font-size:10px;display:flex;justify-content:space-between}
 .mid{margin:8px 0;font-weight:bold;display:flex;justify-content:space-between}
-.b{padding:2px 6px;border-radius:5px;font-size:10px;font-weight:bold}
-.b1{background:#00ff88;color:#000}.bx{background:#555;color:#fff}
-.tip{background:#1e1e1e;padding:8px;border-radius:6px;border-left:3px solid #00ff88;margin-top:6px;font-size:12px}
-.tip b{color:#00ff88}
+.b{padding:2px 6px;border-radius:5px;font-size:10px;font-weight:bold;background:#0f8;color:#000}
+.tip{background:#1e1e1e;padding:8px;border-radius:6px;border-left:3px solid #0f8;margin-top:6px;font-size:12px}
 .sec{display:none;padding:10px}.sec.on{display:block}
-.stat{background:#151515;padding:15px;border-radius:10px;text-align:center;margin:10px;border:1px solid #222}
-.stat h2{color:#00ff88;font-size:28px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
-.nav div{color:#666;font-size:10px;text-align:center;flex:1}
-.nav div.on{color:#00ff88}
+.nav div{color:#666;font-size:10px;text-align:center;flex:1}.nav div.on{color:#0f8}
 </style>
 </head>
 <body>
-<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:9px;color:#666" id="hdr">HOME - OCT 2 2026</p></div>
+<div class="header"><h1>SALVATION PREDICT</h1><p style="font-size:9px;color:#666">OCT 2 2026 - WORKING</p></div>
 
 <div id="home" class="sec on">
 <div class="f">
-<button class="on" onclick="fm('all',this)">ALL</button>
-<button onclick="fm('1',this)">1</button>
-<button onclick="fm('x',this)">X</button>
-<button onclick="fm('2',this)">2</button>
-<button onclick="fm('btts',this)">BTTS</button>
-<button onclick="fm('over',this)">OVER</button>
+<button class="on" onclick="a('all',this)">ALL</button>
+<button onclick="a('1',this)">1</button>
+<button onclick="a('x',this)">X</button>
+<button onclick="a('2',this)">2</button>
+<button onclick="a('btts',this)">BTTS</button>
+<button onclick="a('over',this)">OVER</button>
 </div>
 <div class="f">
-<button class="on" onclick="fl('all',this)">All</button>
-<button onclick="fl('premier',this)">PL</button>
-<button onclick="fl('laliga',this)">La Liga</button>
-<button onclick="fl('seriea',this)">Serie A</button>
-<button onclick="fl('bundes',this)">Bundes</button>
+<button class="on" onclick="b('all',this)">All</button>
+<button onclick="b('premier',this)">PL</button>
+<button onclick="b('laliga',this)">La Liga</button>
+<button onclick="b('seriea',this)">Serie A</button>
+<button onclick="b('bundes',this)">Bundes</button>
 </div>
-<div class="card" data-m="over" data-l="premier"><div class="top"><span>PL FT 1-2</span><span style="color:#00ff88">88%</span></div><div class="mid"><span>Arsenal vs Bournemouth</span><span class="b b1">OVER</span></div><div class="tip">Over 2.5 @1.95 <b style="color:#00ff88">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="laliga"><div class="top"><span>LIVE 18:30 DERBY</span><span style="color:#00ff88">90%</span></div><div class="mid"><span>Barcelona vs Espanyol</span><span class="b b1">1</span></div><div class="tip">Barca WIN @1.55</div></div>
-<div class="card" data-m="btts" data-l="laliga"><div class="top"><span>FT 3-3</span><span style="color:#00ff88">94%</span></div><div class="mid"><span>Sociedad vs Alaves</span><span class="b bx">BTTS</span></div><div class="tip">BTTS @1.80 <b style="color:#00ff88">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="premier"><div class="top"><span>PL 18:30</span><span style="color:#00ff88">92%</span></div><div class="mid"><span>Liverpool vs Fulham</span><span class="b b1">1</span></div><div class="tip">Liverpool WIN @1.45</div></div>
-<div class="card" data-m="1" data-l="bundes"><div class="top"><span>Bundes FT 1-0</span><span style="color:#00ff88">86%</span></div><div class="mid"><span>Leverkusen vs Dortmund</span><span class="b b1">1</span></div><div class="tip">Home @2.10 <b style="color:#00ff88">WON ✅</b></div></div>
-<div class="card" data-m="1" data-l="seriea"><div class="top"><span>Serie A 18:00</span><span style="color:#00ff88">89%</span></div><div class="mid"><span>AC Milan vs Udinese</span><span class="b b1">1</span></div><div class="tip">Milan WIN @1.70</div></div>
-</div>
-
-<div id="live" class="sec">
-<div class="card" style="border-left:3px solid red"><div class="top"><span style="color:red">● LIVE 67'</span><span>Barcelona 1-0 Espanyol</span></div><div class="mid"><span>Barcelona vs Espanyol</span><span class="b b1">1</span></div><div class="tip">Barca WIN @1.55 - Winning</div></div>
-<div class="card"><div class="top"><span>18:30 Tonight</span><span>Liverpool vs Fulham</span></div><div class="mid"><span>Coming up</span><span class="b b1">1</span></div></div>
+<div class="card" data-m="over" data-l="premier"><div class="top"><span>PL FT 1-2</span><span style="color:#0f8">88%</span></div><div class="mid"><span>Arsenal vs Bournemouth</span><span class="b">OVER</span></div><div class="tip">Over 2.5 @1.95 <b style="color:#0f8">WON ✅</b></div></div>
+<div class="card" data-m="1" data-l="laliga"><div class="top"><span>LIVE 18:30</span><span style="color:#0f8">90%</span></div><div class="mid"><span>Barcelona vs Espanyol</span><span class="b">1</span></div><div class="tip">Barca WIN @1.55</div></div>
+<div class="card" data-m="btts" data-l="laliga"><div class="top"><span>FT 3-3</span><span style="color:#0f8">94%</span></div><div class="mid"><span>Sociedad vs Alaves</span><span class="b">BTTS</span></div><div class="tip">BTTS @1.80 <b style="color:#0f8">WON ✅</b></div></div>
+<div class="card" data-m="1" data-l="premier"><div class="top"><span>PL 18:30</span><span style="color:#0f8">92%</span></div><div class="mid"><span>Liverpool vs Fulham</span><span class="b">1</span></div><div class="tip">Liverpool WIN @1.45</div></div>
+<div class="card" data-m="1" data-l="bundes"><div class="top"><span>Bundes FT 1-0</span><span style="color:#0f8">86%</span></div><div class="mid"><span>Leverkusen vs Dortmund</span><span class="b">1</span></div><div class="tip">Home @2.10 <b style="color:#0f8">WON ✅</b></div></div>
+<div class="card" data-m="1" data-l="seriea"><div class="top"><span>Serie A 18:00</span><span style="color:#0f8">89%</span></div><div class="mid"><span>AC Milan vs Udinese</span><span class="b">1</span></div><div class="tip">Milan WIN @1.70</div></div>
 </div>
 
-<div id="vip" class="sec">
-<div class="stat"><h2>🔒 VIP TIPS</h2><p style="color:#888;margin:10px 0">3 ODDS DAILY - 94% WIN RATE</p><p style="font-size:12px">WhatsApp: 054... to join</p><div style="margin-top:15px;background:#00ff88;color:#000;padding:12px;border-radius:8px;font-weight:bold">JOIN VIP - GH₵50/month</div></div>
-<div class="card"><div class="top"><span>VIP - Yesterday</span><span style="color:#00ff88">WON</span></div><div class="mid"><span>Man City + Over 2.5</span><span class="b b1">3.10 ODDS</span></div></div>
-</div>
-
-<div id="results" class="sec">
-<div class="stat"><h2>18 WON - 3 LOST</h2><p style="color:#00ff88">85.7% WIN RATE THIS WEEK</p></div>
-<div class="card"><div class="top"><span>Oct 2 - FT 1-2</span><span style="color:#00ff88">WON ✅</span></div><div class="mid"><span>Arsenal vs Bournemouth</span><span>Over 2.5</span></div></div>
-<div class="card"><div class="top"><span>Oct 2 - FT 3-3</span><span style="color:#00ff88">WON ✅</span></div><div class="mid"><span>Sociedad vs Alaves</span><span>BTTS</span></div></div>
-<div class="card"><div class="top"><span>Oct 2 - FT 1-0</span><span style="color:#00ff88">WON ✅</span></div><div class="mid"><span>Leverkusen vs Dortmund</span><span>1</span></div></div>
-</div>
-
-<div id="settings" class="sec">
-<div class="stat"><h2>⚙️ SETTINGS</h2></div>
-<div class="card"><div class="mid"><span>Notifications</span><span style="color:#00ff88">ON</span></div></div>
-<div class="card"><div class="mid"><span>Odds Format</span><span>Decimal</span></div></div>
-<div class="card"><div class="mid"><span>Share App</span><span>📤</span></div></div>
-<div class="card"><div class="mid"><span>Contact Support</span><span>WhatsApp</span></div></div>
-</div>
+<div id="live" class="sec"><div class="card"><div class="top"><span style="color:red">● LIVE</span><span>Barca 1-0 Espanyol 67'</span></div></div></div>
+<div id="vip" class="sec"><div class="card"><div class="mid"><span>VIP - GH₵50/month</span><span style="color:#0f8">JOIN</span></div></div></div>
+<div id="results" class="sec"><div class="card"><div class="mid"><span>This week: 18 WON - 3 LOST</span><span style="color:#0f8">85%</span></div></div></div>
+<div id="settings" class="sec"><div class="card"><div class="mid"><span>Share App</span><span>📤</span></div></div></div>
 
 <div class="nav">
-<div class="on" onclick="tab('home',this)">H<br>Home</div>
-<div onclick="tab('live',this)">L<br>Live</div>
-<div onclick="tab('vip',this)">*<br>VIP</div>
-<div onclick="tab('results',this)">R<br>Results</div>
-<div onclick="tab('settings',this)">S<br>Settings</div>
+<div class="on" onclick="t('home',this)">H<br>Home</div>
+<div onclick="t('live',this)">L<br>Live</div>
+<div onclick="t('vip',this)">*<br>VIP</div>
+<div onclick="t('results',this)">R<br>Results</div>
+<div onclick="t('settings',this)">S<br>Settings</div>
 </div>
 
 <script>
 var m='all',l='all';
-function fm(v,b){m=v;var a=b.parentNode.children;for(var i=0;i<a.length;i++)a[i].className='';b.className='on';go()}
-function fl(v,b){l=v;var a=b.parentNode.children;for(var i=0;i<a.length;i++)a[i].className='';b.className='on';go()}
-function go(){var c=document.querySelectorAll('#home.card');for(var i=0;i<c.length;i++){var d=c[i];var ok=(m=='all'||d.dataset.m==m)&&(l=='all'||d.dataset.l==l);d.style.display=ok?'':'none'}}
-function tab(id,el){var s=document.querySelectorAll('.sec');for(var i=0;i<s.length;i++)s[i].classList.remove('on');document.getElementById(id).classList.add('on');var n=document.querySelectorAll('.nav div');for(var i=0;i<n.length;i++)n[i].className='';el.className='on';document.getElementById('hdr').innerText=id.toUpperCase()+' - OCT 2 2026';window.scrollTo(0,0)}
+function a(v,e){m=v;var c=e.parentNode.children;for(i=0;i<c.length;i++)c[i].className='';e.className='on';f()}
+function b(v,e){l=v;var c=e.parentNode.children;for(i=0;i<c.length;i++)c[i].className='';e.className='on';f()}
+function f(){var d=document.querySelectorAll('#home.card');for(i=0;i<d.length;i++){var x=d[i];x.style.display=(m=='all'||x.dataset.m==m)&&(l=='all'||x.dataset.l==l)?'':'none'}}
+function t(i,e){var s=document.querySelectorAll('.sec');for(j=0;j<s.length;j++)s[j].classList.remove('on');document.getElementById(i).classList.add('on');var n=document.querySelectorAll('.nav div');for(j=0;j<n.length;j++)n[j].className='';e.className='on'}
 </script>
 </body>
 </html>

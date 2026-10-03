@@ -37,7 +37,13 @@
 <span>🏠 Home</span><span class="text-green-500">● LIVE</span><span onclick="payVIP()">👑 VIP</span><span>📊 Results</span><span>⚙️ Settings</span>
 </nav>
 
-<script>
+<script>function showTab(tab){
+ document.querySelectorAll('[id^="tab-"]').forEach(t=>t.classList.add('hidden'));
+ document.getElementById('tab-'+tab).classList.remove('hidden');
+ // update nav color
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('text-green-500'));
+ event.currentTarget.classList.add('text-green-500');
+}
 let activeType='ALL', activeLeague='ALL';
 let allGames=[
 {home:"Arsenal",away:"Bournemouth",league:"PL",type:"1",pred:"HOME WIN",conf:88,result:"WON",live:""},

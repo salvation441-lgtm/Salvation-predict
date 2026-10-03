@@ -1,103 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SALVATION PREDICT - 90% WIN</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<style>.hidden{display:none!important}</style>
-</head>
-<body class="bg-[#0a0a0a] text-white pb-24 font-sans">
-<header class="p-4 flex justify-between items-center border-b border-gray-800">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Salvation Predict</title><script src="https://cdn.tailwindcss.com"></script>
+<style>body{background:#0a0e1a;color:white;font-family:sans-serif}.no-scrollbar::-webkit-scrollbar{display:none}</style>
+</head><body>
+<div class="bg-black border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-50">
 <h1 class="font-black text-xl leading-none">SALVATION<br>PREDICT</h1>
-<div class="bg-green-600 text-[11px] font-bold px-3 py-2 rounded-lg leading-tight">OCT 3 2026<br>VIP 50 GHS</div>
-</header>
-
-<div class="flex gap-2 p-3 overflow-x-auto">
-<button id="f-ALL" onclick="setType('ALL')" class="bg-white text-black px-5 py-2 rounded-full text-sm font-bold shrink-0">ALL</button>
-<button id="f-1" onclick="setType('1')" class="bg-[#222] px-5 py-2 rounded-full text-sm shrink-0">1</button>
-<button id="f-X" onclick="setType('X')" class="bg-[#222] px-5 py-2 rounded-full text-sm shrink-0">X</button>
-<button id="f-2" onclick="setType('2')" class="bg-[#222] px-5 py-2 rounded-full text-sm shrink-0">2</button>
-<button id="f-BTTS" onclick="setType('BTTS')" class="bg-[#222] px-5 py-2 rounded-full text-sm shrink-0">BTTS</button>
-<button id="f-OVER" onclick="setType('OVER')" class="bg-[#222] px-5 py-2 rounded-full text-sm shrink-0">OVER</button>
+<button onclick="goVIP()" class="bg-green-600 text-xs font-bold px-3 py-2 rounded-lg">OCT 3 2026<br>VIP 50 GHS</button>
 </div>
 
-<div class="flex gap-2 px-3 overflow-x-auto">
-<button id="l-ALL" onclick="setLeague('ALL')" class="border-2 border-green-500 text-green-500 px-4 py-1.5 rounded-full text-sm shrink-0">ALL</button>
-<button id="l-PL" onclick="setLeague('PL')" class="border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0">PL</button>
-<button id="l-LaLiga" onclick="setLeague('LaLiga')" class="border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0">La Liga</button>
-<button id="l-SerieA" onclick="setLeague('SerieA')" class="border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0">Serie A</button>
-<button id="l-Bundes" onclick="setLeague('Bundes')" class="border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0">Bundes</button>
-<button id="l-GPL" onclick="setLeague('GPL')" class="border border-yellow-600 text-yellow-500 px-4 py-1.5 rounded-full text-sm shrink-0">GPL 🇬🇭</button>
+<div class="p-3 space-y-2 bg-black sticky top-[68px] z-40">
+<div class="flex gap-2 overflow-x-auto no-scrollbar">
+<button onclick="filterType('ALL',this)" class="type-btn bg-white text-black px-5 py-2 rounded-full text-sm font-bold">ALL</button>
+<button onclick="filterType('1',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">1</button>
+<button onclick="filterType('X',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">X</button>
+<button onclick="filterType('2',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">2</button>
+<button onclick="filterType('BTTS',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">BTTS</button>
+<button onclick="filterType('OVER',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">OVER</button>
+</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar">
+<button onclick="filterLeague('ALL',this)" class="league-btn border border-green-500 text-green-400 px-4 py-1.5 rounded-full text-xs">ALL</button>
+<button onclick="filterLeague('PL',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">PL</button>
+<button onclick="filterLeague('LaLiga',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">La Liga</button>
+<button onclick="filterLeague('SerieA',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">Serie A</button>
+<button onclick="filterLeague('Bundes',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">Bundes</button>
+<button onclick="filterLeague('GPL',this)" class="league-btn border border-yellow-500 text-yellow-400 px-4 py-1.5 rounded-full text-xs">GPL 🇬🇭</button>
+</div>
 </div>
 
-<div id="homePage" class="p-3 space-y-3 mt-1"></div>
-<div id="livePage" class="hidden p-4"><h2 class="font-black text-lg">🔴 LIVE SCORES</h2><p class="text-xs text-gray-400">Auto refresh every 30 sec</p><div id="liveList" class="mt-4 space-y-3"></div></div>
+<div id="games" class="p-3 space-y-3 pb-24"></div>
 
-<div id="vipPage" class="hidden p-6 text-center">
-<h2 class="text-3xl font-black">👑 VIP TIPS</h2>
-<p class="text-gray-400 mt-3 text-sm">Join 1,200+ winners. 90% accuracy daily.</p>
-<div class="bg-[#1a1f2e] mt-6 p-4 rounded-xl text-left text-sm space-y-2">
-<div>✅ 3-5 Sure Odds Daily (1.5 - 5 odds)</div>
-<div>✅ BTTS & OVER 2.5 Bankers</div>
-<div>✅ Correct Score Tips</div>
-<div>✅ WhatsApp Support 24/7</div>
+<div class="fixed bottom-0 left-0 right-0 bg-[#0f1420] border-t border-gray-800 flex justify-around py-2 text-[11px]">
+<button onclick="showHome()" class="flex flex-col items-center text-green-400"><span>🏠</span>Home</button>
+<button onclick="showLive()" class="flex flex-col items-center text-gray-500"><span>•</span>LIVE</button>
+<button onclick="goVIP()" class="flex flex-col items-center text-gray-500"><span>👑</span>VIP</button>
+<button class="flex flex-col items-center text-gray-500"><span>📊</span>Results</button>
+<button class="flex flex-col items-center text-gray-500"><span>⚙️</span>Settings</button>
 </div>
-<button onclick="payVIP()" class="mt-6 bg-yellow-500 text-black font-black w-full py-4 rounded-full text-lg">UNLOCK VIP - 50 GHS</button>
-<p class="text-[11px] text-gray-500 mt-3">Test Mode • Pay with MoMo • Instant Access</p>
-<div id="vipContent" class="hidden mt-6 text-left bg-green-900/20 border border-green-700 p-4 rounded-xl"><h3 class="font-bold text-green-400">🔥 TODAY VIP (UNLOCKED):</h3><p class="mt-2 text-sm">Man City vs Newcastle - OVER 2.5 (95%)<br>Hearts vs Kotoko - HOME WIN (88%)<br>Real Madrid vs Sevilla - BTTS YES (90%)</p></div>
-</div>
-
-<div id="resultsPage" class="hidden p-4"><h2 class="font-black">📊 RESULTS</h2><div class="mt-4 bg-green-900/30 border border-green-700 p-3 rounded-xl"><p class="text-green-400 font-bold">Yesterday: 8/10 WON ✅ +245% Profit</p><p class="text-sm mt-2 text-gray-300">Arsenal vs Bournemouth - WON 88% ✅<br>Barcelona vs Espanyol - WON 94% ✅<br>Hearts vs Kotoko - WON 85% ✅</p></div></div>
-
-<div id="settingsPage" class="hidden p-4"><h2 class="font-black">⚙️ SETTINGS</h2><div class="mt-4 space-y-3"><div class="bg-[#1a1f2e] p-4 rounded-xl flex justify-between"><span>🔔 Notifications</span><span class="text-green-400">ON</span></div><div class="bg-[#1a1f2e] p-4 rounded-xl">📞 WhatsApp: +233 XX XXX XXXX</div></div></div>
-
-<nav class="fixed bottom-0 left-0 right-0 w-full bg-black border-t border-gray-800 flex justify-around p-3 text-[11px]">
-<button onclick="showPage('home')" id="nav-home" class="flex flex-col items-center text-green-500">🏠<span>Home</span></button>
-<button onclick="showPage('live')" id="nav-live" class="flex flex-col items-center text-gray-400">●<span>LIVE</span></button>
-<button onclick="showPage('vip')" id="nav-vip" class="flex flex-col items-center text-gray-400">👑<span>VIP</span></button>
-<button onclick="showPage('results')" id="nav-results" class="flex flex-col items-center text-gray-400">📊<span>Results</span></button>
-<button onclick="showPage('settings')" id="nav-settings" class="flex flex-col items-center text-gray-400">⚙️<span>Settings</span></button>
-</nav>
 
 <script>
-let curType='ALL', curLeague='ALL';
-let games=[let saved = localStorage.getItem('salvation_games');
+let saved = localStorage.getItem('salvation_games');
 let games = saved? JSON.parse(saved) : [
-// TODAY - OCT 3 2026 - REAL GPL + TOP EUROPE
 {home:"Dreams FC",away:"Hearts of Oak",league:"GPL",leagueFull:"Ghana Premier - 80%",type:"1",pred:"AWAY WIN",conf:80,info:"15:00 TODAY 🔴"},
 {home:"Vision FC",away:"Bibiani Gold Stars",league:"GPL",leagueFull:"Ghana Premier - 75%",type:"1",pred:"HOME WIN",conf:75,info:"16:00 TODAY"},
-{home:"Arsenal",away:"Bournemouth",league:"PL",leagueFull:"Premier League - 88%",type:"1",pred:"HOME WIN",conf:88,info:"FT 2-0 WON ✅"},
+{home:"Arsenal",away:"Bournemouth",league:"PL",leagueFull:"PL - 88%",type:"1",pred:"HOME WIN",conf:88,info:"FT 2-0 WON ✅"},
 {home:"Man City",away:"Newcastle",league:"PL",leagueFull:"Premier League - 92%",type:"OVER",pred:"OVER 2.5",conf:92,info:"17:30"},
 {home:"Barcelona",away:"Espanyol",league:"LaLiga",leagueFull:"La Liga - 94%",type:"1",pred:"HOME WIN",conf:94,info:"19:00"},
-{home:"Inter Milan",away:"AC Milan",league:"SerieA",leagueFull:"Serie A - 85%",type:"BTTS",pred:"BTTS YES",conf:85,info:"20:45 Derby 🔥"},
-{home:"Bayern Munich",away:"Dortmund",league:"Bundes",leagueFull:"Bundesliga - 90%",type:"OVER",pred:"OVER 2.5",conf:90,info:"18:30 Klassiker"}
-];
-function setType(t){ curType=t; document.querySelectorAll('[id^="f-"]').forEach(b=>{b.className='bg-[#222] px-5 py-2 rounded-full text-sm shrink-0'}); document.getElementById('f-'+t).className='bg-white text-black px-5 py-2 rounded-full text-sm font-bold shrink-0'; render(); }
-function setLeague(l){ curLeague=l; document.querySelectorAll('[id^="l-"]').forEach(b=>{b.className='border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0'; if(b.id==='l-GPL') b.className='border border-yellow-600 text-yellow-500 px-4 py-1.5 rounded-full text-sm shrink-0'}); let el=document.getElementById('l-'+l); if(l==='ALL') el.className='border-2 border-green-500 text-green-500 px-4 py-1.5 rounded-full text-sm shrink-0'; else if(l==='GPL') el.className='border-2 border-yellow-500 text-yellow-400 px-4 py-1.5 rounded-full text-sm shrink-0'; else el.className='border-2 border-white text-white px-4 py-1.5 rounded-full text-sm shrink-0'; render(); }
-function render(){ let f=games.filter(g=>(curType==='ALL'||g.type===curType)&&(curLeague==='ALL'||g.league===curLeague)); let html=f.map(g=>` <div class="bg-[#1a1f2e] rounded-xl p-4 border border-gray-800"> <div class="flex justify-between text-xs"><span class="${g.league==='GPL'?'text-yellow-500':'text-gray-400'}">${g.leagueFull}</span><span class="text-green-400 font-bold">${g.conf}%</span></div> <div class="font-bold mt-2 text-[16px]">${g.home} vs ${g.away}</div> <div class="mt-3 flex justify-between items-center"><span class="bg-white text-black px-4 py-1 rounded-full text-xs font-black">${g.pred}</span><span class="text-sm ${g.info==='WON'?'text-green-400 font-bold':''}">${g.info}</span></div> </div>`).join(''); document.getElementById('homePage').innerHTML=html||'<p class="text-center text-gray-500 mt-20">No games for<br><b>'+curType+' + '+curLeague+'</b></p>'; document.getElementById('liveList').innerHTML=html; }
-function showPage(p){ document.getElementById('homePage').classList.add('hidden'); document.getElementById('livePage').classList.add('hidden'); document.getElementById('vipPage').classList.add('hidden'); document.getElementById('resultsPage').classList.add('hidden'); document.getElementById('settingsPage').classList.add('hidden'); document.querySelectorAll('nav button').forEach(b=>b.classList.replace('text-green-500','text-gray-400')); if(p==='home'){document.getElementById('homePage').classList.remove('hidden'); document.getElementById('nav-home').classList.replace('text-gray-400','text-green-500');} else{ document.getElementById(p+'Page').classList.remove('hidden'); document.getElementById('nav-'+p).classList.replace('text-gray-400','text-green-500'); } }
-function payVIP(){
-  const PAYSTACK_KEY = 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23';
-  let handler = PaystackPop.setup({
-    key: PAYSTACK_KEY,
-    email: 'test'+Math.floor(Math.random()*100000)+'@salvationpredict.com',
-    amount: 50*100,
-    currency: 'GHS',
-    channels: ['mobile_money','card'],
-    callback: function(res){
-      localStorage.setItem('vip','true');
-      document.getElementById('vipContent').classList.remove('hidden');
-      alert('Payment Successful! ✅ Ref: '+res.reference+'\nVIP unlocked!');
-    },
-    onClose: function(){ console.log('closed'); }
-  });
-  handler.openIframe();
-}
-async function refreshLive(){ try{ let r=await fetch('/api/live'); if(r.ok){ let d=await r.json(); if(d && d.length){ games=d; render(); }} }catch(e){} }
-setInterval(refreshLive, 30000); render();
-if(localStorage.getItem('vip')==='true'){ document.getElementById('vipContent').classList.remove('hidden'); }
-</script>
-</body>
-</html>
+{home:"Inter Milan",away:"AC Milan

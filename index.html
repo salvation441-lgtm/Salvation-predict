@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SALVATION PREDICT</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
-<body class="bg-[#0f0f0f] text-white pb-20">
+<body class="bg-[#0f0f0f] text-white pb-24">
 
 <header class="p-4 flex justify-between items-center border-b border-gray-800">
 <h1 class="font-black text-xl">SALVATION<br>PREDICT</h1>
-<div class="bg-green-600 text-xs font-bold px-3 py-2 rounded-lg">OCT 2 2026 -<br>WORKING</div>
+<div class="bg-green-600 text-xs font-bold px-3 py-2 rounded-lg">OCT 2 2026 - WORKING</div>
 </header>
 
 <div class="flex gap-2 p-3 overflow-x-auto">
@@ -25,46 +26,37 @@
 <div class="flex gap-2 px-3 overflow-x-auto">
 <button id="league-ALL" onclick="setLeague('ALL')" class="league-btn border-2 border-green-500 text-green-500 px-4 py-1 rounded-full text-sm">ALL</button>
 <button id="league-PL" onclick="setLeague('PL')" class="league-btn border border-gray-700 text-gray-400 px-4 py-1 rounded-full text-sm">PL</button>
-<button id="league-LaLiga" onclick="setLeague('LaLiga')" class="league-btn border border-gray-700 px-4 py-1 rounded-full text-sm">La Liga</button>
-<button id="league-SerieA" onclick="setLeague('SerieA')" class="league-btn border border-gray-700 px-4 py-1 rounded-full text-sm">Serie A</button>
-<button id="league-Bundes" onclick="setLeague('Bundes')" class="league-btn border border-gray-700 px-4 py-1 rounded-full text-sm">Bundes</button>
+<button id="league-LaLiga" onclick="setLeague('LaLiga')" class="league-btn border border-gray-700 text-gray-400 px-4 py-1 rounded-full text-sm">La Liga</button>
+<button id="league-SerieA" onclick="setLeague('SerieA')" class="league-btn border border-gray-700 text-gray-400 px-4 py-1 rounded-full text-sm">Serie A</button>
+<button id="league-Bundes" onclick="setLeague('Bundes')" class="league-btn border border-gray-700 text-gray-400 px-4 py-1 rounded-full text-sm">Bundes</button>
 <button id="league-GPL" onclick="setLeague('GPL')" class="league-btn border border-yellow-600 text-yellow-500 px-4 py-1 rounded-full text-sm">GPL 🇬🇭</button>
 </div>
 
-<div id="games"<!-- TABS CONTENT -->
-<div id="tab-LIVE" class="hidden p-4"><h2 class="font-bold">🔴 LIVE GAMES</h2><p class="text-gray-400 text-sm mt-2">All live scores dey here. API go update every 30 sec.</p><div id="live-games" class="mt-4"></div></div>
+<!-- GAMES LIST -->
+<div id="games" class="p-3 space-y-3 mt-1"></div>
 
-<div id="tab-VIP" class="hidden p-4 text-center">
-<h2 class="text-2xl font-black">👑 VIP TIPS</h2>
-<p class="text-gray-400 mt-2">Win 90% daily. Pay 50 GHS via MoMo</p>
-<button onclick="payVIP()" class="mt-6 bg-yellow-500 text-black font-black px-8 py-3 rounded-full w-full">UNLOCK VIP - 50 GHS</button>
-<p class="text-xs text-gray-500 mt-3">✅ 3-5 Sure Odds Daily<br>✅ BTTS & Over 2.5<br>✅ WhatsApp Support</p>
-</div>
-
-<div id="tab-Results" class="hidden p-4"><h2 class="font-bold">📊 RESULTS</h2><p class="text-green-400 font-bold mt-4">Yesterday: 8/10 WON ✅</p><p class="text-gray-400 text-sm">Arsenal vs Bmouth - WON 88%<br>Hearts vs Kotoko - WON 85%<br>Chelsea vs Lpool - LOST</p></div>
-
-<div id="tab-Settings" class="hidden p-4"><h2 class="font-bold">⚙️ SETTINGS</h2><div class="mt-4 space-y-3 text-sm"><div class="bg-gray-900 p-3 rounded">🔔 Notifications: ON</div><div class="bg-gray-900 p-3 rounded">🌍 Language: English</div><div class="bg-gray-900 p-3 rounded">📞 Contact: WhatsApp Support</div></div></div> class="p-3 space-y-3 mt-1"></div>
+<!-- TABS -->
+<div id="tab-LIVE" class="hidden p-4"><h2 class="font-bold text-lg">🔴 LIVE GAMES</h2><p class="text-gray-400 text-sm mt-2">Live scores update every 30 seconds</p></div>
+<div id="tab-VIP" class="hidden p-4 text-center"><h2 class="text-2xl font-black">👑 VIP TIPS</h2><p class="text-gray-400 mt-2">Win 90% daily. Pay 50 GHS via MoMo</p><button onclick="payVIP()" class="mt-6 bg-yellow-500 text-black font-black px-8 py-3 rounded-full w-full">UNLOCK VIP - 50 GHS</button></div>
+<div id="tab-Results" class="hidden p-4"><h2 class="font-bold">📊 RESULTS</h2><p class="text-green-400 mt-4 font-bold">Yesterday: 8/10 WON ✅</p><p class="text-gray-400 text-sm mt-2">Arsenal WON 88%<br>Hearts vs Kotoko WON 85%</p></div>
+<div id="tab-Settings" class="hidden p-4"><h2 class="font-bold">⚙️ SETTINGS</h2><div class="mt-4 space-y-2"><div class="bg-gray-900 p-3 rounded">🔔 Notifications: ON</div><div class="bg-gray-900 p-3 rounded">📞 WhatsApp Support</div></div></div>
 
 <nav class="fixed bottom-0 w-full bg-black border-t border-gray-800 flex justify-around p-3 text-xs">
-<span>🏠 Home</span><span class="text-green-500">● LIVE</span><span onclick="payVIP()">👑 VIP</span><span>📊 Results</span><span>⚙️ Settings</span>
+<button onclick="showHome()" class="flex flex-col items-center text-green-500" id="nav-home">🏠<span>Home</span></button>
+<button onclick="showTab('LIVE')" class="flex flex-col items-center" id="nav-LIVE">●<span>LIVE</span></button>
+<button onclick="showTab('VIP')" class="flex flex-col items-center" id="nav-VIP">👑<span>VIP</span></button>
+<button onclick="showTab('Results')" class="flex flex-col items-center" id="nav-Results">📊<span>Results</span></button>
+<button onclick="showTab('Settings')" class="flex flex-col items-center" id="nav-Settings">⚙️<span>Settings</span></button>
 </nav>
 
-<script>function showTab(tab){
- document.querySelectorAll('[id^="tab-"]').forEach(t=>t.classList.add('hidden'));
- document.getElementById('tab-'+tab).classList.remove('hidden');
- // update nav color
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('text-green-500'));
- event.currentTarget.classList.add('text-green-500');
-}
+<script>
 let activeType='ALL', activeLeague='ALL';
 let allGames=[
 {home:"Arsenal",away:"Bournemouth",league:"PL",type:"1",pred:"HOME WIN",conf:88,result:"WON",live:""},
 {home:"Barcelona",away:"Espanyol",league:"LaLiga",type:"1",pred:"HOME WIN",conf:94,live:"Barca 1-0 67'"},
 {home:"Hearts of Oak",away:"Kotoko",league:"GPL",type:"1",pred:"HOME WIN",conf:85,live:"15:00"},
 {home:"Chelsea",away:"Liverpool",league:"PL",type:"OVER",pred:"OVER 2.5",conf:90,live:"18:30"},
-{home:"Bayern",away:"Dortmund",league:"Bundes",type:"2",pred:"AWAY WIN",conf:82,live:"19:45"},
-{home:"Inter",away:"AC Milan",league:"SerieA",type:"X",pred:"DRAW",conf:78,live:"20:00"},
-{home:"Man City",away:"Arsenal",league:"PL",type:"BTTS",pred:"BTTS YES",conf:92}
+{home:"Bayern",away:"Dortmund",league:"Bundes",type:"2",pred:"AWAY WIN",conf:82,live:"19:45"}
 ];
 function setType(t){
 activeType=t;
@@ -76,21 +68,4 @@ function setLeague(l){
 activeLeague=l;
 document.querySelectorAll('.league-btn').forEach(b=>b.className='league-btn border border-gray-700 text-gray-400 px-4 py-1 rounded-full text-sm');
 let el=document.getElementById('league-'+l);
-el.className=l==='ALL'?'league-btn border-2 border-green-500 text-green-500 px-4 py-1 rounded-full text-sm':l==='GPL'?'league-btn border-2 border-yellow-500 text-yellow-400 px-4 py-1 rounded-full text-sm':'league-btn border-2 border-white text-white px-4 py-1 rounded-full text-sm';
-render();
-}
-function render(){
-let f=allGames.filter(g=>(activeType==='ALL'||g.type===activeType)&&(activeLeague==='ALL'||g.league===activeLeague));
-document.getElementById('games').innerHTML=f.map(g=>`
-<div class="bg-[#1a1f2e] rounded-xl p-4 border border-gray-800">
-<div class="flex justify-between text-xs text-gray-400"><span>${g.league}</span><span class="text-green-400 font-bold">${g.conf}%</span></div>
-<div class="font-bold mt-2">${g.home} vs ${g.away}</div>
-<div class="mt-3 flex justify-between"><span class="bg-white text-black px-4 py-1 rounded-full text-xs font-black">${g.pred}</span><span class="text-sm ${g.result?'text-green-400 font-bold':''}">${g.result||g.live||''}</span></div>
-</div>`).join('')||'<p class="text-center text-gray-500 mt-16">No games for '+activeType+' + '+activeLeague+'</p>';
-}
-function payVIP(){alert('Add Paystack key to collect MoMo!');}
-render();
-fetch('/api/live').then(r=>r.json()).then(d=>{if(d.length){allGames=d;render();}});
-</script>
-</body>
-</html>
+el.className=l==='ALL'?'league-btn border-2 border-green-500 text-green-500 px-4 py-1 rounded-full text-sm':l==='GPL'?'league

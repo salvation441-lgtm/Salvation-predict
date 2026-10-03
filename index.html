@@ -31,7 +31,19 @@
 <button id="league-GPL" onclick="setLeague('GPL')" class="league-btn border border-yellow-600 text-yellow-500 px-4 py-1 rounded-full text-sm">GPL 🇬🇭</button>
 </div>
 
-<div id="games" class="p-3 space-y-3 mt-1"></div>
+<div id="games"<!-- TABS CONTENT -->
+<div id="tab-LIVE" class="hidden p-4"><h2 class="font-bold">🔴 LIVE GAMES</h2><p class="text-gray-400 text-sm mt-2">All live scores dey here. API go update every 30 sec.</p><div id="live-games" class="mt-4"></div></div>
+
+<div id="tab-VIP" class="hidden p-4 text-center">
+<h2 class="text-2xl font-black">👑 VIP TIPS</h2>
+<p class="text-gray-400 mt-2">Win 90% daily. Pay 50 GHS via MoMo</p>
+<button onclick="payVIP()" class="mt-6 bg-yellow-500 text-black font-black px-8 py-3 rounded-full w-full">UNLOCK VIP - 50 GHS</button>
+<p class="text-xs text-gray-500 mt-3">✅ 3-5 Sure Odds Daily<br>✅ BTTS & Over 2.5<br>✅ WhatsApp Support</p>
+</div>
+
+<div id="tab-Results" class="hidden p-4"><h2 class="font-bold">📊 RESULTS</h2><p class="text-green-400 font-bold mt-4">Yesterday: 8/10 WON ✅</p><p class="text-gray-400 text-sm">Arsenal vs Bmouth - WON 88%<br>Hearts vs Kotoko - WON 85%<br>Chelsea vs Lpool - LOST</p></div>
+
+<div id="tab-Settings" class="hidden p-4"><h2 class="font-bold">⚙️ SETTINGS</h2><div class="mt-4 space-y-3 text-sm"><div class="bg-gray-900 p-3 rounded">🔔 Notifications: ON</div><div class="bg-gray-900 p-3 rounded">🌍 Language: English</div><div class="bg-gray-900 p-3 rounded">📞 Contact: WhatsApp Support</div></div></div> class="p-3 space-y-3 mt-1"></div>
 
 <nav class="fixed bottom-0 w-full bg-black border-t border-gray-800 flex justify-around p-3 text-xs">
 <span>🏠 Home</span><span class="text-green-500">● LIVE</span><span onclick="payVIP()">👑 VIP</span><span>📊 Results</span><span>⚙️ Settings</span>

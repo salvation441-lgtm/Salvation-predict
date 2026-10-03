@@ -63,13 +63,16 @@
 
 <script>
 let curType='ALL', curLeague='ALL';
-let games=[
-{home:"Arsenal",away:"Bournemouth",league:"PL",leagueFull:"PL - 88%",type:"1",pred:"HOME WIN",conf:88,info:"WON"},
-{home:"Barcelona",away:"Espanyol",league:"LaLiga",leagueFull:"LaLiga - 94%",type:"1",pred:"HOME WIN",conf:94,info:"Barca 1-0 67'"},
-{home:"Hearts of Oak",away:"Kotoko",league:"GPL",leagueFull:"Ghana Premier - 85%",type:"1",pred:"HOME WIN",conf:85,info:"15:00"},
-{home:"Chelsea",away:"Liverpool",league:"PL",leagueFull:"Premier League - 90%",type:"OVER",pred:"OVER 2.5",conf:90,info:"18:30"},
-{home:"Bayern Munich",away:"Dortmund",league:"Bundes",leagueFull:"Bundesliga - 82%",type:"2",pred:"AWAY WIN",conf:82,info:"19:45"},
-{home:"Inter Milan",away:"AC Milan",league:"SerieA",leagueFull:"Serie A - 78%",type:"X",pred:"DRAW",conf:78,info:"20:00"}
+let games=[let saved = localStorage.getItem('salvation_games');
+let games = saved? JSON.parse(saved) : [
+// TODAY - OCT 3 2026 - REAL GPL + TOP EUROPE
+{home:"Dreams FC",away:"Hearts of Oak",league:"GPL",leagueFull:"Ghana Premier - 80%",type:"1",pred:"AWAY WIN",conf:80,info:"15:00 TODAY 🔴"},
+{home:"Vision FC",away:"Bibiani Gold Stars",league:"GPL",leagueFull:"Ghana Premier - 75%",type:"1",pred:"HOME WIN",conf:75,info:"16:00 TODAY"},
+{home:"Arsenal",away:"Bournemouth",league:"PL",leagueFull:"Premier League - 88%",type:"1",pred:"HOME WIN",conf:88,info:"FT 2-0 WON ✅"},
+{home:"Man City",away:"Newcastle",league:"PL",leagueFull:"Premier League - 92%",type:"OVER",pred:"OVER 2.5",conf:92,info:"17:30"},
+{home:"Barcelona",away:"Espanyol",league:"LaLiga",leagueFull:"La Liga - 94%",type:"1",pred:"HOME WIN",conf:94,info:"19:00"},
+{home:"Inter Milan",away:"AC Milan",league:"SerieA",leagueFull:"Serie A - 85%",type:"BTTS",pred:"BTTS YES",conf:85,info:"20:45 Derby 🔥"},
+{home:"Bayern Munich",away:"Dortmund",league:"Bundes",leagueFull:"Bundesliga - 90%",type:"OVER",pred:"OVER 2.5",conf:90,info:"18:30 Klassiker"}
 ];
 function setType(t){ curType=t; document.querySelectorAll('[id^="f-"]').forEach(b=>{b.className='bg-[#222] px-5 py-2 rounded-full text-sm shrink-0'}); document.getElementById('f-'+t).className='bg-white text-black px-5 py-2 rounded-full text-sm font-bold shrink-0'; render(); }
 function setLeague(l){ curLeague=l; document.querySelectorAll('[id^="l-"]').forEach(b=>{b.className='border border-gray-700 text-gray-400 px-4 py-1.5 rounded-full text-sm shrink-0'; if(b.id==='l-GPL') b.className='border border-yellow-600 text-yellow-500 px-4 py-1.5 rounded-full text-sm shrink-0'}); let el=document.getElementById('l-'+l); if(l==='ALL') el.className='border-2 border-green-500 text-green-500 px-4 py-1.5 rounded-full text-sm shrink-0'; else if(l==='GPL') el.className='border-2 border-yellow-500 text-yellow-400 px-4 py-1.5 rounded-full text-sm shrink-0'; else el.className='border-2 border-white text-white px-4 py-1.5 rounded-full text-sm shrink-0'; render(); }

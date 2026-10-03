@@ -1,28 +1,77 @@
-export default async function handler(req, res){
- const key = process.env.API_FOOTBALL_KEY;
- try{
-  // PL=39, LaLiga=140, SerieA=135, Bundesliga=78, GPL=488, UCL=2
-  const leagues = [39,140,135,78,488,2];
-  let all = [];
-  for(let id of leagues){
-   const r = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2023&next=5`,{
-    headers:{'x-apisports-key': key}
-   });
-   const j = await r.json();
-   if(j.response) all = [...all, ...j.response];
-  }
-  const games = all.slice(0,12).map(f=>({
-   home: f.teams.home.name,
-   away: f.teams.away.name,
-   league: f.league.id==488?'GPL':f.league.id==2?'UCL':f.league.name.includes('Premier')?'PL':f.league.name,
-   type: Math.random()>0.6?'1':Math.random()>0.5?'OVER':'BTTS',
-   pred: Math.random()>0.6?'HOME WIN':Math.random()>0.5?'OVER 2.5':'BTTS YES',
-   conf: Math.floor(80+Math.random()*15),
-   live: f.fixture.status.short==='LIVE'?`${f.goals.home}-${f.goals.away} ${f.fixture.status.elapsed}'`:f.fixture.date.slice(11,16),
-   result: f.fixture.status.short==='FT'?'WON':''
-  }));
-  res.status(200).json(games);
- }catch(e){
-  res.status(200).json([]);
- }
+// api/live.js - Salvation Predict Live Scores
+// This dey run on Vercel serverless
+
+export default function handler(req, res) {
+  // Allow your site to call this API
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  
+  // Simulate live changing scores (later we go connect real football API)
+  const now = new Date();
+  const minute = now.getMinutes();
+
+  // Make scores look live based on time
+  const liveGames = [
+    {
+      home: "Arsenal",
+      away: "Bournemouth",
+      league: "PL",
+      leagueFull: "PL - 88%",
+      type: "1",
+      pred: "HOME WIN",
+      conf: 88,
+      info: minute % 2 === 0 ? "FT 2-0 WON ✅" : "FT 2-0 WON ✅"
+    },
+    {
+      home: "Barcelona",
+      away: "Espanyol",
+      league: "LaLiga",
+      leagueFull: "LaLiga - 94%",
+      type: "1",
+      pred: "HOME WIN",
+      conf: 94,
+      info: `Barca 1-0 ${65 + (minute % 15)}' 🔴`
+    },
+    {
+      home: "Hearts of Oak",
+      away: "Kotoko",
+      league: "GPL",
+      leagueFull: "Ghana Premier - 85%",
+      type: "1",
+      pred: "HOME WIN",
+      conf: 85,
+      info: minute % 3 === 0 ? "LIVE 1-0 23' 🔴" : "LIVE 1-0 24' 🔴"
+    },
+    {
+      home: "Chelsea",
+      away: "Liverpool",
+      league: "PL",
+      leagueFull: "Premier League - 90%",
+      type: "OVER",
+      pred: "OVER 2.5",
+      conf: 90,
+      info: `LIVE 1-1 ${50 + (minute % 10)}'`
+    },
+    {
+      home: "Bayern Munich",
+      away: "Dortmund",
+      league: "Bundes",
+      leagueFull: "Bundesliga - 82%",
+      type: "2",
+      pred: "AWAY WIN",
+      conf: 82,
+      info: "19:45"
+    },
+    {
+      home: "Inter Milan",
+      away: "AC Milan",
+      league: "SerieA",
+      leagueFull: "Serie A - 78%",
+      type: "X",
+      pred: "DRAW",
+      conf: 78,
+      info: "20:00"
+    }
+  ];
+
+  res.status(200).json(liveGames);
 }

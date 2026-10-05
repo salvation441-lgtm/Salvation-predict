@@ -52,4 +52,33 @@ body{background:#f1f5f9;padding:10px;padding-bottom:90px}
 </div>
 
 <div id="box">
-<div class="card won" data-t="1"
+<div class="card won" data-t="1" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Vision FC</div><div class="vs">VS</div><div class="team">Gold Stars</div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON ✅</span></div><button class="wa" onclick="wa('Vision FC vs Gold Stars - 1')">💬 VIP WHATSAPP</button></div>
+<div class="card won" data-t="1X" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Karela Utd</div><div class="vs">VS</div><div class="team">Bechem Utd</div></div><div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Karela vs Bechem - 1X')">💬 VIP WHATSAPP</button></div>
+<div class="card won" data-t="2" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 18:00</span><div class="row"><div class="team">Hearts of Oak</div><div class="vs">VS</div><div class="team">Accra Lions</div></div><div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80% WON ✅</span></div><button class="wa" onclick="wa('Hearts vs Lions - 2')">💬 VIP WHATSAPP</button></div>
+<div class="card pending" data-t="1" data-l="GPL" data-s="PENDING"><span class="badge pending">⏳ TODAY 18:00 • VIP TIP</span><div class="row"><div class="team">Kotoko</div><div class="vs">VS</div><div class="team">Medeama</div></div><div class="meta"><span>Tip: <b>🔒 VIP 1X2</b></span><span class="tag">92%</span></div><button class="wa" style="background:#0f172a" onclick="openMomo('Kotoko vs Medeama VIP')">🔒 JOIN VIP TO VIEW - 50 GHS</button></div>
+</div>
+
+<div class="float"><span>🔥 VIP 1X2 - 50 GHS</span><a href="#" onclick="openMomo('VIP JOIN');return false">JOIN VIP</a></div>
+
+<div id="momo" onclick="if(event.target===this)closeMomo()"><div class="mbox">
+<h2>🔥 JOIN VIP - 50 GHS</h2><p>Pay with MTN MoMo then send screenshot on WhatsApp</p>
+<div class="paybox">
+<b>📱 MTN MoMo:</b><br>Number: <b>0540042669</b><br>Name: <b>Salvation Predict</b><br>Amount: <b>50 GHS</b><br>Ref: <b id="ref">VIP-Kotoko</b><br><br><b>Dial:</b> *170# → Send Money
+</div>
+<button class="paybtn yellow" onclick="copyMomo()">📋 COPY NUMBER 0540042669</button>
+<button class="paybtn green" onclick="confirmPay()">✅ I HAVE PAID - SEND ON WHATSAPP</button>
+<button class="paybtn black" onclick="closeMomo()">Close</button>
+</div></div>
+
+<script>
+let activeT='ALL',activeL='ALL',curRef='VIP JOIN';
+function setType(t,el){activeT=t;document.querySelectorAll('#f1 .fbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');doFilter();}
+function setLeague(l,el){activeL=l;document.querySelectorAll('#f2 .fbtn').forEach(b=>b.classList.remove('active2'));el.classList.add('active2');doFilter();}
+function doFilter(){document.querySelectorAll('#box .card').forEach(c=>{let mt=activeT==='ALL'||c.dataset.t===activeT;let ml=activeL==='ALL'||c.dataset.l===activeL||c.dataset.s===activeL;c.style.display=(mt&&ml)?'block':'none';});}
+function wa(m){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi Salvation Predict VIP - I want JOIN VIP 50 GHS - '+m),'_blank');}
+function openMomo(r){curRef=r;document.getElementById('ref').innerText=r;document.getElementById('momo').classList.add('show');}
+function closeMomo(){document.getElementById('momo').classList.remove('show');}
+function copyMomo(){navigator.clipboard.writeText('0540042669');alert('✅ Copied: 0540042669');}
+function confirmPay(){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi I have paid 50 GHS MoMo for '+curRef+'. Add me to VIP!'),' _blank');}
+</script>
+</body></html>

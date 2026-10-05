@@ -1,65 +1,91 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT PRO</title>
+<title>SALVATION PREDICT PRO FIXED</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#eef2f7;padding-bottom:100px}
-.top{background:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:99;cursor:pointer}
+.top{background:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:99}
 .fil{padding:8px 10px;background:#fff;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #e2e8f0;position:sticky;z-index:9}.fil::-webkit-scrollbar{display:none}
 #f1{top:53px}#f2{top:95px}
-.b{padding:7px 15px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:700;white-space:nowrap}.b.active{background:#22c55e;color:#fff}
+.b{padding:7px 15px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:700;white-space:nowrap}.b.active{background:#22c55e;color:#fff;border-color:#22c55e}
 .b2{padding:6px 12px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:10px;white-space:nowrap}.b2.active{background:#0f172a;color:#fff}
 .card{background:#fff;border:2px solid #e8eef5;border-radius:14px;padding:12px;margin:8px 10px}
 .card.won{border-color:#22c55e;background:#f0fdf4}.card.lost{border-color:#ef4444;background:#fef2f2}
-.small{font-size:9px;padding:4px 9px;border-radius:20px;display:inline-block;font-weight:700;color:#fff}.small.live{background:#ef4444}.small.pending{background:#22c55e}.small.won{background:#22c55e}.small.lost{background:#ef4444}
+.small{font-size:9px;padding:4px 9px;border-radius:20px;display:inline-block;font-weight:700;color:#fff;background:#22c55e}.small.live{background:#ef4444}.small.lost{background:#ef4444}
 .head{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
 .team{text-align:center;width:110px}.team b{font-size:12px;display:block;margin-top:5px}
 .ico{width:44px;height:44px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .vs{font-weight:900;color:#94a3b8}.meta{display:flex;justify-content:space-between;font-size:11px;margin-top:10px;align-items:center}
-.conf{padding:3px 9px;border-radius:20px;font-weight:800;font-size:11px}
-.conf.won{background:#dcfce7;color:#166534}.conf.lost{background:#fecaca;color:#991b1b}.conf.pending{background:#dcfce7;color:#166534}
-.wa-btn{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:900;font-size:12px;display:flex;justify-content:center;gap:6px;cursor:pointer}
+.conf{padding:3px 9px;border-radius:20px;font-weight:800;font-size:11px;background:#dcfce7;color:#166534}
+.conf.lost{background:#fecaca;color:#991b1b}
+.wa-btn{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:900;font-size:12px;cursor:pointer}
 .wa-float{position:fixed;bottom:14px;left:10px;right:10px;background:#0f172a;color:#fff;padding:14px;border-radius:14px;display:flex;justify-content:space-between;align-items:center;z-index:100}
 .wa-float a{background:#25D366;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:900;font-size:13px}
 #adminPanel{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:200;padding:20px;overflow-y:auto}
 .adminBox{background:#fff;border-radius:14px;padding:16px;max-width:400px;margin:20px auto}
-.adminBox input, .adminBox select{width:100%;padding:10px;margin:6px 0;border:1px solid #e2e8f0;border-radius:8px;font-size:13px}
+.adminBox input,.adminBox select{width:100%;padding:10px;margin:6px 0;border:1px solid #e2e8f0;border-radius:8px;font-size:13px}
 .adminBox button{width:100%;padding:12px;background:#0f172a;color:#fff;border:none;border-radius:10px;font-weight:800;margin-top:8px;cursor:pointer}
-.adminBox .green{background:#22c55e}
 </style></head><body>
 
-<div class="top" onclick="adminClick()"><h1>SALVATION<br>PREDICT</h1><div style="background:#0f172a;color:#fff;padding:8px 14px;border-radius:10px;font-size:10px;font-weight:800;text-align:center">ADMIN: TAP 5x<br>VIP 50 GHS</div></div>
+<div class="top" id="topTap"><h1>SALVATION<br>PREDICT</h1><div style="background:#0f172a;color:#fff;padding:8px 14px;border-radius:10px;font-size:10px;font-weight:800;text-align:center">TAP 5X FOR ADMIN<br>VIP 50 GHS</div></div>
 
 <div class="fil" id="f1"><button class="b active" data-v="ALL">ALL</button><button class="b" data-v="1">1</button><button class="b" data-v="X">X</button><button class="b" data-v="2">2</button><button class="b" data-v="1X">1X</button><button class="b" data-v="X2">X2</button><button class="b" data-v="12">12</button><button class="b" data-v="BTTS">BTTS</button><button class="b" data-v="OVER">OVER</button></div>
-<div class="fil" id="f2"><button class="b2 active" data-v="ALL">ALL</button><button class="b2" data-v="PL">PL</button><button class="b2" data-v="GPL">GPL 🇬🇭</button><button class="b2" data-v="WON">WON ✅</button><button class="b2" data-v="LOST">LOST ❌</button></div>
+<div class="fil" id="f2"><button class="b2 active" data-v="ALL">ALL</button><button class="b2" data-v="PL">PL</button><button class="b2" data-v="GPL">GPL 🇬🇭</button><button class="b2" data-v="won">WON ✅</button><button class="b2" data-v="lost">LOST ❌</button></div>
 
 <div id="list"></div>
 
-<div class="wa-float"><div><b style="font-size:13px">🔥 VIP 1X2 - 50 GHS</b><br><span style="font-size:10px;color:#94a3b8">WON/LOST tracked daily</span></div><a href="#" onclick="joinVIP('VIP Subscription')">JOIN VIP</a></div>
+<div class="wa-float"><div><b style="font-size:13px">🔥 VIP 1X2 - 50 GHS</b><br><span style="font-size:10px;color:#94a3b8">WON/LOST tracked daily</span></div><a href="https://wa.me/233544000000?text=Hi%20Salvation%20Predict%20VIP%2050GHS">JOIN VIP</a></div>
 
-<!-- ADMIN PANEL -->
-<div id="adminPanel"><div class="adminBox">
-<h3>🔧 ADMIN - Add Game</h3>
-<input id="a_home" placeholder="Home Team (e.g Dreams FC)">
-<input id="a_away" placeholder="Away Team (e.g Hearts)">
-<select id="a_league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option><option>Bundes</option></select>
-<select id="a_type"><option value="1">1 - Home Win</option><option value="X">X - Draw</option><option value="2">2 - Away Win</option><option value="1X">1X - Home or Draw</option><option value="X2">X2 - Away or Draw</option><option value="12">12 - No Draw</option><option value="BTTS">BTTS</option><option value="OVER">OVER</option></select>
-<input id="a_pred" placeholder="Tip Text (e.g HOME WIN)">
-<input id="a_conf" placeholder="Confidence (e.g 85%)" value="80%">
-<input id="a_time" placeholder="Time (e.g TODAY 15:00 • Tuba)" value="TODAY 15:00">
-<select id="a_status"><option value="pending">PENDING ⏳</option><option value="won">WON ✅</option><option value="lost">LOST ❌</option><option value="live">LIVE 🔴</option></select>
-<button class="green" onclick="addGame()">💾 SAVE GAME (Auto-Save)</button>
-<button onclick="clearAll()" style="background:#ef4444">🗑️ Clear All Saved</button>
-<button onclick="closeAdmin()" style="background:#64748b">Close</button>
-<p style="font-size:10px;color:#64748b;margin-top:10px">Games save for your phone automatically (localStorage). To make it live for everyone, copy after save and paste to GitHub.</p>
-</div></div>
+<div id="adminPanel"><div class="adminBox"><h3>🔧 ADMIN - Add Game</h3>
+<input id="a_home" placeholder="Home Team"><input id="a_away" placeholder="Away Team">
+<select id="a_league"><option>GPL</option><option>PL</option><option>LaLiga</option></select>
+<select id="a_type"><option value="1">1</option><option value="X">X</option><option value="2">2</option><option value="1X">1X</option><option value="X2">X2</option><option value="12">12</option><option value="BTTS">BTTS</option><option value="OVER">OVER</option></select>
+<input id="a_pred" placeholder="Tip e.g HOME WIN" value="HOME WIN">
+<input id="a_conf" placeholder="Conf e.g 80%" value="80%">
+<input id="a_time" placeholder="Time" value="TODAY 15:00">
+<select id="a_status"><option value="pending">PENDING</option><option value="won">WON ✅</option><option value="lost">LOST ❌</option><option value="live">LIVE 🔴</option></select>
+<button onclick="addGame()" style="background:#22c55e">💾 SAVE (Auto-Save)</button>
+<button onclick="resetGames()" style="background:#ef4444">🗑️ RESET TO DEFAULT</button>
+<button onclick="closeAdmin()" style="background:#64748b">Close</button></div></div>
 
 <script>
-// DEFAULT GAMES
 let defaultGames=[
 {home:"Vision FC",away:"Gold Stars",league:"GPL",type:"1",pred:"HOME WIN",conf:"75%",time:"TODAY 15:00 • Vision",status:"won"},
-{home:"Dreams FC",away:"Hearts of Oak",league:"GPL",type:"2",pred:"AWAY WIN",conf:"80%",time:"TODAY 15:00 • Tuba Accra",status:"live"},
-{home:"Samartex",away:"Kotoko",league:"GPL",type:"X2",pred:"X2",conf:"82%",time:"TODAY 18:00 • Samreboi",status:"pending"},
-{home:"Karela Utd",away:"Bechem Utd",league:"GPL",type:"1X",pred:"1X",conf:"88%",time:"TODAY 15:00 • Anyinase",status:"won"},
-{home:"Berekum Chelsea",away:"Nations FC",league:"GPL",type:"X",pred:"DRAW X",conf:"72%",time:"TODAY 15:00 • Berekum",status:"lost"},
+{home:"Dreams FC",away:"Hearts of Oak",league:"GPL",type:"2",pred:"AWAY WIN",conf:"80%",time:"TODAY 15:00 • Tuba",status:"live"},
+{home:"Samartex",away:"Kotoko",league:"GPL",type:"X2",pred:"X2 - AWAY OR DRAW",conf:"82%",time:"TODAY 18:00 • Samreboi",status:"pending"},
+{home:"Karela Utd",away:"Bechem Utd",league:"GPL",type:"1X",pred:"1X - HOME OR DRAW",conf:"88%",time:"TODAY 15:00 • Anyinase",status:"won"},
 {home:"Young Apostles",away:"Holy Stars",league:"GPL",type:"12",pred:"12 - NO DRAW",conf:"90%",time:"TODAY 15:00 • Wenchi",status:"pending"},
+{home:"Berekum Chelsea",away:"Nations FC",league:"GPL",type:"X",pred:"DRAW X",conf:"72%",time:"TODAY 15:00 • Berekum",status:"lost"},
 {home:"Arsenal",away:"Bournemouth",league:"PL",type:"1",pred:"HOME WIN",conf:"88%",time:"FT 2-0",status:"won"},
-{home:"Chelsea",away
+{home:"Chelsea",away:"Liverpool",league:"PL",type:"BTTS",pred:"BTTS YES",conf:"78%",time:"LIVE 19:30",status:"live"}
+];
+let GAMES=JSON.parse(localStorage.getItem('salvation_games')||'null');
+if(!GAMES||GAMES.length===0) GAMES=[...defaultGames];
+
+function render(){
+ document.getElementById('list').innerHTML=GAMES.map((g,i)=>`
+ <div class="card ${g.status}" data-t="${g.type}" data-l="${g.league}" data-s="${g.status}">
+ <span class="small ${g.status}">${g.status==='live'?'🔴 LIVE':g.status==='won'?'✅ WON':g.status==='lost'?'❌ LOST':'⏳ PENDING'} • ${g.time}</span>
+ <div class="head"><div class="team"><div class="ico">⚽</div><b>${g.home}</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>${g.away}</b></div></div>
+ <div class="meta"><span>Tip: <b>${g.pred}</b> [${g.type}]</span><span class="conf ${g.status}">${g.conf}</span></div>
+ <button class="wa-btn" onclick="joinVIP('${g.home} vs ${g.away}')">💬 VIP ${g.type} - WhatsApp</button>
+ <div style="display:flex;gap:6px;margin-top:6px"><button onclick="setStatus(${i},'won')" style="flex:1;padding:6px;border:none;background:#dcfce7;border-radius:6px">WON</button><button onclick="setStatus(${i},'lost')" style="flex:1;padding:6px;border:none;background:#fecaca;border-radius:6px">LOST</button><button onclick="delGame(${i})" style="padding:6px 10px;border:none;background:#f1f5f9;border-radius:6px">🗑️</button></div>
+ </div>`).join('');
+}
+function doFilter(t,l){
+ document.querySelectorAll('.card').forEach(c=>{
+  let okT=(t==='ALL'||c.dataset.t===t);
+  let okL=true;
+  if(l==='ALL') okL=true;
+  else if(l==='won'||l==='lost') okL=c.dataset.s===l;
+  else okL=c.dataset.l===l;
+  c.style.display=(okT&&okL)?'block':'none';
+ });
+}
+let curT='ALL',curL='ALL';
+document.querySelectorAll('#f1 .b').forEach(b=>{
+ b.addEventListener('click',()=>{curT=b.dataset.v;document.querySelectorAll('#f1 .b').forEach(x=>x.classList.remove('active'));b.classList.add('active');doFilter(curT,curL);});
+});
+document.querySelectorAll('#f2 .b2').forEach(b=>{
+ b.addEventListener('click',()=>{curL=b.dataset.v;document.querySelectorAll('#f2 .b2').forEach(x=>x.classList.remove('active'));b.classList.add('active');doFilter(curT,curL);});
+});
+function joinVIP(game){window.open("https://wa.me/233544000000?text="+encodeURIComponent("Hi Salvation Predict VIP 50 GHS for "+game),"_blank");}
+function save(){localStorage.set

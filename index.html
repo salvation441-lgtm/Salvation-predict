@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SALVATION PREDICT LIVE</title>
 <style>
 *{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
@@ -6,13 +6,11 @@ body{background:#eef2f7;padding:10px;padding-bottom:90px}
 .top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .logo{font-weight:900;font-size:22px;line-height:1.1}
 .statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 14px;font-weight:900;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.badge123{background:#22c55e;border-radius:20px;padding:3px 8px;font-size:11px}
-.liveDot{width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block}
+.badge123{background:#22c55e;border-radius:20px;padding:3px 8px}
 .filters{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px}
 .row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
-.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer}
+.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 16px;font-weight:800;font-size:13px;cursor:pointer;flex-shrink:0}
 .fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.fbtn.dark.active{background:#0f172a;color:#fff}
 .card{background:#fff;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:5px solid #e2e8f0}
 .card.won{border-left-color:#22c55e}.card.live{border-left-color:#ef4444}
 .badge{font-size:11px;font-weight:900;border-radius:20px;padding:5px 10px;display:inline-block;margin-bottom:10px}
@@ -29,15 +27,15 @@ body{background:#eef2f7;padding:10px;padding-bottom:90px}
 </style></head><body>
 <div class="top">
 <div class="logo">SALVATION<br>PREDICT <span style="color:#22c55e;font-size:11px">LIVE API</span></div>
-<button class="statsBtn" onclick="openMomo('STATS')"><span class="badge123">123</span><span id="statsText">LOADING LIVE...</span></button>
+<button class="statsBtn" onclick="openMomo('STATS')"><span class="badge123">123</span><span id="statsText">3 TIPS</span></button>
 </div>
 
 <div class="filters">
-<div style="display:flex;gap:8px;margin-bottom:8px">
-<button class="fbtn active" style="background:#3b82f6;color:#fff" onclick="fetchLive('gha.1')">GPL LIVE</button>
-<button class="fbtn" style="background:#0f172a;color:#fff" onclick="fetchLive('eng.1')">PL LIVE</button>
-<button class="fbtn" style="background:#991b1b;color:#fff" onclick="fetchLive('esp.1')">LaLiga LIVE</button>
-<button class="fbtn" onclick="loadStatic()">MY TIPS</button>
+<div class="row" style="margin-bottom:8px">
+<button class="fbtn" id="btn-gha" style="background:#3b82f6;color:#fff" onclick="fetchLive('gha.1',this)">GPL LIVE</button>
+<button class="fbtn" id="btn-eng" style="background:#0f172a;color:#fff" onclick="fetchLive('eng.1',this)">PL LIVE</button>
+<button class="fbtn" style="background:#991b1b;color:#fff" onclick="fetchLive('esp.1',this)">LaLiga LIVE</button>
+<button class="fbtn active" style="background:#e2e8f0" onclick="loadStatic(this)">MY TIPS</button>
 </div>
 <div class="row" id="tipFilters">
 <button class="fbtn active" data-f="ALL" onclick="filterTip(this)">ALL</button>
@@ -48,11 +46,9 @@ body{background:#eef2f7;padding:10px;padding-bottom:90px}
 </div>
 </div>
 
-<div id="box">
-<div style="text-align:center;padding:40px;color:#64748b">Click GPL LIVE / PL LIVE above to load real matches</div>
-</div>
+<div id="box"></div>
 
-<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS LIVE</div><button class="join" onclick="openMomo('VIP LIVE')">JOIN VIP</button></div>
+<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS</div><button class="join" onclick="openMomo('VIP JOIN')">JOIN VIP</button></div>
 
 <div class="momoBg" id="momoBg" onclick="if(event.target==this)closeMomo()"><div class="momoBox">
 <h3 style="font-weight:900">PAY 50 GHS - MTN MOMO</h3>
@@ -65,25 +61,17 @@ body{background:#eef2f7;padding:10px;padding-bottom:90px}
 
 <script>
 let curTip='ALL';
-const staticHTML='<div class="card won" data-t="1" data-l="GPL"><span class="badge won">WON - TODAY 15:00</span><div class="teams"><span>Vision FC</span><span class="vs">VS</span><span>Gold Stars</span></div><div class="meta"><span>Tip: <b>1 - HOME WIN</b></span><span class="tag">75% WON</span></div><button class="wa" onclick="wa(\'Vision FC vs Gold Stars\')">VIP WHATSAPP</button></div><div class="card won" data-t="1X" data-l="GPL"><span class="badge won">WON - TODAY 15:00</span><div class="teams"><span>Karela Utd</span><span class="vs">VS</span><span>Bechem Utd</span></div><div class="meta"><span>Tip: <b>1X - Double</b></span><span class="tag">88% WON</span></div><button class="wa" onclick="wa(\'Karela vs Bechem\')">VIP WHATSAPP</button></div><div class="card pending" data-t="1X" data-l="GPL"><span class="badge pending">TODAY 19:00 - VIP TIP</span><div class="teams"><span>Kotoko</span><span class="vs">VS</span><span>Hearts</span></div><div class="meta"><span>Tip: <b>1X - GPL</b></span><span class="tag">90% CONFIDENT</span></div><button class="wa dark" onclick="openMomo(\'Kotoko vs Hearts\')">JOIN VIP TO VIEW - 50 GHS</button></div>';
+const myTips=[
+{t:'1',l:'GPL',s:'WON',ta:'Vision FC',tb:'Gold Stars',time:'TODAY 15:00',perc:'75% WON',badge:'WON - TODAY 15:00'},
+{t:'1X',l:'GPL',s:'WON',ta:'Karela Utd',tb:'Bechem Utd',time:'TODAY 15:00',perc:'88% WON',badge:'WON - TODAY 15:00'},
+{t:'2',l:'GPL',s:'WON',ta:'Hearts of Oak',tb:'Accra Lions',time:'TODAY 18:00',perc:'80% WON',badge:'WON - TODAY 18:00'},
+{t:'1X',l:'GPL',s:'PENDING',ta:'Kotoko',tb:'Hearts',time:'TODAY 19:00',perc:'90% CONFIDENT',badge:'TODAY 19:00 - VIP TIP'}
+];
 
-function loadStatic(){document.getElementById('box').innerHTML=staticHTML;updateStats();}
-async function fetchLive(league){
- document.getElementById('box').innerHTML='<div style="text-align:center;padding:30px">Loading LIVE '+league+' matches...</div>';
- try{
-  let url='https://site.api.espn.com/apis/site/v2/sports/soccer/'+league+'/scoreboard';
-  let r=await fetch(url); let data=await r.json();
-  if(!data.events || data.events.length==0){document.getElementById('box').innerHTML='<div style="text-align:center;padding:20px">No live games now for '+league+'.<br><br>'+staticHTML+'</div>'; return;}
-  let html='';
-  data.events.slice(0,8).forEach(ev=>{
-    let home=ev.competitions[0].competitors[0].team.displayName;
-    let away=ev.competitions[0].competitors[1].team.displayName;
-    let status=ev.status.type.detail;
-    let isLive=ev.status.type.state=='in';
-    let score=ev.competitions[0].competitors[0].score+' - '+ev.competitions[0].competitors[1].score;
-    let tip=['1','1X','X','X2'][Math.floor(Math.random()*4)];
-    let conf=(78+Math.floor(Math.random()*12))+'%';
-    html+='<div class="card '+(isLive?'live':'won')+'" data-t="'+tip+'" data-l="'+league+'"><span class="badge '+(isLive?'live':'won')+'">'+(isLive?'LIVE - '+score:status+' - '+score)+'</span><div class="teams"><span>'+home+'</span><span class="vs">VS</span><span>'+away+'</span></div><div class="meta"><span>Tip: <b>'+tip+' - '+league.toUpperCase()+'</b> - '+status+'</span><span class="tag">'+conf+' '+(isLive?'LIVE':'WON')+'</span></div><button class="wa '+(isLive?'':'dark')+'" onclick="'+(isLive?'wa':'openMomo')+'(\''+home+' vs '+away+' - '+tip+'\')">'+(isLive?'VIP WHATSAPP - LIVE':'JOIN VIP TO VIEW - 50 GHS')+'</button></div>';
-  });
-  document.getElementById('box').innerHTML=html;
-  document.getElementById('statsText').innerText=data.events.length+' LIVE MATCHES - VIP
+function renderMyTips(){
+ let html='';
+ myTips.forEach(m=>{
+  let cls=m.s.toLowerCase();
+  let badgeClass=cls;
+  let btn=m.s=='PENDING'?'<button class="wa dark" onclick="openMomo(\''+m.ta+' vs '+m.tb+'\')">JOIN VIP TO VIEW - 50 GHS</button>':'<button class="wa" onclick="wa(\''+m.ta+' vs '+m.tb+' - '+m.t+'\')">VIP WHATSAPP</button>';
+  html+='<div class="card '+cls+'" data-t="'+m.t+'" data-l="'+m.l+'" data-s="'+m.s+'"><span class="badge '+badgeClass+'">'+m.b

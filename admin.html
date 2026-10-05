@@ -1,36 +1,32 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ADMIN - SALVATION</title>
 <style>*{box-sizing:border-box;font-family:Arial}body{background:#0f172a;color:#fff;padding:14px}
-input,select{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:none}
-button{width:100%;padding:12px;background:#22c55e;border:none;border-radius:8px;font-weight:800;margin-top:10px}
-.card{background:#1e293b;padding:10px;border-radius:10px;margin:8px 0;font-size:12px}
+input,select{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:none}
+button{width:100%;padding:12px;background:#22c55e;border:none;border-radius:10px;font-weight:800;margin-top:8px}
+.card{background:#1e293b;padding:10px;border-radius:10px;margin:8px 0;font-size:12px;display:flex;justify-content:space-between}
 </style></head><body>
-<h2>ADMIN PANEL 🇬🇭</h2>
-<p style="font-size:11px;color:#94a3b8">Add match - e go save for your site</p>
-<input id="home" placeholder="Home Team e.g. Kotoko">
-<input id="away" placeholder="Away Team e.g. Hearts">
-<select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option><option>Bundes</option></select>
-<select id="tip"><option>1</option><option>X</option><option>2</option><option>BTTS</option><option>OVER</option></select>
-<input id="pred" placeholder="Prediction e.g. HOME WIN">
-<input id="conf" placeholder="Confidence e.g. 80%">
-<input id="time" placeholder="Time e.g. TODAY 15:00 - Tuba Accra">
-<button onclick="save()">ADD MATCH ✅</button>
-<button onclick="clearAll()" style="background:#ef4444">CLEAR ALL</button>
+<h2>SALVATION ADMIN 🇬🇭</h2>
+<p style="color:#94a3b8;font-size:11px">Add games here - e go show for main site</p>
+<input id="home" placeholder="Home Team - e.g. Kotoko">
+<input id="away" placeholder="Away Team - e.g. Hearts">
+<select id="league"><option value="GPL">GPL 🇬🇭</option><option value="PL">PL</option><option value="LaLiga">La Liga</option><option value="SerieA">Serie A</option><option value="Bundes">Bundes</option></select>
+<select id="type"><option value="1">1 - Home Win</option><option value="X">X - Draw</option><option value="2">2 - Away Win</option><option value="BTTS">BTTS</option><option value="OVER">OVER</option></select>
+<input id="pred" placeholder="Prediction text - e.g. HOME WIN">
+<input id="conf" placeholder="Confidence - e.g. 80%">
+<input id="time" placeholder="Time - e.g. TODAY 15:00 • Tuba Accra">
+<button onclick="add()">ADD MATCH ✅</button>
+<button onclick="location.href='/'" style="background:#334155">VIEW SITE 👀</button>
 <div id="list"></div>
 <script>
-let games = JSON.parse(localStorage.getItem('games')||'[]');
-function save(){
- let g={home:home.value,away:away.value,league:league.value,tip:tip.value,pred:pred.value||tip.value,conf:conf.value||'75%',time:time.value||'TODAY'};
- if(!g.home||!g.away)return alert('Fill teams');
- games.push(g);localStorage.setItem('games',JSON.stringify(games));render();alert('Added!');
- home.value='';away.value='';
+let games = JSON.parse(localStorage.getItem('salva_games')||'[]');
+function add(){
+ let g={home:home.value.trim(),away:away.value.trim(),league:league.value,type:type.value,pred:pred.value||type.value,conf:conf.value||'75%',time:time.value||'TODAY'};
+ if(!g.home||!g.away)return alert('Enter teams');
+ games.unshift(g);localStorage.setItem('salva_games',JSON.stringify(games));render();
+ home.value='';away.value='';pred.value='';conf.value='';time.value='';
+ alert('Added! Now go to main site');
 }
-function render(){
- list.innerHTML=games.map((g,i)=>`<div class="card">${g.home} vs ${g.away} | ${g.league} | ${g.pred} ${g.conf} <span onclick="del(${i})" style="float:right;color:red">X</span></div>`).join('');
- // also save to file for export
-}
-function del(i){games.splice(i,1);localStorage.setItem('games',JSON.stringify(games));render();}
-function clearAll(){if(confirm('Clear all?')){games=[];localStorage.removeItem('games');render();}}
+function del(i){games.splice(i,1);localStorage.setItem('salva_games',JSON.stringify(games));render();}
+function render(){list.innerHTML=games.map((g,i)=>`<div class="card"><span>${g.home} vs ${g.away} - ${g.league} ${g.type} ${g.conf}</span><span onclick="del(${i})" style="color:#ef4444">✕</span></div>`).join('');}
 render();
-</script>
-</body></html>
+</script></body></html>

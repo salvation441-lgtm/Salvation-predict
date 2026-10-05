@@ -2,53 +2,32 @@
 <title>ADMIN - Salvation Predict</title>
 <style>
 *{box-sizing:border-box;font-family:Arial}body{background:#0f172a;color:#fff;padding:16px;max-width:500px;margin:auto}
-h1{font-size:20px;margin-bottom:12px}
-input,select{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:none;font-size:14px}
+h1{font-size:20px;margin-bottom:12px}input,select{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:none;font-size:14px}
 label{font-size:11px;color:#94a3b8;margin-top:10px;display:block;font-weight:800}
 button{width:100%;padding:14px;border:none;border-radius:10px;font-weight:900;margin-top:10px;cursor:pointer}
 .green{background:#22c55e;color:#fff}.dark{background:#1e293b;color:#fff}
 #out{width:100%;height:160px;margin-top:12px;padding:10px;font-size:11px;background:#020617;color:#22c55e;border-radius:8px}
-.preview{margin-top:14px;background:#eef2f7;padding:10px;border-radius:10px}
-.card{background:#fff;border-left:6px solid #22c55e;border-radius:12px;padding:12px;color:#000;margin-top:8px}
-.card.won{border-color:#22c55e;background:#f0fdf4}.card.lost{border-color:#ef4444;background:#fef2f2}
-.badge{font-size:9px;padding:4px 8px;border-radius:20px;color:#fff;font-weight:800;display:inline-block}.badge.won{background:#22c55e}.badge.lost{background:#ef4444}
-.row{display:flex;justify-content:space-between;margin:12px 0}.vs{font-weight:900;color:#94a3b8}
 </style></head><body>
 <h1>🔧 SALVATION ADMIN</h1>
-<p style="font-size:11px;color:#94a3b8">Add game → Generate → Copy → Paste inside index.html inside #box</p>
+<label>HOME</label><input id="home" placeholder="Vision FC">
+<label>AWAY</label><input id="away" placeholder="Gold Stars">
+<label>LEAGUE</label><select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option></select>
+<label>TYPE</label><select id="type"><option value="1">1</option><option value="X">X</option><option value="2">2</option><option value="1X">1X</option><option value="X2">X2</option><option value="12">12</option></select>
+<label>PREDICTION</label><input id="pred" value="1 • HOME WIN">
+<label>CONFIDENCE</label><input id="conf" value="80% WON ✅">
+<label>TIME</label><input id="time" value="TODAY 15:00">
+<label>STATUS</label><select id="status"><option value="won">WON ✅ Green</option><option value="lost">LOST ❌ Red</option><option value="live">LIVE 🔴</option></select>
+<label>YOUR WHATSAPP</label><input id="waNum" value="233540042669">
 
-<label>HOME TEAM</label><input id="home" placeholder="e.g Vision FC">
-<label>AWAY TEAM</label><input id="away" placeholder="e.g Gold Stars">
-<label>LEAGUE</label><select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option><option>Bundes</option></select>
-<label>1X2 TYPE</label><select id="type"><option value="1">1 - Home Win</option><option value="X">X - Draw</option><option value="2">2 - Away Win</option><option value="1X">1X - Home or Draw</option><option value="X2">X2 - Away or Draw</option><option value="12">12 - No Draw</option><option value="BTTS">BTTS</option><option value="OVER">OVER</option></select>
-<label>PREDICTION TEXT</label><input id="pred" placeholder="e.g 1 • HOME WIN" value="1 • HOME WIN">
-<label>CONFIDENCE + STATUS TEXT</label><input id="conf" placeholder="e.g 75% WON ✅" value="80% WON ✅">
-<label>TIME / STADIUM</label><input id="time" placeholder="e.g TODAY 15:00 • Vision" value="TODAY 15:00">
-<label>RESULT COLOR</label><select id="status"><option value="won">WON ✅ - Green</option><option value="lost">LOST ❌ - Red</option><option value="live">LIVE 🔴 - Red</option><option value="pending">PENDING ⏳ - Grey</option></select>
-<label>WHATSAPP NUMBER (without +)</label><input id="waNum" value="233500000000" placeholder="2335XXXXXXXX">
-
-<button class="green" onclick="gen()">⚡ GENERATE CARD CODE</button>
-<button class="dark" onclick="preview()">👁️ PREVIEW</button>
-
-<textarea id="out" placeholder="Card code go appear here..."></textarea>
-<button class="green" onclick="copyCode()">📋 COPY CODE</button>
-
-<div id="previewArea" class="preview"></div>
-
+<button class="green" onclick="gen()">⚡ GENERATE</button>
+<textarea id="out"></textarea>
+<button class="green" onclick="navigator.clipboard.writeText(out.value);alert('Copied! Paste inside #box in index.html')">📋 COPY</button>
 <script>
 function gen(){
- let h=home.value||"Home",aw=away.value||"Away",lg=league.value,tp=type.value,pr=pred.value,cf=conf.value,tm=time.value,st=status.value,wa=waNum.value;
- let badgeClass=st;
- let badgeText=st==='won'?'✅ WON':st==='lost'?'❌ LOST':st==='live'?'🔴 LIVE':'⏳ PENDING';
- let code=`<div class="card ${st}" data-t="${tp}" data-l="${lg}" data-s="${st.toUpperCase()}"><span class="badge ${badgeClass}">${badgeText} • ${tm}</span><div class="row"><div class="team">${h}</div><div class="vs">VS</div><div class="team">${aw}</div></div><div class="meta"><span>Tip: <b>${pr}</b></span><span class="tag"> ${cf}</span></div><button class="wa" onclick="wa('${h} vs ${aw} - ${tp}')">💬 VIP WHATSAPP</button></div>`;
- document.getElementById('out').value=code;
- return code;
+ let h=home.value||"Home",aw=away.value||"Away",lg=league.value,tp=type.value,pr=pred.value,cf=conf.value,tm=time.value,st=status.value;
+ let badge=st==='won'?'✅ WON':st==='lost'?'❌ LOST':st==='live'?'🔴 LIVE':'⏳ PENDING';
+ let code=`<div class="card ${st}" data-t="${tp}" data-l="${lg}" data-s="${st.toUpperCase()}"><span class="badge ${st}">${badge} • ${tm}</span><div class="row"><div class="team">${h}</div><div class="vs">VS</div><div class="team">${aw}</div></div><div class="meta"><span>Tip: <b>${pr}</b></span><span class="tag"> ${cf}</span></div><button class="wa" onclick="wa('${h} vs ${aw} - ${tp}')">💬 VIP WHATSAPP</button></div>`;
+ out.value=code;return code;
 }
-function preview(){
- let code=gen();
- document.getElementById('previewArea').innerHTML=code+`<style>.team{width:90px;text-align:center;font-size:12px;font-weight:700}.meta{display:flex;justify-content:space-between;font-size:11px;margin-top:8px}.tag{padding:3px 8px;border-radius:10px;font-weight:800;background:#dcfce7}.tag.lost{background:#fecaca}.wa{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:900}</style>`;
-}
-function copyCode(){let o=document.getElementById('out');o.select();document.execCommand('copy');alert('Copied! Now paste inside index.html inside <div id=\\"box\\">');}
-function wa(m){window.open('https://wa.me/'+waNum.value+'?text='+encodeURIComponent('Hi Salvation VIP for '+m),'_blank');}
 </script>
 </body></html>

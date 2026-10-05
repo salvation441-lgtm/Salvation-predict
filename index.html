@@ -4,71 +4,60 @@
 *{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
 body{background:#eef2f7;padding:10px;padding-bottom:90px}
 .top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:16px;padding:14px;margin-bottom:12px}
-.logo{font-weight:900;font-size:22px;line-height:1}
-.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 14px;font-weight:900;font-size:11px;display:flex;align-items:center;gap:6px}
-.badge123{background:#22c55e;border-radius:20px;padding:3px 8px}
-.filters{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px}
-.row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
-.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 16px;font-weight:800;font-size:13px;cursor:pointer;flex-shrink:0}
-.fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.card{background:#fff;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:5px solid #22c55e}
-.card.pending{border-left-color:#f59e0b}
+.logo{font-weight:900;font-size:22px}
+.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 14px;font-weight:900;font-size:12px}
+.card{background:#fff;border-radius:18px;padding:14px;margin-bottom:12px;border-left:5px solid #22c55e}
+.card.p{border-left-color:#f59e0b}
 .badge{font-size:11px;font-weight:900;border-radius:20px;padding:5px 10px;display:inline-block;margin-bottom:10px}
-.badge.won{background:#dcfce7;color:#166534}.badge.pending{background:#fef3c7;color:#92400e}
-.teams{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:15px;margin:8px 0}
-.vs{color:#94a3b8}.meta{display:flex;justify-content:space-between;margin:10px 0;font-size:13px}
-.tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:5px 10px;font-weight:800;font-size:12px}
-.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;cursor:pointer}
+.badge.w{background:#dcfce7;color:#166534}.badge.p{background:#fef3c7;color:#92400e}
+.teams{display:flex;justify-content:space-between;font-weight:900;margin:8px 0}
+.meta{display:flex;justify-content:space-between;margin:10px 0;font-size:13px}
+.tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:5px 10px;font-weight:800}
+.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900}
 .wa.dark{background:#0f172a}
-.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:999}
+.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
 .join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 24px;font-weight:900}
-.momoBg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
-.momoBox{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:360px;text-align:center}
+.fbtn{border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 16px;font-weight:800;margin-right:6px}
+.fbtn.active{background:#22c55e;color:#fff}
 </style></head><body>
 
 <div class="top">
-<div class="logo">SALVATION<br>PREDICT <span style="color:#22c55e;font-size:11px">LIVE API</span></div>
-<button class="statsBtn"><span class="badge123">123</span><span id="statsText">3 TIPS</span></button>
+<div class="logo">SALVATION PREDICT</div>
+<div class="statsBtn">123 - 3 TIPS - VIP 50 GHS</div>
 </div>
 
-<div class="filters">
-<div class="row">
-<button class="fbtn" style="background:#3b82f6;color:#fff" onclick="fetchLive('gha.1')">GPL LIVE</button>
-<button class="fbtn" style="background:#0f172a;color:#fff" onclick="fetchLive('eng.1')">PL LIVE</button>
-<button class="fbtn" style="background:#991b1b;color:#fff" onclick="fetchLive('esp.1')">LaLiga LIVE</button>
-<button class="fbtn active" onclick="showMyTips()">MY TIPS</button>
-</div>
-<div class="row" style="margin-top:8px" id="tipRow">
-<button class="fbtn active" onclick="filterTips('ALL',this)">ALL</button>
-<button class="fbtn" onclick="filterTips('1',this)">1</button>
-<button class="fbtn" onclick="filterTips('X',this)">X</button>
-<button class="fbtn" onclick="filterTips('2',this)">2</button>
-<button class="fbtn" onclick="filterTips('1X',this)">1X</button>
-</div>
+<div style="background:#fff;border-radius:16px;padding:12px;margin-bottom:12px;display:flex;gap:8px;overflow-x:auto">
+<button class="fbtn active">MY TIPS</button>
+<button class="fbtn">GPL LIVE</button>
+<button class="fbtn">PL LIVE</button>
+<button class="fbtn">LaLiga LIVE</button>
 </div>
 
-<div id="box"></div>
+<div id="box">
 
-<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS</div><button class="join" onclick="openMomo('VIP')">JOIN VIP</button></div>
-
-<div class="momoBg" id="momoBg" onclick="if(event.target==this)closeMomo()"><div class="momoBox">
-<h3 style="font-weight:900">PAY 50 GHS - MTN MOMO</h3>
-<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin:10px 0;text-align:left;font-size:13px">
-<b>MoMo:</b> 0540042669<br><b>Name:</b> Salva Tion<br><b>Amount:</b> 50 GHS<br><b>Ref:</b> <span id="momoRef">VIP</span>
+<div class="card">
+<span class="badge w">WON - TODAY 15:00</span>
+<div class="teams"><span>Vision FC</span><span>VS</span><span>Gold Stars</span></div>
+<div class="meta"><span>Tip: <b>1 - HOME WIN</b></span><span class="tag">75% WON</span></div>
+<button class="wa" onclick="window.open('https://wa.me/233540042669?text=Vision FC')">VIP WHATSAPP</button>
 </div>
-<button class="wa" onclick="confirmPay()">I HAVE PAID</button><br>
-<button style="margin-top:10px;background:none;border:none;color:#64748b;font-weight:700" onclick="closeMomo()">Close</button>
-</div></div>
 
-<script>
-function showMyTips(){
- document.getElementById('box').innerHTML = `
-  <div class="card won" data-tip="1">
-    <span class="badge won">WON - TODAY 15:00</span>
-    <div class="teams"><span>Vision FC</span><span class="vs">VS</span><span>Gold Stars</span></div>
-    <div class="meta"><span>Tip: <b>1 - HOME WIN</b></span><span class="tag">75% WON</span></div>
-    <button class="wa" onclick="goWa('Vision FC vs Gold Stars')">VIP WHATSAPP</button>
-  </div>
-  <div class="card won" data-tip="1X">
-    <span class="badge won">WON - TODAY 15:00</span>
-    <div class="teams"><span>Karela Utd</
+<div class="card">
+<span class="badge w">WON - TODAY 15:00</span>
+<div class="teams"><span>Karela Utd</span><span>VS</span><span>Bechem Utd</span></div>
+<div class="meta"><span>Tip: <b>1X - Double</b></span><span class="tag">88% WON</span></div>
+<button class="wa" onclick="window.open('https://wa.me/233540042669?text=Karela')">VIP WHATSAPP</button>
+</div>
+
+<div class="card p">
+<span class="badge p">TODAY 19:00 - VIP TIP</span>
+<div class="teams"><span>Kotoko</span><span>VS</span><span>Hearts</span></div>
+<div class="meta"><span>Tip: <b>1X - GPL</b></span><span class="tag">90% CONFIDENT</span></div>
+<button class="wa dark" onclick="alert('Pay 50 GHS to 0540042669 - Salva Tion')">JOIN VIP TO VIEW - 50 GHS</button>
+</div>
+
+</div>
+
+<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS</div><button class="join" onclick="window.open('https://wa.me/233540042669?text=JOIN VIP')">JOIN VIP</button></div>
+
+</body></html>

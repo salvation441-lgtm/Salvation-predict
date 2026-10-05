@@ -19,7 +19,22 @@
 .vs{font-weight:900;color:#94a3b8}
 .meta{display:flex;justify-content:space-between;font-size:11px;margin-top:8px}
 .conf{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;font-weight:700;font-size:10px}
-</style></head><body>
+</style></head><body><script>
+// FETCH LIVE SCORES FROM YOUR API
+async function loadLive(){
+  try{
+    const r = await fetch('/api/live');
+    const data = await r.json();
+    console.log('Live:', data);
+    // You fit show live badge for games wey dey play
+    data.liveGames.forEach(g=>{
+      // find card and add LIVE tag
+    });
+  }catch(e){console.log('Live off')}
+}
+loadLive();
+setInterval(loadLive, 30000); // update every 30 seconds
+</script>
 <div class="top"><h1>SALVATION<br>PREDICT</h1><div class="vip">OCT 3 2026<br>VIP 50 GHS</div></div>
 
 <div class="fil" id="f1"><button class="b active" data-v="ALL">ALL</button><button class="b" data-v="1">1</button><button class="b" data-v="X">X</button><button class="b" data-v="2">2</button><button class="b" data-v="BTTS">BTTS</button><button class="b" data-v="OVER">OVER</button></div>

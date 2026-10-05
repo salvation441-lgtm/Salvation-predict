@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SALVATION PREDICT</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#050a18;color:#fff}
-.header{background:#000;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
-.header h1{font-weight:900;font-size:20px;line-height:20px}
-.vip{background:#16a34a;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center}
-.filters{padding:12px;background:#000;position:sticky;top:63px;z-index:9}
-.row{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px}
-.row::-webkit-scrollbar{display:none}
-.btn{padding:10px 18px;border-radius:20px;border:1px solid #333;background:#1a1f2e;color:#fff;font-size:13px;white-space:nowrap}
-.btn.active{background:#fff;color:#000;font-weight:700}
-.btn2{padding:8px 14px;border-radius:20px;border:1px solid #333;background:#000;color:#aaa;font-size:12px;white-space:nowrap}
-.btn2.active{border-color:#22c55e;color:#22c55e}
-.games{padding:12px;padding-bottom:90px}
-.card{background:#111a2e;border:1px solid #1e293b;border-left:4px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:12px}
-.league{font-size:11px;color:#666;display:flex;justify-content:space-between}
-.match{font-weight:800;margin:6px 0}
-.tip{font-size:12px;color:#888}
-.tip b{color:#fff}
-.conf{color:#22c55e;font-size:11px;float:right}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#0a0f1e;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
-.nav div{text-align:center;font-size:10px;color:#666}
-.nav div.active{color:#22c55e}
-</style>
-</head><body>
-<div class="header"><h1>SALVATION<br>PREDICT</h1><div class="vip">OCT 3 2026<br>VIP 50 GHS</div></div>
-<div class="filters">
-<div class="row"><button class="btn active" onclick="fil('ALL',this)">ALL</button><button class="btn" onclick="fil('1',this)">1</button><button class="btn" onclick="fil('X',this)">X</button><button class="btn" onclick="fil('2',this)">2</button><button class="btn" onclick="fil('BTTS',this)">BTTS</button></div>
-<div class="row"><button class="btn2 active" onclick="filL('ALL',this)">ALL</button><button class="btn2" onclick="filL('PL',this)">PL</button><button class="btn2" onclick="filL('LaLiga',this)">La Liga</button><button class="btn2" onclick="filL('SerieA',this)">Serie A</button><button class="btn2" onclick="filL('Bundes',this)">Bundes</button><button class="btn2" style="border-color:#eab308;color:#eab308" onclick="filL('GPL',this)">GPL 🇬🇭</button></div>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080e1f;color:#fff;padding-bottom:70px}
+.top{background:#000;padding:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.top h1{font-weight:900;font-size:20px;line-height:19px}
+.vip{background:#16a34a;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center}
+.fil{padding:10px;background:#000;display:flex;gap:8px;overflow-x:auto} .fil::-webkit-scrollbar{display:none}
+.b{padding:9px 18px;border-radius:20px;border:1px solid #333;background:#1e263d;color:#fff;font-size:13px} .b.on{background:#fff;color:#000;font-weight:700}
+.b2{padding:7px 14px;border-radius:20px;border:1px solid #333;background:#000;color:#aaa;font-size:12px} .b2.on{border-color:#22c55e;color:#22c55e}
+.b2.gpl.on{border-color:#facc15;color:#facc15}
+.list{padding:10px}
+.card{background:#111d33;border:1px solid #1e2a4a;border-left:4px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:10px}
+.card.hide{display:none}
+.small{font-size:11px;color:#666;display:flex;justify-content:space-between}
+.match{font-weight:800;margin:5px 0}
+.tip{font-size:12px;color:#888} .tip b{color:#fff}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#0a1329;border-top:1px solid #1e2a4a;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
+.nav div{font-size:10px;color:#666;text-align:center} .nav div.on{color:#22c55e}
+</style></head><body>
+<div class="top"><h1>SALVATION<br>PREDICT</h1><div class="vip">OCT 3 2026<br>VIP 50 GHS</div></div>
+<div class="fil"><button class="b on" onclick="fT('ALL',this)">ALL</button><button class="b" onclick="fT('1',this)">1</button><button class="b" onclick="fT('X',this)">X</button><button class="b" onclick="fT('2',this)">2</button><button class="b" onclick="fT('BTTS',this)">BTTS</button><button class="b" onclick="fT('OVER',this)">OVER</button></div>
+<div class="fil" style="padding-top:0"><button class="b2 on" onclick="fL('ALL',this)">ALL</button><button class="b2" onclick="fL('PL',this)">PL</button><button class="b2" onclick="fL('LaLiga',this)">La Liga</button><button class="b2" onclick="fL('SerieA',this)">Serie A</button><button class="b2" onclick="fL('Bundes',this)">Bundes</button><button class="b2 gpl" onclick="fL('GPL',this)">GPL 🇬🇭</button></div>
+
+<div class="list" id="list">
+<div class="card" data-t="1" data-l="GPL"><div class="small"><span>Ghana Premier - 80%</span><span>15:00 TODAY 🔴</span></div><div class="match">Dreams FC vs Hearts of Oak</div><div class="tip">Tip: <b>AWAY WIN</b> • 80% Conf</div></div>
+<div class="card" data-t="1" data-l="GPL"><div class="small"><span>Ghana Premier - 75%</span><span>16:00 TODAY</span></div><div class="match">Vision FC vs Bibiani Gold Stars</div><div class="tip">Tip: <b>HOME WIN</b> • 75% Conf</div></div>
+<div class="card" data-t="X" data-l="GPL"><div class="small"><span>Ghana Premier - 82%</span><span>18:00 TODAY</span></div><div class="match">Samartex vs Kotoko</div><div class="tip">Tip: <b>X2</b> • 82% Conf</div></div>
+<div class="card" data-t="1" data-l="PL"><div class="small"><span>PL - 88%</span><span>FT 2-0 WON ✅</span></div><div class="match">Arsenal vs Bournemouth</div><div class="tip">Tip: <b>HOME WIN</b> • 88% Conf</div></div>
+<div class="card" data-t="OVER" data-l="PL"><div class="small"><span>Premier League - 92%</span><span>17:30</span></div><div class="match">Man City vs Newcastle</div><div class="tip">Tip: <b>OVER 2.5</b> • 92% Conf</div></div>
+<div class="card" data-t="BTTS" data-l="PL"><div class="small"><span>PL - 78%</span><span>19:30</span></div><div class="match">Chelsea vs Liverpool</div><div class="tip">Tip: <b>BTTS YES</b> • 78% Conf</div></div>
+<div class="card" data-t="1" data-l="LaLiga"><div class="small"><span>La Liga - 94%</span><span>19:00</span></div><div class="match">Barcelona vs Espanyol</div><div class="tip">Tip: <b>HOME WIN</b> • 94% Conf</div></div>
+<div class="card" data-t="BTTS" data-l="SerieA"><div class="small"><span>Serie A - 85%</span><span>20:45</span></div><div class="match">Inter vs AC Milan</div><div class="tip">Tip: <b>BTTS YES</b> • 85% Conf</div></div>
+<div class="card" data-t="OVER" data-l="Bundes"><div class="small"><span>Bundesliga - 88%</span><span>Tomorrow 17:30</span></div><div class="match">Bayern vs Dortmund</div><div class="tip">Tip: <b>OVER 2.5</b> • 88% Conf</div></div>
 </div>
-<div class="games" id="games"></div>
-<div class="nav"><div class="active">🏠<br>Home</div><div>🔴<br>LIVE</div><div onclick="alert('VIP 50 GHS - WhatsApp: 055...')">👑<br>VIP</div><div>📊<br>Results</div><div>⚙️<br>Settings</div></div>
+
+<div class="nav"><div class="on">🏠<br>Home</div><div onclick="alert('LIVE scores - API next')">🔴<br>LIVE</div><div onclick="alert('VIP 50 GHS - Pay to WhatsApp')" style="color:#facc15">👑<br>VIP</div><div onclick="alert('Results - All WON this week')">📊<br>Results</div><div>⚙️<br>Settings</div></div>
+
 <script>
-var allGames=[
-{h:"Dreams FC",a:"Hearts of Oak",l:"GPL",lf:"Ghana Premier - 80%",t:"1",p:"AWAY WIN",c:80,i:"15:00 TODAY 🔴"},
-{h:"Vision FC",a:"Bibiani Gold Stars",l:"GPL",lf:"Ghana Premier - 75%",t:"1",p:"HOME WIN",c:75,i:"16:00 TODAY"},
-{h:"Samartex",a:"Kotoko",l:"GPL",lf:"Ghana Premier - 82%",t:"X",p:"X2",c:82,i:"18:00 TODAY"},
-{h:"Arsenal",a:"Bournemouth",l:"PL",lf:"PL - 88%",t:"1",p:"HOME WIN",c:88,i:"WON ✅"},
-{h:"Man City",a:"Newcastle",l:"PL",lf:"Premier League - 92%",t:"OVER",p:"OVER 2.5",c:92,i:"17:30"},
-{h:"Barcelona",a:"Espanyol",l:"LaLiga",lf:"La Liga - 94%",t:"1",p:"HOME WIN",c:94,i:"19:00"},
-{h:"Inter",a:"AC Milan",l:"SerieA",lf:"Serie A - 85%",t:"BTTS",p:"BTTS YES",c:85,i:"20:45"},
-{h:"Bayern",a:"Dortmund",l:"Bundes",lf:"Bundes - 88%",t:"OVER",p:"OVER 2.5",c:88,i:"Tomorrow"}
-];
-var ft='ALL', fl='ALL';
-function render(){var g=document.getElementById('games');g.innerHTML='';var f=allGames.filter(x=>(ft=='ALL'||x.t==ft)&&(fl=='ALL'||x.l==fl));f.forEach(x=>{g.innerHTML+=`<div class="card"><div class="league"><span>${x.lf}</span><span>${x.i}</span></div><div class="match">${x.h} vs ${x.a}</div><div class="tip">Tip: <b>${x.p}</b><span class="conf">${x.c}% Conf</span></div></div>`});}
-function fil(t,b){ft=t;document.querySelectorAll('.btn').forEach(e=>e.classList.remove('active'));b.classList.add('active');render();}
-function filL(l,b){fl=l;document.querySelectorAll('.btn2').forEach(e=>e.classList.remove('active'));b.classList.add('active');render();}
-render();
-</script>
-</body></html>
+let ct='ALL', cl='ALL';
+function apply(){document.querySelectorAll('.card').forEach(c=>{let show=(ct==='ALL'||c.dataset.t===ct)&&(cl==='ALL'||c.dataset.l===cl);c.classList.toggle('hide',!show);});}
+function fT(t,b){ct=t;document.querySelectorAll('.b').forEach(x=>x.classList.remove('on'));b.classList.add('on');apply();}
+function fL(l,b){cl=l;document.querySelectorAll('.b2').forEach(x=>x.classList.remove('on'));b.classList.add('on');apply();}
+</script></body></html>

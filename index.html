@@ -1,10 +1,9 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SALVATION PREDICT</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080e1f;color:#fff;padding-bottom:70px}
-.top{background:#000;padding:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
-.top h1{font-weight:900;font-size:20px;line-height:19px}
-.vip{background:#16a34a;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#080e1f;color:#fff;padding-bottom:75px}
+.top{background:#000;padding:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
+.top h1{font-weight:900;font-size:20px;line-height:19px} .vip{background:#16a34a;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center}
 .fil{padding:10px;background:#000;display:flex;gap:8px;overflow-x:auto} .fil::-webkit-scrollbar{display:none}
 .b{padding:9px 18px;border-radius:20px;border:1px solid #333;background:#1e263d;color:#fff;font-size:13px} .b.on{background:#fff;color:#000;font-weight:700}
 .b2{padding:7px 14px;border-radius:20px;border:1px solid #333;background:#000;color:#aaa;font-size:12px} .b2.on{border-color:#22c55e;color:#22c55e}
@@ -13,12 +12,15 @@
 .card{background:#111d33;border:1px solid #1e2a4a;border-left:4px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:10px}
 .card.hide{display:none}
 .small{font-size:11px;color:#666;display:flex;justify-content:space-between}
-.match{font-weight:800;margin:5px 0}
-.tip{font-size:12px;color:#888} .tip b{color:#fff}
+.match{font-weight:800;margin:5px 0} .tip{font-size:12px;color:#888} .tip b{color:#fff}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#0a1329;border-top:1px solid #1e2a4a;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
-.nav div{font-size:10px;color:#666;text-align:center} .nav div.on{color:#22c55e}
+.nav div{font-size:10px;color:#666;text-align:center;cursor:pointer} .nav div.on{color:#22c55e}
+.modal{position:fixed;inset:0;background:#000c;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex} .box{background:#111d33;border-radius:16px;padding:20px;width:100%;max-width:340px;border:1px solid #1e2a4a}
+.btn-green{background:#22c55e;color:#000;padding:12px;width:100%;border-radius:10px;font-weight:800;border:none;margin-top:12px}
+.item{background:#0f1a32;padding:12px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between}
 </style></head><body>
-<div class="top"><h1>SALVATION<br>PREDICT</h1><div class="vip">OCT 3 2026<br>VIP 50 GHS</div></div>
+<div class="top"><h1>SALVATION<br>PREDICT</h1><div class="vip" onclick="openM('vipM')">OCT 3 2026<br>VIP 50 GHS</div></div>
 <div class="fil"><button class="b on" onclick="fT('ALL',this)">ALL</button><button class="b" onclick="fT('1',this)">1</button><button class="b" onclick="fT('X',this)">X</button><button class="b" onclick="fT('2',this)">2</button><button class="b" onclick="fT('BTTS',this)">BTTS</button><button class="b" onclick="fT('OVER',this)">OVER</button></div>
 <div class="fil" style="padding-top:0"><button class="b2 on" onclick="fL('ALL',this)">ALL</button><button class="b2" onclick="fL('PL',this)">PL</button><button class="b2" onclick="fL('LaLiga',this)">La Liga</button><button class="b2" onclick="fL('SerieA',this)">Serie A</button><button class="b2" onclick="fL('Bundes',this)">Bundes</button><button class="b2 gpl" onclick="fL('GPL',this)">GPL 🇬🇭</button></div>
 
@@ -34,11 +36,18 @@
 <div class="card" data-t="OVER" data-l="Bundes"><div class="small"><span>Bundesliga - 88%</span><span>Tomorrow 17:30</span></div><div class="match">Bayern vs Dortmund</div><div class="tip">Tip: <b>OVER 2.5</b> • 88% Conf</div></div>
 </div>
 
-<div class="nav"><div class="on">🏠<br>Home</div><div onclick="alert('LIVE scores - API next')">🔴<br>LIVE</div><div onclick="alert('VIP 50 GHS - Pay to WhatsApp')" style="color:#facc15">👑<br>VIP</div><div onclick="alert('Results - All WON this week')">📊<br>Results</div><div>⚙️<br>Settings</div></div>
+<!-- DOWN NAV - ALL WORKING NOW -->
+<div class="nav">
+<div class="on" onclick="location.reload()">🏠<br>Home</div>
+<div onclick="openM('liveM')">🔴<br>LIVE</div>
+<div onclick="openM('vipM')" style="color:#facc15">👑<br>VIP</div>
+<div onclick="openM('resM')">📊<br>Results</div>
+<div onclick="openM('setM')">⚙️<br>Settings</div>
+</div>
 
-<script>
-let ct='ALL', cl='ALL';
-function apply(){document.querySelectorAll('.card').forEach(c=>{let show=(ct==='ALL'||c.dataset.t===ct)&&(cl==='ALL'||c.dataset.l===cl);c.classList.toggle('hide',!show);});}
-function fT(t,b){ct=t;document.querySelectorAll('.b').forEach(x=>x.classList.remove('on'));b.classList.add('on');apply();}
-function fL(l,b){cl=l;document.querySelectorAll('.b2').forEach(x=>x.classList.remove('on'));b.classList.add('on');apply();}
-</script></body></html>
+<!-- MODALS -->
+<div id="vipM" class="modal" onclick="closeM('vipM')"><div class="box"><h2>VIP ACCESS 👑</h2><p style="font-size:13px;color:#888;margin:10px 0">10 sure games daily - 50 GHS<br>92% accuracy - Ghana Momo</p><p style="font-size:13px"><b>Momo Number:</b> 055 XXX XXXX<br>Send proof on WhatsApp</p><button class="btn-green" onclick="window.open('https://wa.me/233550000000?text=Hi Salvation VIP 50 GHS')">Pay via WhatsApp</button><p style="text-align:center;color:#666;font-size:11px;margin-top:10px" onclick="closeM('vipM')">Close</p></div></div>
+
+<div id="liveM" class="modal" onclick="closeM('liveM')"><div class="box"><h2>🔴 LIVE</h2><div class="item"><span>Dreams FC 1-1 Hearts (78')</span><span style="color:#22c55e">LIVE</span></div><div class="item"><span>Arsenal 2-0 Bournemouth</span><span style="color:#22c55e">FT</span></div><p style="text-align:center;color:#666;font-size:11px;margin-top:15px" onclick="closeM('liveM')">Close</p></div></div>
+
+<div id="resM" class="

@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT - Ghana's #1</title>
+<title>SALVATION PREDICT - Ghana #1</title>
 <style>
-*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
+*{box-sizing:border-box;font-family:Arial,sans-serif;margin:0;padding:0}
 body{background:#f1f5f9;padding:10px;padding-bottom:90px}
 .header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px;border-radius:12px;margin-bottom:8px}
 .header h1{font-size:20px;font-weight:900;line-height:1}
 .vip{font-size:9px;background:#0f172a;color:#fff;padding:8px 12px;border-radius:20px;font-weight:800;text-align:center}
-.filters{display:flex;gap:6px;overflow:auto;padding:6px 0}.filters::-webkit-scrollbar{display:none}
-.fbtn{padding:8px 16px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;font-weight:800;font-size:12px;white-space:nowrap}
+.filters{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
+.filters::-webkit-scrollbar{display:none}
+.fbtn{padding:10px 18px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer;flex-shrink:0}
 .fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.fbtn.active2{background:#0f172a;color:#fff}
+.fbtn.active2{background:#0f172a;color:#fff;border-color:#0f172a}
 .card{background:#fff;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin-top:10px}
-.card.lost{border-color:#ef4444;background:#fef2f2}.card.live{border-color:#ef4444}
+.card.lost{border-color:#ef4444;background:#fef2f2}.card.live{border-color:#ef4444}.card.pending{border-color:#0f172a}
 .badge{font-size:9px;padding:5px 10px;border-radius:20px;color:#fff;font-weight:800;display:inline-block}
-.badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444}
-.row{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
-.team{width:90px;text-align:center;font-size:13px;font-weight:700}.vs{font-weight:900;color:#94a3b8}
+.badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444}.badge.pending{background:#0f172a}
+.row{display:flex;justify-content:space-between;align-items:center;margin:14px 0}
+.team{width:100px;text-align:center;font-size:13px;font-weight:700}.vs{font-weight:900;color:#94a3b8}
 .meta{display:flex;justify-content:space-between;font-size:11px}
-.tag{padding:4px 10px;border-radius:12px;font-weight:800;background:#dcfce7}.tag.lost{background:#fecaca}
-.wa{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:11px;border-radius:12px;font-weight:900}
-.float{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.tag{padding:4px 10px;border-radius:12px;font-weight:800;background:#dcfce7}
+.wa{width:100%;margin-top:12px;background:#25D366;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;cursor:pointer}
+.float{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:99}
 .float a{background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:900;font-size:12px}
-/* MOMO MODAL */
-#momo{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;z-index:999;padding:16px}
+#momo{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;place-items:center;z-index:9999;padding:16px}
 #momo.show{display:grid}
-.mbox{background:#fff;border-radius:16px;padding:18px;max-width:360px;width:100%;color:#000}
-.mbox h2{font-size:18px;font-weight:900;margin-bottom:6px}.mbox p{font-size:12px;color:#64748b;margin-bottom:10px}
-.paybox{background:#fffbeb;border:1px dashed #f59e0b;border-radius:12px;padding:12px;margin:8px 0;font-size:13px}
-.paybtn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;margin-top:8px}
+.mbox{background:#fff;border-radius:16px;padding:20px;max-width:360px;width:100%;color:#000}
+.paybox{background:#fffbeb;border:1px dashed #f59e0b;border-radius:12px;padding:12px;margin:10px 0;font-size:13px;line-height:1.6}
+.paybtn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;margin-top:8px;cursor:pointer}
 .yellow{background:#facc15}.green{background:#22c55e;color:#fff}.black{background:#0f172a;color:#fff}
 </style></head><body>
 
@@ -53,11 +52,4 @@ body{background:#f1f5f9;padding:10px;padding-bottom:90px}
 </div>
 
 <div id="box">
-<!-- TODAY GAMES - OCT 5 -->
-<div class="card won" data-t="1" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Vision FC</div><div class="vs">VS</div><div class="team">Gold Stars</div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON ✅</span></div><button class="wa" onclick="wa('Vision FC vs Gold Stars - 1')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="1X" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Karela Utd</div><div class="vs">VS</div><div class="team">Bechem Utd</div></div><div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Karela vs Bechem - 1X')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="2" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 18:00</span><div class="row"><div class="team">Hearts of Oak</div><div class="vs">VS</div><div class="team">Accra Lions</div></div><div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80% WON ✅</span></div><button class="wa" onclick="wa('Hearts vs Lions - 2')">💬 VIP WHATSAPP</button></div>
-
-<div class="card pending" data-t="1" data-l="GPL" data-s="PENDING"><span class="badge won" style="background:#0f172a">⏳ TODAY 18:00 • VIP TIP
+<div class="card won" data-t="1"

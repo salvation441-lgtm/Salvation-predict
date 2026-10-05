@@ -1,94 +1,85 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT - 123 WON LOST</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#eef2f7;padding-bottom:90px}
-.top{background:#fff;padding:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0}
-.fil{background:#fff;padding:8px 10px;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #e2e8f0}
-.fil::-webkit-scrollbar{display:none}
-.btn{padding:7px 15px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:800;white-space:nowrap}
-.btn.on{background:#22c55e;color:#fff;border-color:#22c55e}
-.btn2{padding:6px 12px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:10px;font-weight:700;white-space:nowrap}
-.btn2.on{background:#0f172a;color:#fff}
-.card{background:#fff;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin:8px 10px}
-.card.won{border-left-color:#22c55e;background:#f0fdf4}
-.card.lost{border-left-color:#ef4444;background:#fef2f2}
-.card.live{border-left-color:#ef4444}
-.badge{font-size:9px;padding:4px 8px;border-radius:20px;color:#fff;font-weight:800;display:inline-block}
+*{box-sizing:border-box;font-family:Arial, sans-serif;margin:0;padding:0}
+body{background:#f1f5f9;padding:10px;padding-bottom:80px}
+.header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px;border-radius:12px;margin-bottom:10px}
+.header h1{font-size:20px;line-height:1.1;font-weight:900}
+.vip-top{background:#0f172a;color:#fff;font-size:10px;padding:8px 12px;border-radius:20px;font-weight:800;text-align:center}
+.filters{display:flex;gap:6px;overflow:auto;padding:6px 0}
+.filters::-webkit-scrollbar{display:none}
+.fbtn{padding:8px 16px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer}
+.fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
+.fbtn.active2{background:#0f172a;color:#fff;border-color:#0f172a}
+.card{background:#fff;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin-top:10px;color:#000}
+.card.lost{border-color:#ef4444;background:#fef2f2}.card.live{border-color:#ef4444;background:#fff7f7}.card.pending{border-color:#94a3b8}
+.badge{font-size:9px;padding:5px 10px;border-radius:20px;color:#fff;font-weight:800;display:inline-block}
 .badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444}.badge.pending{background:#64748b}
-.row{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
-.team{width:90px;text-align:center;font-size:12px;font-weight:700}
-.vs{font-weight:900;color:#94a3b8}
-.meta{display:flex;justify-content:space-between;font-size:11px;margin-top:8px}
-.tag{padding:3px 8px;border-radius:10px;font-weight:800;font-size:11px;background:#dcfce7}
+.row{display:flex;justify-content:space-between;align-items:center;margin:14px 0}
+.team{width:90px;text-align:center;font-size:13px;font-weight:700}.vs{font-weight:900;color:#94a3b8}
+.meta{display:flex;justify-content:space-between;font-size:11px;margin-top:6px}.tag{padding:4px 10px;border-radius:12px;font-weight:800;background:#dcfce7}
 .tag.lost{background:#fecaca}
-.wa{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:900}
-.float{position:fixed;bottom:12px;left:10px;right:10px;background:#0f172a;color:#fff;padding:12px 14px;border-radius:14px;display:flex;justify-content:space-between;align-items:center}
-.float a{background:#25D366;color:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;font-weight:900;font-size:13px}
-</style>
-</head>
-<body>
+.wa{width:100%;margin-top:12px;background:#25D366;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;cursor:pointer}
+.float{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:99}
+.float a{background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:900;font-size:12px}
+</style></head><body>
 
-<div class="top">
-<h1>SALVATION<br>PREDICT</h1>
-<div style="background:#0f172a;color:#fff;padding:6px 10px;border-radius:8px;font-size:9px;font-weight:800;text-align:center">123 • WON/LOST<br>VIP 50 GHS</div>
+<div class="header"><h1>SALVATION<br>PREDICT</h1><div class="vip-top">123 • WON/LOST<br>VIP 50 GHS</div></div>
+
+<div class="filters" id="f1">
+<button class="fbtn active" onclick="setType('ALL',this)">ALL</button>
+<button class="fbtn" onclick="setType('1',this)">1</button>
+<button class="fbtn" onclick="setType('X',this)">X</button>
+<button class="fbtn" onclick="setType('2',this)">2</button>
+<button class="fbtn" onclick="setType('1X',this)">1X</button>
+<button class="fbtn" onclick="setType('X2',this)">X2</button>
+<button class="fbtn" onclick="setType('12',this)">12</button>
 </div>
 
-<div class="fil">
-<button class="btn on" onclick="fT('ALL',this)">ALL</button>
-<button class="btn" onclick="fT('1',this)">1</button>
-<button class="btn" onclick="fT('X',this)">X</button>
-<button class="btn" onclick="fT('2',this)">2</button>
-<button class="btn" onclick="fT('1X',this)">1X</button>
-<button class="btn" onclick="fT('X2',this)">X2</button>
-<button class="btn" onclick="fT('12',this)">12</button>
-</div>
-
-<div class="fil">
-<button class="btn2 on" onclick="fL('ALL',this)">ALL</button>
-<button class="btn2" onclick="fL('GPL',this)">GPL 🇬🇭</button>
-<button class="btn2" onclick="fL('PL',this)">PL</button>
-<button class="btn2" onclick="fL('WON',this)">WON ✅</button>
-<button class="btn2" onclick="fL('LOST',this)">LOST ❌</button>
+<div class="filters" id="f2">
+<button class="fbtn active2" onclick="setLeague('ALL',this)">ALL</button>
+<button class="fbtn" onclick="setLeague('GPL',this)">GPL 🇬🇭</button>
+<button class="fbtn" onclick="setLeague('PL',this)">PL</button>
+<button class="fbtn" onclick="setLeague('WON',this)">WON ✅</button>
+<button class="fbtn" onclick="setLeague('LOST',this)">LOST ❌</button>
 </div>
 
 <div id="box">
+
 <div class="card won" data-t="1" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00 • Vision</span><div class="row"><div class="team">Vision FC</div><div class="vs">VS</div><div class="team">Gold Stars</div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON ✅</span></div><button class="wa" onclick="wa('Vision FC vs Gold Stars - 1')">💬 VIP WHATSAPP</button></div>
 
 <div class="card live" data-t="2" data-l="GPL" data-s="LIVE"><span class="badge live">🔴 LIVE • Tuba Accra</span><div class="row"><div class="team">Dreams FC</div><div class="vs">VS</div><div class="team">Hearts of Oak</div></div><div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80%</span></div><button class="wa" onclick="wa('Dreams vs Hearts - 2')">💬 VIP WHATSAPP</button></div>
 
-<div class="card won" data-t="1X" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • Anyinase</span><div class="row"><div class="team">Karela Utd</div><div class="vs">VS</div><div class="team">Bechem Utd</div></div><div class="meta"><span>Tip: <b>1X</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Karela 1X')">💬 VIP WHATSAPP</button></div>
+<div class="card won" data-t="1X" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • Anyinase</span><div class="row"><div class="team">Karela Utd</div><div class="vs">VS</div><div class="team">Bechem Utd</div></div><div class="meta"><span>Tip: <b>1X</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Karela vs Bechem - 1X')">💬 VIP WHATSAPP</button></div>
 
-<div class="card won" data-t="X2" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • Samreboi</span><div class="row"><div class="team">Samartex</div><div class="vs">VS</div><div class="team">Kotoko</div></div><div class="meta"><span>Tip: <b>X2</b></span><span class="tag">82% WON ✅</span></div><button class="wa" onclick="wa('Samartex X2')">💬 VIP WHATSAPP</button></div>
-
-<div class="card lost" data-t="X" data-l="GPL" data-s="LOST"><span class="badge lost">❌ LOST • Berekum</span><div class="row"><div class="team">B. Chelsea</div><div class="vs">VS</div><div class="team">Nations FC</div></div><div class="meta"><span>Tip: <b>X • DRAW</b></span><span class="tag lost">72% LOST ❌</span></div><button class="wa" onclick="wa('B.Chelsea X')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="12" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • Wenchi</span><div class="row"><div class="team">Young Apostles</div><div class="vs">VS</div><div class="team">Holy Stars</div></div><div class="meta"><span>Tip: <b>12</b></span><span class="tag">90% WON ✅</span></div><button class="wa" onclick="wa('Apostles 12')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="1" data-l="PL" data-s="WON"><span class="badge won">✅ WON • FT 2-0</span><div class="row"><div class="team">Arsenal</div><div class="vs">VS</div><div class="team">Bournemouth</div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Arsenal 1')">💬 VIP WHATSAPP</button></div>
 </div>
 
-<div class="float"><div><b>🔥 VIP 1X2 - 50 GHS</b></div><a href="https://wa.me/233500000000?text=Hi%20VIP%2050GHS">JOIN VIP</a></div>
+<div class="float"><span>🔥 VIP 1X2 - 50 GHS</span><a href="https://wa.me/233540042669?text=Hi%20Salvation%20VIP%20I%20want%20JOIN%2050%20GHS">JOIN VIP</a></div>
 
 <script>
-var curT='ALL',curL='ALL';
-function fT(t,el){curT=t;document.querySelectorAll('.btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');run();}
-function fL(l,el){curL=l;document.querySelectorAll('.btn2').forEach(b=>b.classList.remove('on'));el.classList.add('on');run();}
-function run(){
- document.querySelectorAll('.card').forEach(c=>{
-  var okT=curT==='ALL'||c.getAttribute('data-t')===curT;
-  var okL=true;
-  if(curL==='ALL') okL=true;
-  else okL=c.getAttribute('data-s')===curL||c.getAttribute('data-l')===curL;
-  c.style.display=(okT&&okL)?'block':'none';
+let activeT='ALL',activeL='ALL';
+function setType(t,el){
+ activeT=t;
+ document.querySelectorAll('#f1 .fbtn').forEach(b=>b.classList.remove('active'));
+ el.classList.add('active');
+ filter();
+}
+function setLeague(l,el){
+ activeL=l;
+ document.querySelectorAll('#f2 .fbtn').forEach(b=>b.classList.remove('active2'));
+ el.classList.add('active2');
+ filter();
+}
+function filter(){
+ document.querySelectorAll('#box .card').forEach(c=>{
+  let mt = activeT==='ALL' || c.dataset.t===activeT;
+  let ml = activeL==='ALL' || c.dataset.l===activeL || c.dataset.s===activeL;
+  c.style.display = (mt && ml) ? 'block' : 'none';
  });
 }
-function wa(m){window.open(?function wa(m){
- window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi Salvation Predict VIP - I want JOIN VIP 1X2 50 GHS - '+m),'_blank');
-}='+encodeURIComponent('Hi Salvation VIP for '+m),'_blank');}
+function wa(m){
+ window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi Salvation Predict VIP - I want JOIN VIP 50 GHS - '+m),'_blank');
+}
 </script>
-</body
+</body></html>

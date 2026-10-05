@@ -1,38 +1,53 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SALVATION PREDICT</title><script src="https://cdn.tailwindcss.com"></script>
-<style>body{background:#0a0e1a;color:white;font-family:sans-serif}.no-scrollbar::-webkit-scrollbar{display:none}</style>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SALVATION PREDICT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#050a18;color:#fff}
+.header{background:#000;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
+.header h1{font-weight:900;font-size:20px;line-height:20px}
+.vip{background:#16a34a;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center}
+.filters{padding:12px;background:#000;position:sticky;top:63px;z-index:9}
+.row{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px}
+.row::-webkit-scrollbar{display:none}
+.btn{padding:10px 18px;border-radius:20px;border:1px solid #333;background:#1a1f2e;color:#fff;font-size:13px;white-space:nowrap}
+.btn.active{background:#fff;color:#000;font-weight:700}
+.btn2{padding:8px 14px;border-radius:20px;border:1px solid #333;background:#000;color:#aaa;font-size:12px;white-space:nowrap}
+.btn2.active{border-color:#22c55e;color:#22c55e}
+.games{padding:12px;padding-bottom:90px}
+.card{background:#111a2e;border:1px solid #1e293b;border-left:4px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:12px}
+.league{font-size:11px;color:#666;display:flex;justify-content:space-between}
+.match{font-weight:800;margin:6px 0}
+.tip{font-size:12px;color:#888}
+.tip b{color:#fff}
+.conf{color:#22c55e;font-size:11px;float:right}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#0a0f1e;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
+.nav div{text-align:center;font-size:10px;color:#666}
+.nav div.active{color:#22c55e}
+</style>
 </head><body>
-<div class="bg-black border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-50">
-<h1 class="font-black text-xl leading-none">SALVATION<br>PREDICT</h1>
-<button onclick="document.getElementById('vipModal').classList.remove('hidden')" class="bg-green-600 text-xs font-bold px-3 py-2 rounded-lg">OCT 3 2026<br>VIP 50 GHS</button>
+<div class="header"><h1>SALVATION<br>PREDICT</h1><div class="vip">OCT 3 2026<br>VIP 50 GHS</div></div>
+<div class="filters">
+<div class="row"><button class="btn active" onclick="fil('ALL',this)">ALL</button><button class="btn" onclick="fil('1',this)">1</button><button class="btn" onclick="fil('X',this)">X</button><button class="btn" onclick="fil('2',this)">2</button><button class="btn" onclick="fil('BTTS',this)">BTTS</button></div>
+<div class="row"><button class="btn2 active" onclick="filL('ALL',this)">ALL</button><button class="btn2" onclick="filL('PL',this)">PL</button><button class="btn2" onclick="filL('LaLiga',this)">La Liga</button><button class="btn2" onclick="filL('SerieA',this)">Serie A</button><button class="btn2" onclick="filL('Bundes',this)">Bundes</button><button class="btn2" style="border-color:#eab308;color:#eab308" onclick="filL('GPL',this)">GPL 🇬🇭</button></div>
 </div>
-
-<div class="p-3 space-y-2 bg-black sticky top-[68px] z-40">
-<div class="flex gap-2 overflow-x-auto no-scrollbar">
-<button onclick="filterType('ALL',this)" class="type-btn bg-white text-black px-5 py-2 rounded-full text-sm font-bold">ALL</button>
-<button onclick="filterType('1',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">1</button>
-<button onclick="filterType('X',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">X</button>
-<button onclick="filterType('2',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">2</button>
-<button onclick="filterType('BTTS',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">BTTS</button>
-<button onclick="filterType('OVER',this)" class="type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm">OVER</button>
-</div>
-<div class="flex gap-2 overflow-x-auto no-scrollbar">
-<button onclick="filterLeague('ALL',this)" class="league-btn border border-green-500 text-green-400 px-4 py-1.5 rounded-full text-xs">ALL</button>
-<button onclick="filterLeague('PL',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">PL</button>
-<button onclick="filterLeague('LaLiga',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">La Liga</button>
-<button onclick="filterLeague('SerieA',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">Serie A</button>
-<button onclick="filterLeague('Bundes',this)" class="league-btn border border-gray-700 px-4 py-1.5 rounded-full text-xs">Bundes</button>
-<button onclick="filterLeague('GPL',this)" class="league-btn border border-yellow-500 text-yellow-400 px-4 py-1.5 rounded-full text-xs">GPL 🇬🇭</button>
-</div>
-</div>
-
-<div id="games" class="p-3 space-y-3 pb-36"></div>
-
-<!-- VIP MODAL -->
-<div id="vipModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-5">
-<div class="bg-[#131a2b] rounded-2xl p-6 w-full max-w-sm border border-gray-800">
-<h2 class="font-black text-xl mb-2">VIP ACCESS 👑</h2>
-<p class="text-gray-400 text-sm mb-4">50 GHS for today - 10 sure games, 92% accuracy</p>
-<p class="text-sm mb-4">Momo: <b>055XXXXXXX</b> - Send proof to WhatsApp</p>
-<button onclick="window.open('https://wa.me/233XXXXXXXX?text=Hi, I want VIP 50GHS')" class="w-full bg-green-600 py-3 rounded-xl font-bold">Pay via
+<div class="games" id="games"></div>
+<div class="nav"><div class="active">🏠<br>Home</div><div>🔴<br>LIVE</div><div onclick="alert('VIP 50 GHS - WhatsApp: 055...')">👑<br>VIP</div><div>📊<br>Results</div><div>⚙️<br>Settings</div></div>
+<script>
+var allGames=[
+{h:"Dreams FC",a:"Hearts of Oak",l:"GPL",lf:"Ghana Premier - 80%",t:"1",p:"AWAY WIN",c:80,i:"15:00 TODAY 🔴"},
+{h:"Vision FC",a:"Bibiani Gold Stars",l:"GPL",lf:"Ghana Premier - 75%",t:"1",p:"HOME WIN",c:75,i:"16:00 TODAY"},
+{h:"Samartex",a:"Kotoko",l:"GPL",lf:"Ghana Premier - 82%",t:"X",p:"X2",c:82,i:"18:00 TODAY"},
+{h:"Arsenal",a:"Bournemouth",l:"PL",lf:"PL - 88%",t:"1",p:"HOME WIN",c:88,i:"WON ✅"},
+{h:"Man City",a:"Newcastle",l:"PL",lf:"Premier League - 92%",t:"OVER",p:"OVER 2.5",c:92,i:"17:30"},
+{h:"Barcelona",a:"Espanyol",l:"LaLiga",lf:"La Liga - 94%",t:"1",p:"HOME WIN",c:94,i:"19:00"},
+{h:"Inter",a:"AC Milan",l:"SerieA",lf:"Serie A - 85%",t:"BTTS",p:"BTTS YES",c:85,i:"20:45"},
+{h:"Bayern",a:"Dortmund",l:"Bundes",lf:"Bundes - 88%",t:"OVER",p:"OVER 2.5",c:88,i:"Tomorrow"}
+];
+var ft='ALL', fl='ALL';
+function render(){var g=document.getElementById('games');g.innerHTML='';var f=allGames.filter(x=>(ft=='ALL'||x.t==ft)&&(fl=='ALL'||x.l==fl));f.forEach(x=>{g.innerHTML+=`<div class="card"><div class="league"><span>${x.lf}</span><span>${x.i}</span></div><div class="match">${x.h} vs ${x.a}</div><div class="tip">Tip: <b>${x.p}</b><span class="conf">${x.c}% Conf</span></div></div>`});}
+function fil(t,b){ft=t;document.querySelectorAll('.btn').forEach(e=>e.classList.remove('active'));b.classList.add('active');render();}
+function filL(l,b){fl=l;document.querySelectorAll('.btn2').forEach(e=>e.classList.remove('active'));b.classList.add('active');render();}
+render();
+</script>
+</body></html>

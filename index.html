@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salvation Predict</title><script src="https://cdn.tailwindcss.com"></script>
 <style>body{background:#0a0e1a;color:white;font-family:sans-serif}.no-scrollbar::-webkit-scrollbar{display:none}</style>
 </head><body>
@@ -30,29 +30,51 @@
 <div id="games" class="p-3 space-y-3 pb-24"></div>
 
 <div class="fixed bottom-0 left-0 right-0 bg-[#0f1420] border-t border-gray-800 flex justify-around py-2 text-[11px]">
-<button onclick="showHome()" class="flex flex-col items-center text-green-400"><span>🏠</span>Home</button>
-<button onclick="showLive()" class="flex flex-col items-center text-gray-500"><span>•</span>LIVE</button>
+<button class="flex flex-col items-center text-green-400"><span>🏠</span>Home</button>
+<button class="flex flex-col items-center text-gray-500"><span>•</span>LIVE</button>
 <button onclick="goVIP()" class="flex flex-col items-center text-gray-500"><span>👑</span>VIP</button>
 <button class="flex flex-col items-center text-gray-500"><span>📊</span>Results</button>
 <button class="flex flex-col items-center text-gray-500"><span>⚙️</span>Settings</button>
 </div>
 
 <script>
-let saved = localStorage.getItem('salvation_games');
-let games = saved? JSON.parse(saved) : [
+let activeType='ALL', activeLeague='ALL';
+let games = [
 {home:"Dreams FC",away:"Hearts of Oak",league:"GPL",leagueFull:"Ghana Premier - 80%",type:"1",pred:"AWAY WIN",conf:80,info:"15:00 TODAY 🔴"},
 {home:"Vision FC",away:"Bibiani Gold Stars",league:"GPL",leagueFull:"Ghana Premier - 75%",type:"1",pred:"HOME WIN",conf:75,info:"16:00 TODAY"},
 {home:"Arsenal",away:"Bournemouth",league:"PL",leagueFull:"PL - 88%",type:"1",pred:"HOME WIN",conf:88,info:"FT 2-0 WON ✅"},
 {home:"Man City",away:"Newcastle",league:"PL",leagueFull:"Premier League - 92%",type:"OVER",pred:"OVER 2.5",conf:92,info:"17:30"},
 {home:"Barcelona",away:"Espanyol",league:"LaLiga",leagueFull:"La Liga - 94%",type:"1",pred:"HOME WIN",conf:94,info:"19:00"},
-{home:"Inter Milan",away:"AC Milan<div style="padding:15px">
-  <div style="background:#1A1A; border-left:4px solid #00FF88; border-radius:12px; padding:12px; margin-bottom:12px">
-    <span style="color:#00FF88; font-size:11px">PL • 7:00 PM</span>
-    <h3 style="color:white; margin:5px 0">Arsenal vs Man City</h3>
-    <p style="color:#AAA; font-size:13px">Tip: <b style="color:white">BTTS YES</b> | Odds: 1.78</p>
-    <div style="display:flex; justify-content:space-between; margin-top:8px">
-      <span style="color:#00FF88">85% Confidence</span>
-      <span style="background:#00FF88; color:black; padding:2px 8px; border-radius:5px; font-size:12px">FREE</span>
-    </div>
-  </div>
-</div>
+{home:"Inter Milan",away:"AC Milan",league:"SerieA",leagueFull:"Serie A - 85%",type:"BTTS",pred:"BTTS YES",conf:85,info:"20:45 TODAY"},
+{home:"Bayern Munich",away:"Dortmund",league:"Bundes",leagueFull:"Bundesliga - 88%",type:"OVER",pred:"OVER 2.5",conf:88,info:"Tomorrow 17:30"}
+];
+
+function render(){
+  const c=document.getElementById('games'); c.innerHTML='';
+  let filtered=games.filter(g=>(activeType==='ALL'||g.type===activeType)&&(activeLeague==='ALL'||g.league===activeLeague));
+  filtered.forEach(g=>{
+    c.innerHTML+=`
+    <div class="bg-[#131a2b] border border-gray-800 rounded-xl p-3 border-l-4 border-l-green-500">
+      <div class="flex justify-between text-[11px] text-gray-400 mb-1"><span>${g.leagueFull}</span><span>${g.info}</span></div>
+      <div class="font-bold">${g.home} vs ${g.away}</div>
+      <div class="flex justify-between mt-2 text-xs"><span class="text-gray-400">Tip: <b class="text-white">${g.pred}</b></span><span class="text-green-400">${g.conf}% Conf</span></div>
+    </div>`;
+  });
+  if(filtered.length===0) c.innerHTML='<p class="text-center text-gray-500 py-10">No games for this filter</p>';
+}
+function filterType(t,btn){
+  activeType=t;
+  document.querySelectorAll('.type-btn').forEach(b=>{b.className='type-btn bg-[#1a1f2e] px-5 py-2 rounded-full text-sm'});
+  btn.className='type-btn bg-white text-black px-5 py-2 rounded-full text-sm font-bold';
+  render();
+}
+function filterLeague(l,btn){
+  activeLeague=l;
+  document.querySelectorAll('.league-btn').forEach(b=>b.classList.remove('border-green-500','text-green-400'));
+  btn.classList.add('border-green-500','text-green-400');
+  render();
+}
+function goVIP(){alert('VIP 50 GHS - Momo Pay coming next!');}
+render();
+</script>
+</body></html>

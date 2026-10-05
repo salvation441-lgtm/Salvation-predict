@@ -1,84 +1,162 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT - Ghana #1</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALVATION PREDICT - 88% WON</title>
 <style>
-*{box-sizing:border-box;font-family:Arial,sans-serif;margin:0;padding:0}
-body{background:#f1f5f9;padding:10px;padding-bottom:90px}
-.header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px;border-radius:12px;margin-bottom:8px}
-.header h1{font-size:20px;font-weight:900;line-height:1}
-.vip{font-size:9px;background:#0f172a;color:#fff;padding:8px 12px;border-radius:20px;font-weight:800;text-align:center}
-.filters{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
-.filters::-webkit-scrollbar{display:none}
-.fbtn{padding:10px 18px;border-radius:20px;border:1px solid #cbd5e1;background:#fff;font-weight:800;font-size:12px;white-space:nowrap;cursor:pointer;flex-shrink:0}
+*{box-sizing:border-box;font-family:Arial,system-ui;margin:0;padding:0}
+body{background:#eef2f7;padding:10px;padding-bottom:90px}
+.top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.logo{font-weight:900;font-size:22px;line-height:1.1;letter-spacing:-0.5px}
+.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 14px;font-weight:900;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.badge123{background:#22c55e;color:#fff;border-radius:20px;padding:3px 8px;font-size:11px}
+.filters{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
+.row::-webkit-scrollbar{display:none}
+.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer;transition:.2s}
 .fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.fbtn.active2{background:#0f172a;color:#fff;border-color:#0f172a}
-.card{background:#fff;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin-top:10px}
-.card.lost{border-color:#ef4444;background:#fef2f2}.card.live{border-color:#ef4444}.card.pending{border-color:#0f172a}
-.badge{font-size:9px;padding:5px 10px;border-radius:20px;color:#fff;font-weight:800;display:inline-block}
-.badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444}.badge.pending{background:#0f172a}
-.row{display:flex;justify-content:space-between;align-items:center;margin:14px 0}
-.team{width:100px;text-align:center;font-size:13px;font-weight:700}.vs{font-weight:900;color:#94a3b8}
-.meta{display:flex;justify-content:space-between;font-size:11px}
-.tag{padding:4px 10px;border-radius:12px;font-weight:800;background:#dcfce7}
-.wa{width:100%;margin-top:12px;background:#25D366;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;cursor:pointer}
-.float{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:99}
-.float a{background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:900;font-size:12px}
-#momo{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;place-items:center;z-index:9999;padding:16px}
-#momo.show{display:grid}
-.mbox{background:#fff;border-radius:16px;padding:20px;max-width:360px;width:100%;color:#000}
-.paybox{background:#fffbeb;border:1px dashed #f59e0b;border-radius:12px;padding:12px;margin:10px 0;font-size:13px;line-height:1.6}
-.paybtn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;margin-top:8px;cursor:pointer}
-.yellow{background:#facc15}.green{background:#22c55e;color:#fff}.black{background:#0f172a;color:#fff}
-</style></head><body>
+.fbtn.dark.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.card{background:#fff;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:5px solid #e2e8f0}
+.card.won{border-left-color:#22c55e}
+.card.lost{border-left-color:#ef4444}
+.card.pending{border-left-color:#f59e0b}
+.card.live{border-left-color:#ef4444;animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.8}}
+.badge{font-size:11px;font-weight:900;border-radius:20px;padding:5px 10px;display:inline-block;margin-bottom:10px}
+.badge.won{background:#dcfce7;color:#166534}
+.badge.lost{background:#fee2e2;color:#991b1b}
+.badge.pending{background:#fef3c7;color:#92400e}
+.badge.live{background:#fee2e2;color:#991b1b}
+.teams{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:15px;margin:8px 0}
+.vs{color:#94a3b8;font-weight:800}
+.meta{display:flex;justify-content:space-between;align-items:center;margin:10px 0;font-size:13px}
+.tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:5px 10px;font-weight:800;font-size:12px}
+.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;font-size:14px;cursor:pointer}
+.wa.dark{background:#0f172a}
+.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:999}
+.join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 24px;font-weight:900;cursor:pointer}
+.momoBg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.momoBox{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:360px;text-align:center}
+</style>
+</head>
+<body>
 
-<div class="header"><h1>SALVATION<br>PREDICT</h1><div class="vip">123 • WON/LOST<br>VIP 50 GHS</div></div>
-
-<div class="filters" id="f1">
-<button class="fbtn active" onclick="setType('ALL',this)">ALL</button>
-<button class="fbtn" onclick="setType('1',this)">1</button>
-<button class="fbtn" onclick="setType('X',this)">X</button>
-<button class="fbtn" onclick="setType('2',this)">2</button>
-<button class="fbtn" onclick="setType('1X',this)">1X</button>
-<button class="fbtn" onclick="setType('X2',this)">X2</button>
-<button class="fbtn" onclick="setType('12',this)">12</button>
+<div class="top">
+<div class="logo">SALVATION<br>PREDICT</div>
+<button class="statsBtn" onclick="openMomo('STATS VIP')">
+<span class="badge123">123</span>
+<span id="statsText">WON/LOST • VIP 50 GHS</span>
+</button>
 </div>
 
-<div class="filters" id="f2">
-<button class="fbtn active2" onclick="setLeague('ALL',this)">ALL</button>
-<button class="fbtn" onclick="setLeague('GPL',this)">GPL 🇬🇭</button>
-<button class="fbtn" onclick="setLeague('PL',this)">PL</button>
-<button class="fbtn" onclick="setLeague('WON',this)">WON ✅</button>
-<button class="fbtn" onclick="setLeague('LOST',this)">LOST ❌</button>
+<div class="filters">
+<div class="row" id="tipFilters">
+<button class="fbtn active" data-f="ALL" onclick="filterTip(this)">ALL</button>
+<button class="fbtn" data-f="1" onclick="filterTip(this)">1</button>
+<button class="fbtn" data-f="X" onclick="filterTip(this)">X</button>
+<button class="fbtn" data-f="2" onclick="filterTip(this)">2</button>
+<button class="fbtn" data-f="1X" onclick="filterTip(this)">1X</button>
+<button class="fbtn" data-f="X2" onclick="filterTip(this)">X2</button>
+<button class="fbtn" data-f="Over" onclick="filterTip(this)">Over</button>
+<button class="fbtn" data-f="BTTS" onclick="filterTip(this)">BTTS</button>
+</div>
+<div class="row" style="margin-top:8px" id="leagueFilters">
+<button class="fbtn dark active" data-l="ALL" onclick="filterLeague(this)">ALL</button>
+<button class="fbtn dark" data-l="GPL" onclick="filterLeague(this)">GPL</button>
+<button class="fbtn dark" data-l="Premier League" onclick="filterLeague(this)">PL</button>
+<button class="fbtn dark" data-l="LaLiga" onclick="filterLeague(this)">LaLiga</button>
+<button class="fbtn dark" data-l="UCL" onclick="filterLeague(this)">UCL</button>
+<button class="fbtn dark" data-l="WON" onclick="filterLeague(this)">WON</button>
+<button class="fbtn dark" data-l="LOST" onclick="filterLeague(this)">LOST</button>
+</div>
 </div>
 
 <div id="box">
-<div class="card won" data-t="1" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Vision FC</div><div class="vs">VS</div><div class="team">Gold Stars</div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON ✅</span></div><button class="wa" onclick="wa('Vision FC vs Gold Stars - 1')">💬 VIP WHATSAPP</button></div>
-<div class="card won" data-t="1X" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 15:00</span><div class="row"><div class="team">Karela Utd</div><div class="vs">VS</div><div class="team">Bechem Utd</div></div><div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON ✅</span></div><button class="wa" onclick="wa('Karela vs Bechem - 1X')">💬 VIP WHATSAPP</button></div>
-<div class="card won" data-t="2" data-l="GPL" data-s="WON"><span class="badge won">✅ WON • TODAY 18:00</span><div class="row"><div class="team">Hearts of Oak</div><div class="vs">VS</div><div class="team">Accra Lions</div></div><div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80% WON ✅</span></div><button class="wa" onclick="wa('Hearts vs Lions - 2')">💬 VIP WHATSAPP</button></div>
-<div class="card pending" data-t="1" data-l="GPL" data-s="PENDING"><span class="badge pending">⏳ TODAY 18:00 • VIP TIP</span><div class="row"><div class="team">Kotoko</div><div class="vs">VS</div><div class="team">Medeama</div></div><div class="meta"><span>Tip: <b>🔒 VIP 1X2</b></span><span class="tag">92%</span></div><button class="wa" style="background:#0f172a" onclick="openMomo('Kotoko vs Medeama VIP')">🔒 JOIN VIP TO VIEW - 50 GHS</button></div>
+
+<div class="card won" data-t="1" data-l="GPL" data-s="WON">
+<span class="badge won">WON • TODAY 15:00</span>
+<div class="teams"><span class="team">Vision FC</span><span class="vs">VS</span><span class="team">Gold Stars</span></div>
+<div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON</span></div>
+<button class="wa" onclick="wa('Vision FC vs Gold Stars - Tip 1')">VIP WHATSAPP</button>
 </div>
 
-<div class="float"><span>🔥 VIP 1X2 - 50 GHS</span><a href="#" onclick="openMomo('VIP JOIN');return false">JOIN VIP</a></div>
-
-<div id="momo" onclick="if(event.target===this)closeMomo()"><div class="mbox">
-<h2>🔥 JOIN VIP - 50 GHS</h2><p>Pay with MTN MoMo then send screenshot on WhatsApp</p>
-<div class="paybox">
-<b>📱 MTN MoMo:</b><br>Number: <b>0540042669</b><br>Name: <b>Salvation Predict</b><br>Amount: <b>50 GHS</b><br>Ref: <b id="ref">VIP-Kotoko</b><br><br><b>Dial:</b> *170# → Send Money
+<div class="card won" data-t="1X" data-l="GPL" data-s="WON">
+<span class="badge won">WON • TODAY 15:00</span>
+<div class="teams"><span class="team">Karela Utd</span><span class="vs">VS</span><span class="team">Bechem Utd</span></div>
+<div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON</span></div>
+<button class="wa" onclick="wa('Karela vs Bechem - 1X')">VIP WHATSAPP</button>
 </div>
-<button class="paybtn yellow" onclick="copyMomo()">📋 COPY NUMBER 0540042669</button>
-<button class="paybtn green" onclick="confirmPay()">✅ I HAVE PAID - SEND ON WHATSAPP</button>
-<button class="paybtn black" onclick="closeMomo()">Close</button>
-</div></div>
+
+<div class="card won" data-t="2" data-l="GPL" data-s="WON">
+<span class="badge won">WON • TODAY 18:00</span>
+<div class="teams"><span class="team">Hearts of Oak</span><span class="vs">VS</span><span class="team">Accra Lions</span></div>
+<div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80% WON</span></div>
+<button class="wa" onclick="wa('Hearts vs Accra Lions - Tip 2')">VIP WHATSAPP</button>
+</div>
+
+<div class="card pending" data-t="1X" data-l="GPL" data-s="PENDING">
+<span class="badge pending">TODAY 19:00 • VIP TIP</span>
+<div class="teams"><span class="team">Kotoko</span><span class="vs">VS</span><span class="team">Hearts</span></div>
+<div class="meta"><span>Tip: <b>1X • Double</b> • GPL</span><span class="tag">90% CONFIDENT</span></div>
+<button class="wa dark" onclick="openMomo('Kotoko vs Hearts - 1X - 50 GHS')">JOIN VIP TO VIEW - 50 GHS</button>
+</div>
+
+</div>
+
+<div class="bottomBar">
+<div style="font-weight:900">VIP 1X2 - 50 GHS</div>
+<button class="join" onclick="openMomo('VIP JOIN - 50 GHS')">JOIN VIP</button>
+</div>
+
+<div class="momoBg" id="momoBg" onclick="if(event.target==this)closeMomo()">
+<div class="momoBox">
+<h3 style="font-weight:900;margin-bottom:6px">PAY WITH MOMO - 50 GHS</h3>
+<p style="font-size:13px;color:#64748b;margin-bottom:10px">Pay to get VIP tips on WhatsApp instantly</p>
+<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin:10px 0;text-align:left;font-size:13px;line-height:1.6">
+<b>MTN MoMo:</b> 0540042669<br>
+<b>Name:</b> Salva Tion<br>
+<b>Amount:</b> 50 GHS<br>
+<b>Ref:</b> <span id="momoRef">VIP</span>
+</div>
+<button class="wa" onclick="confirmPay()">I HAVE PAID - SEND SCREENSHOT</button>
+<button style="margin-top:8px;background:none;border:none;color:#64748b;font-weight:700;cursor:pointer" onclick="closeMomo()">Close</button>
+</div>
+</div>
 
 <script>
-let activeT='ALL',activeL='ALL',curRef='VIP JOIN';
-function setType(t,el){activeT=t;document.querySelectorAll('#f1 .fbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');doFilter();}
-function setLeague(l,el){activeL=l;document.querySelectorAll('#f2 .fbtn').forEach(b=>b.classList.remove('active2'));el.classList.add('active2');doFilter();}
-function doFilter(){document.querySelectorAll('#box .card').forEach(c=>{let mt=activeT==='ALL'||c.dataset.t===activeT;let ml=activeL==='ALL'||c.dataset.l===activeL||c.dataset.s===activeL;c.style.display=(mt&&ml)?'block':'none';});}
-function wa(m){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi Salvation Predict VIP - I want JOIN VIP 50 GHS - '+m),'_blank');}
-function openMomo(r){curRef=r;document.getElementById('ref').innerText=r;document.getElementById('momo').classList.add('show');}
-function closeMomo(){document.getElementById('momo').classList.remove('show');}
-function copyMomo(){navigator.clipboard.writeText('0540042669');alert('✅ Copied: 0540042669');}
-function confirmPay(){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hi I have paid 50 GHS MoMo for '+curRef+'. Add me to VIP!'),' _blank');}
+let curTip='ALL', curLeague='ALL';
+function filterTip(btn){
+ document.querySelectorAll('#tipFilters .fbtn').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active'); curTip=btn.dataset.f; applyFilters();
+}
+function filterLeague(btn){
+ document.querySelectorAll('#leagueFilters .fbtn').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active'); curLeague=btn.dataset.l; applyFilters();
+}
+function applyFilters(){
+ document.querySelectorAll('#box .card').forEach(c=>{
+  let t=c.dataset.t||''; let l=c.dataset.l||''; let s=c.dataset.s||'';
+  let tipOk=curTip==='ALL'||t.includes(curTip);
+  let leagueOk=curLeague==='ALL'||l===curLeague||s===curLeague;
+  c.style.display=(tipOk&&leagueOk)?'block':'none';
+ });
+}
+function wa(msg){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hello Salvation Predict! I want VIP: '+msg),'_blank');}
+function openMomo(ref){
+ document.getElementById('momoRef').innerText=ref;
+ document.getElementById('momoBg').style.display='flex';
+}
+function closeMomo(){document.getElementById('momoBg').style.display='none';}
+function confirmPay(){closeMomo(); wa(document.getElementById('momoRef').innerText+' - I have paid 50 GHS, here is screenshot');}
+function updateStats(){
+ let won=document.querySelectorAll('#box .card.won').length;
+ let lost=document.querySelectorAll('#box .card.lost').length;
+ let total=document.querySelectorAll('#box .card').length;
+ let el=document.getElementById('statsText');
+ if(el) el.innerText=won+' WON / '+lost+' LOST • VIP 50 GHS • '+total+' TIPS';
+}
+setTimeout(updateStats,500);
 </script>
-</body></html>
+</body>
+</html>

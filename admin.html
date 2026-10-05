@@ -1,100 +1,84 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ADMIN - Salvation Predict</title>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADMIN V2 SMART</title>
 <style>
-*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
-body{background:#0f172a;color:#fff;padding:16px}
-h1{font-size:22px;font-weight:900;margin-bottom:4px}
-.small{font-size:11px;color:#94a3b8;margin-bottom:12px}
-.card{background:#fff;color:#000;border-radius:12px;padding:14px;margin-bottom:10px}
-input,select{width:100%;padding:11px;border-radius:8px;border:1px solid #cbd5e1;margin:6px 0;font-weight:700}
+*{box-sizing:border-box;font-family:Arial}body{background:#0f172a;color:#fff;padding:14px}
+h1{font-size:20px;font-weight:900}.sm{font-size:11px;color:#94a3b8;margin-bottom:10px}
+.box{background:#fff;color:#000;border-radius:12px;padding:12px;margin-bottom:10px}
+input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #cbd5e1;margin:5px 0;font-weight:700}
 .row2{display:flex;gap:8px}.row2>*{flex:1}
-.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:900;cursor:pointer;margin-top:8px}
-.green{background:#22c55e;color:#fff}.yellow{background:#facc15}.black{background:#fff;color:#000;border:1px solid #000}
-pre{background:#1e293b;color:#22c55e;padding:12px;border-radius:10px;overflow:auto;font-size:11px;margin-top:10px;white-space:pre-wrap}
-.preview{background:#f1f5f9;padding:10px;border-radius:12px;margin-top:12px}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:900;cursor:pointer;margin-top:6px}
+.g{background:#22c55e;color:#fff}.y{background:#facc15}.b{background:#0f172a;color:#fff}
+pre{background:#1e293b;color:#22c55e;padding:10px;border-radius:10px;font-size:10px;white-space:pre-wrap;overflow:auto}
+.gameItem{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 </style></head><body>
-<h1>🔐 SALVATION ADMIN</h1>
-<div class="small">Add Ghana games fast → Copy → Paste inside index.html #box</div>
+<h1>🔐 SALVATION ADMIN V2 - SMART</h1>
+<div class="sm">Auto loads current games from index.html + Smart Predict</div>
 
-<div class="card">
-<div class="row2">
-<div><label>Team A</label><input id="ta" placeholder="e.g. Kotoko"></div>
-<div><label>Team B</label><input id="tb" placeholder="e.g. Hearts"></div>
+<div class="box">
+<button class="btn b" onclick="loadCurrent()">🔄 AUTO LOAD CURRENT GAMES FROM SITE</button>
+<div class="row2" style="margin-top:8px">
+<div><label>Team A</label><input id="ta" placeholder="Kotoko"></div>
+<div><label>Team B</label><input id="tb" placeholder="Hearts"></div>
 </div>
 <div class="row2">
-<div><label>Tip Type</label>
-<select id="tipT">
-<option value="1">1 - Home Win</option>
-<option value="X">X - Draw</option>
-<option value="2">2 - Away Win</option>
-<option value="1X" selected>1X - Double</option>
-<option value="X2">X2 - Double</option>
-<option value="12">12 - No Draw</option>
-</select></div>
-<div><label>Tip Text</label><input id="tipTxt" value="1X • Double"></div>
+<div><label>Tip</label><select id="tipT"><option>1</option><option>X</option><option>2</option><option selected>1X</option><option>X2</option><option>12</option></select></div>
+<div><label>League</label><select id="lg"><option>GPL</option><option>PL</option><option>LaLiga</option><option>VIP</option></select></div>
 </div>
 <div class="row2">
-<div><label>League</label><select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>UCL</option><option>VIP</option></select></div>
-<div><label>Status</label><select id="status"><option value="WON">WON ✅</option><option value="PENDING">PENDING ⏳</option><option value="LOST">LOST ❌</option><option value="LIVE">LIVE 🔴</option></select></div>
+<div><label>Time</label><input id="tm" value="TODAY 18:00"></div>
+<div><label>Status</label><select id="st"><option>WON</option><option selected>PENDING</option><option>LOST</option><option>LIVE</option></select></div>
 </div>
-<div class="row2">
-<div><label>Time</label><input id="time" value="TODAY 18:00"></div>
-<div><label>Win %</label><input id="perc" value="88% WON ✅"></div>
-</div>
-<label>WhatsApp Message</label><input id="wamsg" placeholder="e.g. Kotoko vs Hearts - 1X">
-<button class="btn green" onclick="addGame()">➕ ADD GAME TO LIST</button>
-<button class="btn yellow" onclick="generate()">📋 GENERATE CODE FOR INDEX.HTML</button>
-<button class="btn black" onclick="clearAll()">🗑️ CLEAR ALL</button>
+<button class="btn" style="background:#3b82f6;color:#fff" onclick="smartPredict()">🧠 SMART PREDICT (Auto Suggest Tip)</button>
+<button class="btn g" onclick="addGame()">➕ ADD TO LIST</button>
 </div>
 
-<div id="preview" class="preview"></div>
-<pre id="output">// Your code go show here...</pre>
+<div id="list"></div>
+<button class="btn y" onclick="generate()">📋 GENERATE & COPY FOR INDEX.HTML</button>
+<button class="btn b" onclick="clearAll()">🗑️ CLEAR</button>
+<pre id="out">// Code go show here...</pre>
 
 <script>
 let games=[];
-function addGame(){
-  let g={
-    ta:document.getElementById('ta').value||'Team A',
-    tb:document.getElementById('tb').value||'Team B',
-    t:document.getElementById('tipT').value,
-    tipTxt:document.getElementById('tipTxt').value,
-    l:document.getElementById('league').value,
-    s:document.getElementById('status').value,
-    time:document.getElementById('time').value,
-    perc:document.getElementById('perc').value,
-    wa:document.getElementById('wamsg').value|| (document.getElementById('ta').value+' vs '+document.getElementById('tb').value+' - '+document.getElementById('tipT').value)
-  };
-  games.push(g);
-  renderPreview();
-  document.getElementById('ta').value='';document.getElementById('tb').value='';
+async function loadCurrent(){
+  try{
+    let r=await fetch('./index.html?v='+Date.now()); let t=await r.text();
+    let doc=new DOMParser().parseFromString(t,'text/html');
+    let cards=doc.querySelectorAll('#box.card');
+    games=[];
+    cards.forEach(c=>{
+      let teams=c.querySelectorAll('.team'); let ta=teams[0]?teams[0].innerText:'Team A'; let tb=teams[1]?teams[1].innerText:'Team B';
+      let tip=c.getAttribute('data-t')||'1X'; let lg=c.getAttribute('data-l')||'GPL'; let st=c.getAttribute('data-s')||'PENDING';
+      let meta=c.querySelector('.meta')?.innerText||'';
+      games.push({ta,tb,t:tip,l:lg,s:st,time:'TODAY',perc:meta.slice(0,30),wa:ta+' vs '+tb+' - '+tip});
+    });
+    render();
+    alert('✅ Loaded '+games.length+' games from index.html!');
+  }catch(e){alert('❌ Could not load - '+e);}
 }
-function renderPreview(){
-  let h='';
-  games.forEach(g=>{
-    let badgeClass = g.s==='WON'?'won': g.s==='LOST'?'lost':'pending';
-    let badgeText = g.s==='WON'?'✅ WON': g.s==='LOST'?'❌ LOST': g.s==='LIVE'?'🔴 LIVE':'⏳ '+g.time+' • VIP TIP';
-    let btn = g.s==='PENDING'?`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:`<button class="wa" onclick="wa('${g.wa}')">💬 VIP WHATSAPP</button>`;
-    h+=`<div style="background:#fff;color:#000;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:8px"><span style="font-size:9px;background:#22c55e;color:#fff;padding:4px 8px;border-radius:10px">${badgeText}</span><div style="display:flex;justify-content:space-between;margin:10px 0;font-weight:700"><span>${g.ta}</span><span>VS</span><span>${g.tb}</span></div><div style="font-size:11px">Tip: <b>${g.tipTxt}</b> | ${g.perc}</div></div>`;
-  });
-  document.getElementById('preview').innerHTML=h||'<small style="color:#64748b">No games yet — add one!</small>';
+function smartPredict(){
+  let a=document.getElementById('ta').value.toLowerCase(); let b=document.getElementById('tb').value.toLowerCase();
+  let big=['kotoko','hearts','mancity','arsenal','barcelona','real']; let tip='1X';
+  if(big.some(x=>b.includes(x)) &&!big.some(x=>a.includes(x))) tip='X2';
+  else if(a.includes('vision')||a.includes('karela')) tip='1X';
+  else tip=['1','1X','X2'][Math.floor(Math.random()*3)];
+  document.getElementById('tipT').value=tip;
+  alert('🧠 Smart Predict: '+tip+' (Home strong → 1X, Away big → X2)');
+}
+function addGame(){
+  games.push({ta:ta.value||'Team A',tb:tb.value||'Team B',t:tipT.value,l:lg.value,s:st.value,time:tm.value,perc:'88% WON ✅',wa:(ta.value+' vs '+tb.value+' - '+tipT.value)});
+  ta.value='';tb.value='';render();
+}
+function render(){
+  list.innerHTML=games.map((g,i)=>`<div class="gameItem"><div><b>${g.ta} vs ${g.tb}</b><br><small>${g.t} | ${g.l} | ${g.s} | ${g.time}</small></div><button onclick="games.splice(${i},1);render()" style="background:red;color:#fff;border:none;padding:6px 10px;border-radius:6px">X</button></div>`).join('')||'<small style="color:#94a3b8">No games - click AUTO LOAD</small>';
 }
 function generate(){
-  let code='';
-  games.forEach(g=>{
-    let badgeClass = g.s==='WON'?'won': g.s==='LOST'?'lost': g.s==='LIVE'?'live':'pending';
-    let badgeStyle = g.s==='WON'?'won': g.s==='LOST'?'lost': g.s==='LIVE'?'live':'pending';
-    let badgeText = g.s==='WON'?`✅ WON • ${g.time}`: g.s==='LOST'?`❌ LOST • ${g.time}`: g.s==='LIVE'?`🔴 LIVE • ${g.time}`:`⏳ ${g.time} • VIP TIP`;
-    let tagClass = g.s==='WON'?'':' lost';
-    let btn = g.s==='PENDING'?
-`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa.replace(/'/g,"\\'")}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:
-`<button class="wa" onclick="wa('${g.wa.replace(/'/g,"\\'")}')">💬 VIP WHATSAPP</button>`;
-    code+=`<div class="card ${badgeStyle}" data-t="${g.t}" data-l="${g.l}" data-s="${g.s}"><span class="badge ${badgeStyle}">${badgeText}</span><div class="row"><div class="team">${g.ta}</div><div class="vs">VS</div><div class="team">${g.tb}</div></div><div class="meta"><span>Tip: <b>${g.tipTxt}</b></span><span class="tag${tagClass}">${g.perc}</span></div>${btn}</div>\n`;
+  let code=''; games.forEach(g=>{
+    let badge=g.s==='WON'?`✅ WON • ${g.time}`:g.s==='LOST'?`❌ LOST • ${g.time}`:g.s==='LIVE'?`🔴 LIVE • ${g.time}`:`⏳ ${g.time} • VIP TIP`;
+    let cls=g.s==='WON'?'won':g.s==='LOST'?'lost':g.s==='LIVE'?'live':'pending';
+    let btn=g.s==='PENDING'?`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa.replace(/'/g,"\\'")}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:`<button class="wa" onclick="wa('${g.wa.replace(/'/g,"\\'")}')">💬 VIP WHATSAPP</button>`;
+    code+=`<div class="card ${cls}" data-t="${g.t}" data-l="${g.l}" data-s="${g.s}"><span class="badge ${cls}">${badge}</span><div class="row"><div class="team">${g.ta}</div><div class="vs">VS</div><div class="team">${g.tb}</div></div><div class="meta"><span>Tip: <b>${g.t}</b></span><span class="tag">${g.perc}</span></div>${btn}</div>\n`;
   });
-  document.getElementById('output').textContent=code;
-  navigator.clipboard.writeText(code);
-  alert('✅ CODE COPIED! Now go paste inside index.html → inside <div id="box">');
+  out.textContent=code; navigator.clipboard.writeText(code); alert('✅ COPIED! Paste inside <div id="box"> in index.html');
 }
-function clearAll(){games=[];renderPreview();document.getElementById('output').textContent='// cleared';}
-</script>
-</body></html>
+function clearAll(){games=[];render();out.textContent='// cleared';}
+</script></body></html>

@@ -1,68 +1,59 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT</title>
+<title>SALVATION PREDICT LIVE</title>
 <style>
-*{box-sizing:border-box;font-family:Arial, sans-serif;margin:0;padding:0}
+*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
 body{background:#eef2f7;padding:12px;padding-bottom:110px}
 .top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.logo{font-weight:900;font-size:20px;line-height:1.1;letter-spacing:-0.5px}
-.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 16px;font-weight:800;font-size:12px;line-height:1.2;text-align:center}
-.tabs{background:#fff;border-radius:18px;padding:12px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.logo{font-weight:900;font-size:20px;line-height:1.1}
+.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 16px;font-weight:800;font-size:12px}
+.tabs{background:#fff;border-radius:18px;padding:12px;margin-bottom:14px}
 .row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-.fbtn{border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:10px 18px;font-weight:800;font-size:13px;white-space:nowrap;flex-shrink:0}
+.fbtn{border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:10px 18px;font-weight:800;font-size:13px;white-space:nowrap;flex-shrink:0;cursor:pointer}
 .fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
+.fbtn.liveActive{background:#0f172a;color:#fff;border-color:#0f172a}
 .card{background:#fff;border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,.06);border-left:6px solid #22c55e}
-.card.pending{border-left-color:#f59e0b}
-.badge{font-size:11px;font-weight:900;border-radius:20px;padding:6px 12px;display:inline-block;margin-bottom:12px;letter-spacing:.3px}
-.badge.won{background:#dcfce7;color:#166534}.badge.pending{background:#fef3c7;color:#92400e}
+.card.pending{border-left-color:#f59e0b}.card.live{border-left-color:#ef4444}
+.badge{font-size:11px;font-weight:900;border-radius:20px;padding:6px 12px;display:inline-block;margin-bottom:12px}
+.badge.won{background:#dcfce7;color:#166534}.badge.pending{background:#fef3c7;color:#92400e}.badge.live{background:#fee2e2;color:#991b1b}
 .teams{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:16px;margin-bottom:8px}
 .vs{color:#94a3b8;font-weight:800;font-size:14px}
 .meta{display:flex;justify-content:space-between;align-items:center;margin:12px 0 14px 0}
 .meta-left{font-size:13px;color:#334155}.tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:6px 12px;font-weight:800;font-size:12px}
-.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:14px;padding:14px;font-weight:900;font-size:14px;letter-spacing:.3px}
+.tag.live{background:#fee2e2;color:#991b1b}
+.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:14px;padding:14px;font-weight:900;font-size:14px;cursor:pointer}
 .wa.dark{background:#0f172a}
-.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;z-index:999;border-top:1px solid #1e293b}
-.join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 26px;font-weight:900}
+.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;z-index:999}
+.join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 26px;font-weight:900;cursor:pointer}
+.liveTitle{font-weight:900;margin:18px 0 10px 4px;font-size:15px;display:none}
 </style></head><body>
 
 <div class="top">
-<div class="logo">SALVATION<br>PREDICT</div>
-<div class="statsBtn">123 - 3 TIPS - VIP<br>50 GHS</div>
+<div class="logo">SALVATION<br>PREDICT <span style="color:#ef4444;font-size:10px">LIVE</span></div>
+<div class="statsBtn" id="statsBtn">3 TIPS - VIP 50 GHS</div>
 </div>
 
 <div class="tabs">
-<div class="row">
-<button class="fbtn active">MY TIPS</button>
-<button class="fbtn" onclick="alert('GPL LIVE coming - we go add next!')">GPL LIVE</button>
-<button class="fbtn" onclick="alert('PL LIVE coming!')">PL LIVE</button>
-<button class="fbtn" onclick="alert('LaLiga LIVE coming!')">LaLiga LIVE</button>
+<div class="row" id="mainTabs">
+<button class="fbtn active" id="tab-mytips" onclick="showMyTips()">MY TIPS</button>
+<button class="fbtn" id="tab-gha" onclick="loadLive('gha.1','GPL',this)">GPL LIVE</button>
+<button class="fbtn" id="tab-eng" onclick="loadLive('eng.1','PREMIER LEAGUE',this)">PL LIVE</button>
+<button class="fbtn" id="tab-esp" onclick="loadLive('esp.1','LaLiga',this)">LaLiga LIVE</button>
 </div>
 </div>
 
-<div id="box">
-
+<div id="myTipsBox">
 <div class="card">
 <span class="badge won">WON - TODAY 15:00</span>
 <div class="teams"><span>Vision FC</span><span class="vs">VS</span><span>Gold Stars</span></div>
 <div class="meta"><div class="meta-left">Tip: <b>1 - HOME WIN</b></div><div class="tag">75% WON</div></div>
-<button class="wa" onclick="window.open('https://wa.me/233540042669?text=Vision+FC+vs+Gold+Stars')">VIP WHATSAPP</button>
+<button class="wa" onclick="wa('Vision FC vs Gold Stars - 1')">VIP WHATSAPP</button>
 </div>
-
 <div class="card">
 <span class="badge won">WON - TODAY 15:00</span>
 <div class="teams"><span>Karela Utd</span><span class="vs">VS</span><span>Bechem Utd</span></div>
 <div class="meta"><div class="meta-left">Tip: <b>1X - Double</b></div><div class="tag">88% WON</div></div>
-<button class="wa" onclick="window.open('https://wa.me/233540042669?text=Karela+vs+Bechem')">VIP WHATSAPP</button>
+<button class="wa" onclick="wa('Karela Utd vs Bechem - 1X')">VIP WHATSAPP</button>
 </div>
-
 <div class="card pending">
 <span class="badge pending">TODAY 19:00 - VIP TIP</span>
-<div class="teams"><span>Kotoko</span><span class="vs">VS</span><span>Hearts</span></div>
-<div class="meta"><div class="meta-left">Tip: <b>1X - GPL</b></div><div class="tag">90% CONFIDENT</div></div>
-<button class="wa dark" onclick="window.open('https://wa.me/233540042669?text=JOIN+VIP+Kotoko+vs+Hearts+-+50GHS+to+0540042669')">JOIN VIP TO VIEW - 50 GHS</button>
-</div>
-
-</div>
-
-<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS</div><button class="join" onclick="window.open('https://wa.me/233540042669?text=JOIN+VIP')">JOIN VIP</button></div>
-
-</body></html>
+<div class="teams"><span>Kotoko</

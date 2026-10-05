@@ -1,55 +1,36 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - Salvation Predict</title>
-<script src="https://cdn.tailwindcss.com"></script></head>
-<body class="bg-black text-white p-4">
-<h1 class="text-2xl font-black">👑 ADMIN PANEL</h1>
-<p class="text-xs text-gray-400">Only you know this page: /admin.html</p>
-
-<div class="mt-6 bg-[#1a1f2e] p-4 rounded-xl space-y-3">
-<input id="home" placeholder="Home Team e.g. Hearts" class="w-full p-3 rounded bg-black border border-gray-700">
-<input id="away" placeholder="Away Team e.g. Kotoko" class="w-full p-3 rounded bg-black border border-gray-700">
-<select id="league" class="w-full p-3 rounded bg-black border border-gray-700">
-<option value="GPL">GPL 🇬🇭</option><option value="PL">PL</option><option value="LaLiga">La Liga</option><option value="SerieA">Serie A</option><option value="Bundes">Bundes</option>
-</select>
-<select id="type" class="w-full p-3 rounded bg-black border border-gray-700">
-<option value="1">HOME WIN (1)</option><option value="X">DRAW (X)</option><option value="2">AWAY WIN (2)</option><option value="BTTS">BTTS</option><option value="OVER">OVER 2.5</option>
-</select>
-<input id="conf" type="number" placeholder="Confidence % e.g. 88" class="w-full p-3 rounded bg-black border border-gray-700">
-<input id="info" placeholder="Info e.g. LIVE 1-0 24'" class="w-full p-3 rounded bg-black border border-gray-700">
-<button onclick="addGame()" class="w-full bg-green-600 py-3 rounded-full font-black">+ ADD TIP</button>
-</div>
-
-<div id="list" class="mt-6 space-y-2"></div>
-<button onclick="save()" class="mt-6 w-full bg-yellow-500 text-black py-4 rounded-full font-black text-lg">💾 SAVE & UPDATE APP</button>
-<button onclick="clearAll()" class="mt-3 w-full bg-red-900 py-2 rounded text-sm">Clear All</button>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADMIN - SALVATION</title>
+<style>*{box-sizing:border-box;font-family:Arial}body{background:#0f172a;color:#fff;padding:14px}
+input,select{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:none}
+button{width:100%;padding:12px;background:#22c55e;border:none;border-radius:8px;font-weight:800;margin-top:10px}
+.card{background:#1e293b;padding:10px;border-radius:10px;margin:8px 0;font-size:12px}
+</style></head><body>
+<h2>ADMIN PANEL 🇬🇭</h2>
+<p style="font-size:11px;color:#94a3b8">Add match - e go save for your site</p>
+<input id="home" placeholder="Home Team e.g. Kotoko">
+<input id="away" placeholder="Away Team e.g. Hearts">
+<select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option><option>Bundes</option></select>
+<select id="tip"><option>1</option><option>X</option><option>2</option><option>BTTS</option><option>OVER</option></select>
+<input id="pred" placeholder="Prediction e.g. HOME WIN">
+<input id="conf" placeholder="Confidence e.g. 80%">
+<input id="time" placeholder="Time e.g. TODAY 15:00 - Tuba Accra">
+<button onclick="save()">ADD MATCH ✅</button>
+<button onclick="clearAll()" style="background:#ef4444">CLEAR ALL</button>
+<div id="list"></div>
 <script>
-let games = JSON.parse(localStorage.getItem('admin_games')||'[]');
-function render(){
-  document.getElementById('list').innerHTML = games.map((g,i)=>`
-  <div class="bg-[#1a1f2e] p-3 rounded flex justify-between text-sm"><span>${g.home} vs ${g.away} - ${g.pred} ${g.conf}%</span><button onclick="del(${i})" class="text-red-400">X</button></div>
-  `).join('') || '<p class="text-gray-500 text-sm">No tips yet. Add one above.</p>';
-}
-function addGame(){
-  let g={
-    home:home.value, away:away.value, league:league.value,
-    leagueFull: league.value==='GPL' ? 'Ghana Premier - '+conf.value+'%' : league.value+' - '+conf.value+'%',
-    type:type.value, pred: type.options[type.selectedIndex].text, conf:conf.value, info:info.value||'15:00'
-  };
-  if(!g.home||!g.away) return alert('Enter teams');
-  games.unshift(g);
-  localStorage.setItem('admin_games', JSON.stringify(games));
-  home.value=''; away.value=''; conf.value=''; info.value='';
-  render();
-}
-function del(i){ games.splice(i,1); localStorage.setItem('admin_games', JSON.stringify(games)); render(); }
-function clearAll(){ if(confirm('Clear all tips?')){ games=[]; localStorage.removeItem('admin_games'); render(); } }
+let games = JSON.parse(localStorage.getItem('games')||'[]');
 function save(){
-  localStorage.setItem('salvation_games', JSON.stringify(games));
-  alert('Saved! Now open your main site. Tips will show instantly! If you want all users to see it, copy this and replace games array in index.html');
-  console.log(JSON.stringify(games));
+ let g={home:home.value,away:away.value,league:league.value,tip:tip.value,pred:pred.value||tip.value,conf:conf.value||'75%',time:time.value||'TODAY'};
+ if(!g.home||!g.away)return alert('Fill teams');
+ games.push(g);localStorage.setItem('games',JSON.stringify(games));render();alert('Added!');
+ home.value='';away.value='';
 }
+function render(){
+ list.innerHTML=games.map((g,i)=>`<div class="card">${g.home} vs ${g.away} | ${g.league} | ${g.pred} ${g.conf} <span onclick="del(${i})" style="float:right;color:red">X</span></div>`).join('');
+ // also save to file for export
+}
+function del(i){games.splice(i,1);localStorage.setItem('games',JSON.stringify(games));render();}
+function clearAll(){if(confirm('Clear all?')){games=[];localStorage.removeItem('games');render();}}
 render();
 </script>
 </body></html>

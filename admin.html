@@ -11,34 +11,31 @@ input,select{width:100%;padding:11px;border-radius:8px;border:1px solid #cbd5e1;
 pre{background:#1e293b;color:#22c55e;padding:10px;border-radius:10px;font-size:10px;white-space:pre-wrap;overflow:auto}
 .gameItem{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;color:#000}
 </style></head><body>
-<h1>🔐 SALVATION ADMIN V3 - ALL LEAGUES</h1>
-<div class="sm">Auto load + Smart Predict + 22 Leagues + BTTS/Over</div>
-
+<h1>SALVATION ADMIN V3 - ALL LEAGUES</h1>
+<div class="sm">Auto load + Smart Predict + 22 Leagues</div>
 <div class="box">
-<button class="btn b" onclick="loadCurrent()">🔄 AUTO LOAD CURRENT GAMES FROM SITE</button>
+<button class="btn b" onclick="loadCurrent()">AUTO LOAD CURRENT GAMES FROM SITE</button>
 <div class="row2" style="margin-top:8px">
-<div><label>Team A (Home)</label><input id="ta" placeholder="Kotoko"></div>
-<div><label>Team B (Away)</label><input id="tb" placeholder="Hearts"></div>
+<div><label>Team A</label><input id="ta" placeholder="Kotoko"></div>
+<div><label>Team B</label><input id="tb" placeholder="Hearts"></div>
 </div>
 <div class="row2">
-<div><label>Tip Type</label><select id="tipT"><option>1</option><option>X</option><option>2</option><option selected>1X</option><option>X2</option><option>12</option><option>Over 1.5</option><option>Over 2.5</option><option>Under 2.5</option><option>BTTS YES</option><option>BTTS NO</option><option>Correct 1-0</option><option>Correct 2-1</option></select></div>
-<div><label>League / Market</label><select id="lg">
-<option>GPL 🇬🇭</option><option>PL 🏴󠁧󠁢󠁥󠁮󠁧󠁿</option><option>LaLiga 🇪🇸</option><option>Serie A 🇮🇹</option><option>Bundesliga 🇩🇪</option><option>Ligue 1 🇫🇷</option><option>UCL 🏆</option><option>Europa League</option><option>Conference League</option><option>AFCON 🌍</option><option>World Cup 🌍</option><option>Saudi Pro 🇸🇦</option><option>MLS 🇺🇸</option><option>Championship</option><option>Eredivisie 🇳🇱</option><option>Portugal</option><option>Turkey</option><option>Belgium</option><option>VIP 🔒</option><option>OVER/UNDER</option><option>BTTS</option><option>CORRECT SCORE</option>
+<div><label>Tip</label><select id="tipT"><option>1</option><option>X</option><option>2</option><option selected>1X</option><option>X2</option><option>12</option><option>Over 1.5</option><option>Over 2.5</option><option>Under 2.5</option><option>BTTS YES</option><option>BTTS NO</option></select></div>
+<div><label>League</label><select id="lg">
+<option>GPL</option><option>Premier League</option><option>LaLiga</option><option>Serie A</option><option>Bundesliga</option><option>Ligue 1</option><option>UCL</option><option>Europa League</option><option>Conference League</option><option>AFCON</option><option>World Cup</option><option>Saudi Pro</option><option>MLS</option><option>Championship</option><option>Eredivisie</option><option>Portugal Liga</option><option>Turkey SuperLig</option><option>Belgium Pro</option><option>VIP</option><option>OVER/UNDER</option><option>BTTS</option><option>CORRECT SCORE</option>
 </select></div>
 </div>
 <div class="row2">
 <div><label>Time</label><input id="tm" value="TODAY 19:00"></div>
-<div><label>Status</label><select id="st"><option>WON ✅</option><option selected>PENDING ⏳</option><option>LOST ❌</option><option>LIVE 🔴</option></select></div>
+<div><label>Status</label><select id="st"><option>WON</option><option selected>PENDING</option><option>LOST</option><option>LIVE</option></select></div>
 </div>
-<button class="btn" style="background:#3b82f6;color:#fff" onclick="smartPredict()">🧠 SMART PREDICT</button>
-<button class="btn g" onclick="addGame()">➕ ADD TO LIST</button>
+<button class="btn" style="background:#3b82f6;color:#fff" onclick="smartPredict()">SMART PREDICT</button>
+<button class="btn g" onclick="addGame()">ADD TO LIST</button>
 </div>
-
 <div id="list"></div>
-<button class="btn y" onclick="generate()">📋 GENERATE & COPY FOR INDEX.HTML</button>
-<button class="btn b" onclick="clearAll()">🗑️ CLEAR ALL</button>
-<pre id="out">// Your code go show here...</pre>
-
+<button class="btn y" onclick="generate()">GENERATE & COPY FOR INDEX.HTML</button>
+<button class="btn b" onclick="clearAll()">CLEAR ALL</button>
+<pre id="out">// Code will show here...</pre>
 <script>
 let games=[];
 async function loadCurrent(){
@@ -46,30 +43,26 @@ async function loadCurrent(){
     let r=await fetch('./index.html?v='+Date.now()); let t=await r.text();
     let doc=new DOMParser().parseFromString(t,'text/html');
     let cards=doc.querySelectorAll('.card');
-    games=[];
-    cards.forEach(c=>{
+    games=[]; cards.forEach(c=>{
       let teams=c.querySelectorAll('.team'); if(teams.length<2) return;
-      games.push({ta:teams[0].innerText,tb:teams[1].innerText,t:c.dataset.t||'1X',l:c.dataset.l||'GPL',s:c.dataset.s||'PENDING',time:'TODAY',perc:'88% WON ✅',wa:teams[0].innerText+' vs '+teams[1].innerText});
-    });
-    render(); alert('✅ Loaded '+games.length+' games!');
-  }catch(e){alert('❌ Load failed - make sure index.html dey same folder');}
+      games.push({ta:teams[0].innerText,tb:teams[1].innerText,t:c.dataset.t||'1X',l:c.dataset.l||'GPL',s:c.dataset.s||'PENDING',time:'TODAY',perc:'88% WON',wa:teams[0].innerText+' vs '+teams[1].innerText});
+    }); render(); alert('Loaded '+games.length+' games!');
+  }catch(e){alert('Load failed');}
 }
 function smartPredict(){
   let a=ta.value.toLowerCase(), b=tb.value.toLowerCase();
   let big=['kotoko','hearts','city','arsenal','barca','real','bayern','psg'];
-  let tip='1X'; if(big.some(x=>b.includes(x))) tip='X2'; else if(a.includes('vision')||a.includes('karela')) tip='1';
-  tipT.value=tip; alert('🧠 Predict: '+tip);
+  let tip='1X'; if(big.some(x=>b.includes(x))) tip='X2'; tipT.value=tip; alert('Predict: '+tip);
 }
-function addGame(){games.push({ta:ta.value||'Team A',tb:tb.value||'Team B',t:tipT.value,l:lg.value,s:st.value.split(' ')[0],time:tm.value,perc:'88% WON ✅',wa:(ta.value+' vs '+tb.value+' - '+tipT.value)}); ta.value='';tb.value='';render();}
-function render(){list.innerHTML=games.map((g,i)=>`<div class="gameItem"><div><b>${g.ta} vs ${g.tb}</b><br><small>${g.t} | ${g.l} | ${g.s} | ${g.time}</small></div><button onclick="games.splice(${i},1);render()" style="background:#ef4444;color:#fff;border:none;padding:6px 10px;border-radius:6px">X</button></div>`).join('')||'<small style="color:#94a3b8">No games - click AUTO LOAD or add manually</small>';}
+function addGame(){games.push({ta:ta.value||'Team A',tb:tb.value||'Team B',t:tipT.value,l:lg.value,s:st.value,time:tm.value,perc:'88% WON',wa:(ta.value+' vs '+tb.value+' - '+tipT.value)}); ta.value='';tb.value='';render();}
+function render(){list.innerHTML=games.map((g,i)=>`<div class="gameItem"><div><b>${g.ta} vs ${g.tb}</b><br><small>${g.t} | ${g.l} | ${g.s} | ${g.time}</small></div><button onclick="games.splice(${i},1);render()" style="background:#ef4444;color:#fff;border:none;padding:6px 10px;border-radius:6px">X</button></div>`).join('')||'<small style="color:#94a3b8">No games</small>';}
 function generate(){
   let code=''; games.forEach(g=>{
-    let badge=g.s==='WON'?`✅ WON • ${g.time}`:g.s==='LOST'?`❌ LOST • ${g.time}`:g.s==='LIVE'?`🔴 LIVE • ${g.time}`:`⏳ ${g.time} • VIP TIP`;
+    let badge=g.s==='WON'?`WON - ${g.time}`:g.s==='LOST'?`LOST - ${g.time}`:g.s==='LIVE'?`LIVE - ${g.time}`:`${g.time} - VIP TIP`;
     let cls=g.s==='WON'?'won':g.s==='LOST'?'lost':g.s==='LIVE'?'live':'pending';
-    let btn=g.s==='PENDING'?`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa.replace(/'/g,"\\'")}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:`<button class="wa" onclick="wa('${g.wa.replace(/'/g,"\\'")}')">💬 VIP WHATSAPP</button>`;
-    code+=`<div class="card ${cls}" data-t="${g.t}" data-l="${g.l}" data-s="${g.s}"><span class="badge ${cls}">${badge}</span><div class="row"><div class="team">${g.ta}</div><div class="vs">VS</div><div class="team">${g.tb}</div></div><div class="meta"><span>Tip: <b>${g.t} • ${g.l}</b></span><span class="tag">${g.perc}</span></div>${btn}</div>\n`;
-  });
-  out.textContent=code; navigator.clipboard.writeText(code); alert('✅ COPIED! Go paste inside <div id="box"> in index.html');
+    let btn=g.s==='PENDING'?`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa.replace(/'/g,"\\'")}')">JOIN VIP TO VIEW - 50 GHS</button>`:`<button class="wa" onclick="wa('${g.wa.replace(/'/g,"\\'")}')">VIP WHATSAPP</button>`;
+    code+=`<div class="card ${cls}" data-t="${g.t}" data-l="${g.l}" data-s="${g.s}"><span class="badge ${cls}">${badge}</span><div class="row"><div class="team">${g.ta}</div><div class="vs">VS</div><div class="team">${g.tb}</div></div><div class="meta"><span>Tip: <b>${g.t} - ${g.l}</b></span><span class="tag">${g.perc}</span></div>${btn}</div>\n`;
+  }); out.textContent=code; navigator.clipboard.writeText(code); alert('COPIED! Paste inside <div id="box"> in index.html');
 }
 function clearAll(){games=[];render();out.textContent='// cleared';}
 </script></body></html>

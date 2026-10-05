@@ -1,78 +1,72 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SALVATION PREDICT</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#eef2f7;padding-bottom:80px}
-.top{background:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:20}
-.top h1{font-weight:900;font-size:16px;line-height:14px}
-.vip{background:#0f172a;color:#fff;padding:6px 10px;border-radius:8px;font-size:9px;font-weight:800;text-align:center}
-.fil{padding:8px 10px;background:#fff;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #e2e8f0;position:sticky;z-index:10}.fil::-webkit-scrollbar{display:none}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#eef2f7}
+.top{background:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:99}
+.fil{padding:8px 10px;background:#fff;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #e2e8f0;position:sticky;z-index:9}.fil::-webkit-scrollbar{display:none}
 #f1{top:49px}#f2{top:91px}
 .b{padding:6px 14px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:700;white-space:nowrap}
-.b.active{background:#22c55e;color:#fff;border-color:#22c55e}
+.b.active{background:#22c55e;color:#fff}
 .b2{padding:6px 12px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:10px;white-space:nowrap}
 .b2.active{background:#0f172a;color:#fff}
 .card{background:#fff;border:1px solid #e8eef5;border-radius:14px;padding:12px;margin:8px 10px}
-.small{font-size:9px;background:#22c55e;color:#fff;padding:3px 8px;border-radius:20px;display:inline-block}
+.small{font-size:9px;background:#22c55e;color:#fff;padding:3px 8px;border-radius:20px}
 .live{background:#ef4444!important}
-.dot{width:7px;height:7px;background:#fff;border-radius:50%;display:inline-block;animation:blink 1s infinite;margin-right:4px}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .head{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
 .team{text-align:center;width:110px}.team b{font-size:12px;display:block;margin-top:4px}
-.ico{width:44px;height:44px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto}
+.ico{width:44px;height:44px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .vs{font-weight:900;color:#94a3b8}
 .meta{display:flex;justify-content:space-between;font-size:11px;margin-top:8px}
-.conf{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;font-weight:700;font-size:10px}
+.conf{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;font-weight:700}
 </style></head><body>
 
-<div class="top"><h1>SALVATION<br>PREDICT</h1><div class="vip" id="dateBox">VIP 50 GHS</div></div>
+<div class="top"><h1>SALVATION<br>PREDICT</h1><div style="background:#0f172a;color:#fff;padding:6px 10px;border-radius:8px;font-size:9px;font-weight:800;text-align:center">VIP 50 GHS</div></div>
 
-<div class="fil" id="f1">
-<button class="b active" data-v="ALL">ALL</button><button class="b" data-v="1">1</button><button class="b" data-v="X">X</button><button class="b" data-v="2">2</button><button class="b" data-v="BTTS">BTTS</button><button class="b" data-v="OVER">OVER</button>
-</div>
-<div class="fil" id="f2">
-<button class="b2 active" data-v="ALL">ALL</button><button class="b2" data-v="PL">PL</button><button class="b2" data-v="LaLiga">La Liga</button><button class="b2" data-v="SerieA">Serie A</button><button class="b2" data-v="Bundes">Bundes</button><button class="b2" data-v="GPL">GPL 🇬🇭</button>
-</div>
+<div class="fil" id="f1"><button class="b active" data-v="ALL">ALL</button><button class="b" data-v="1">1</button><button class="b" data-v="X">X</button><button class="b" data-v="2">2</button><button class="b" data-v="BTTS">BTTS</button><button class="b" data-v="OVER">OVER</button></div>
+<div class="fil" id="f2"><button class="b2 active" data-v="ALL">ALL</button><button class="b2" data-v="PL">PL</button><button class="b2" data-v="LaLiga">La Liga</button><button class="b2" data-v="SerieA">Serie A</button><button class="b2" data-v="Bundes">Bundes</button><button class="b2" data-v="GPL">GPL 🇬🇭</button></div>
 
-<div id="list"></div>
+<div id="list">
+<!-- GPL 9 GAMES -->
+<div class="card" data-t="2" data-l="GPL"><span class="small live">🔴 LIVE • TODAY 15:00 • Tuba Accra</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Dreams FC</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Hearts of Oak</b></div></div><div class="meta"><span>Tip: <b>AWAY WIN</b></span><span class="conf">80%</span></div></div>
+
+<div class="card" data-t="1" data-l="GPL"><span class="small live">🔴 LIVE • TODAY 15:00 • Vision</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Vision FC</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Gold Stars</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">75%</span></div></div>
+
+<div class="card" data-t="X" data-l="GPL"><span class="small">TODAY 18:00 • Samreboi</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Samartex</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Kotoko</b></div></div><div class="meta"><span>Tip: <b>X2</b></span><span class="conf">82%</span></div></div>
+
+<div class="card" data-t="1" data-l="GPL"><span class="small">TODAY 15:00 • Tarkwa</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Medeama</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Aduana</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">78%</span></div></div>
+
+<div class="card" data-t="1" data-l="GPL"><span class="small">TODAY 15:00 • Kpando</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Heart of Lions</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Legon Cities</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">85%</span></div></div>
+
+<div class="card" data-t="OVER" data-l="GPL"><span class="small">TODAY 15:00 • Anyinase</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Karela</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Bechem Utd</b></div></div><div class="meta"><span>Tip: <b>OVER 1.5</b></span><span class="conf">88%</span></div></div>
+
+<div class="card" data-t="X" data-l="GPL"><span class="small">TODAY 15:00 • Berekum</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Berekum Chelsea</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Nations FC</b></div></div><div class="meta"><span>Tip: <b>DRAW X</b></span><span class="conf">72%</span></div></div>
+
+<div class="card" data-t="1" data-l="GPL"><span class="small">TODAY 15:00 • Nsoatre</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Nsoatreman</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Holy Stars</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">80%</span></div></div>
+
+<div class="card" data-t="BTTS" data-l="GPL"><span class="small">TODAY 15:00 • Wenchi</span><div class="head"><div class="team"><div class="ico">⚽</div><b>Young Apostles</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>Aduana Stars</b></div></div><div class="meta"><span>Tip: <b>BTTS YES</b></span><span class="conf">76%</span></div></div>
+
+<!-- PL + EUROPE -->
+<div class="card" data-t="1" data-l="PL"><span class="small">FT 2-0 ✅</span><div class="head"><div class="team"><div class="ico">🔴</div><b>Arsenal</b></div><div class="vs">VS</div><div class="team"><div class="ico">🍒</div><b>Bournemouth</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">88%</span></div></div>
+
+<div class="card" data-t="BTTS" data-l="PL"><span class="small live">🔴 LIVE • 19:30</span><div class="head"><div class="team"><div class="ico">🔵</div><b>Chelsea</b></div><div class="vs">VS</div><div class="team"><div class="ico">🔴</div><b>Liverpool</b></div></div><div class="meta"><span>Tip: <b>BTTS YES</b></span><span class="conf">78%</span></div></div>
+
+<div class="card" data-t="1" data-l="LaLiga"><span class="small">LaLiga 19:00</span><div class="head"><div class="team"><div class="ico">🔵</div><b>Barcelona</b></div><div class="vs">VS</div><div class="team"><div class="ico">⚪</div><b>Espanyol</b></div></div><div class="meta"><span>Tip: <b>HOME WIN</b></span><span class="conf">94%</span></div></div>
+
+</div>
 
 <script>
-// === ALL GAMES - ADD NEW HERE ===
-const GAMES = [
-{home:"Dreams FC",away:"Hearts of Oak",league:"GPL",type:"2",pred:"AWAY WIN",conf:"80%",time:"TODAY 15:00 • Tuba Accra",live:true},
-{home:"Vision FC",away:"Gold Stars",league:"GPL",type:"1",pred:"HOME WIN",conf:"75%",time:"TODAY 15:00 • Nii Adjei Kraku",live:true},
-{home:"Samartex",away:"Kotoko",league:"GPL",type:"X",pred:"X2",conf:"82%",time:"TODAY 18:00 • Samreboi",live:false},
-{home:"Medeama",away:"Aduana",league:"GPL",type:"1",pred:"HOME WIN",conf:"78%",time:"TODAY 15:00 • Tarkwa",live:false},
-{home:"Heart of Lions",away:"Legon Cities",league:"GPL",type:"1",pred:"HOME WIN",conf:"85%",time:"TODAY 15:00 • Kpando",live:false},
-{home:"Karela United",away:"Bechem United",league:"GPL",type:"OVER",pred:"OVER 1.5",conf:"88%",time:"TODAY 15:00 • Anyinase",live:false},
-{home:"Berekum Chelsea",away:"Nations FC",league:"GPL",type:"X",pred:"DRAW X",conf:"72%",time:"TODAY 15:00 • Berekum",live:false},
-{home:"Nsoatreman",away:"Holy Stars",league:"GPL",type:"1",pred:"HOME WIN",conf:"80%",time:"TODAY 15:00 • Nsoatre",live:false},
-{home:"Young Apostles",away:"Heart of Lions",league:"GPL",type:"BTTS",pred:"BTTS YES",conf:"76%",time:"TODAY 15:00 • Wenchi",live:false},
-{home:"Arsenal",away:"Bournemouth",league:"PL",type:"1",pred:"HOME WIN",conf:"88%",time:"FT 2-0 ✅",live:false},
-{home:"Man City",away:"Newcastle",league:"PL",type:"OVER",pred:"OVER 2.5",conf:"92%",time:"PL 17:30",live:false},
-{home:"Chelsea",away:"Liverpool",league:"PL",type:"BTTS",pred:"BTTS YES",conf:"78%",time:"PL 19:30",live:true},
-{home:"Barcelona",away:"Espanyol",league:"LaLiga",type:"1",pred:"HOME WIN",conf:"94%",time:"LaLiga 19:00",live:false},
-{home:"Inter",away:"AC Milan",league:"SerieA",type:"BTTS",pred:"BTTS YES",conf:"85%",time:"SerieA 20:45",live:false},
-{home:"Bayern",away:"Dortmund",league:"Bundes",type:"OVER",pred:"OVER 2.5",conf:"88%",time:"Bundes Tomorrow",live:false},
-];
-
-function render(){
-  document.getElementById('list').innerHTML = GAMES.map(g=>`
-  <div class="card" data-t="${g.type}" data-l="${g.league}">
-    <span class="small ${g.live?'live':''}">${g.live?'<span class="dot"></span>LIVE • ':''}${g.time}</span>
-    <div class="head"><div class="team"><div class="ico">⚽</div><b>${g.home}</b></div><div class="vs">VS</div><div class="team"><div class="ico">💙</div><b>${g.away}</b></div></div>
-    <div class="meta"><span>Tip: <b>${g.pred}</b></span><span class="conf">${g.conf}</span></div>
-  </div>`).join('');
-}
-render();
-
-// FILTERS
 let curT='ALL',curL='ALL';
 function doFilter(){
-  document.querySelectorAll('.card').forEach(c=>{
-    const ok=(curT==='ALL'||c.dataset.t===curT)&&(curL==='ALL'||c.dataset.l===curL);
-    c.style.display=ok?'block':'none';
-  });
+ document.querySelectorAll('.card').forEach(c=>{
+  let ok=(curT==='ALL'||c.dataset.t===curT)&&(curL==='ALL'||c.dataset.l===curL);
+  c.style.display=ok?'block':'none';
+ });
 }
-document.querySelectorAll('#f1 .b').forEach(b=>b.onclick=()=>{curT=b.dataset.v;document.querySelectorAll('#f1 .b').forEach(x=>x.classList.remove('active'));b.classList.add('active');doFilter();});
-document.querySelectorAll('#f2 .b
+document.querySelectorAll('#f1 .b').forEach(b=>{
+ b.onclick=()=>{curT=b.dataset.v;document.querySelectorAll('#f1 .b').forEach(x=>x.classList.remove('active'));b.classList.add('active');doFilter();}
+});
+document.querySelectorAll('#f2 .b2').forEach(b=>{
+ b.onclick=()=>{curL=b.dataset.v;document.querySelectorAll('#f2 .b2').forEach(x=>x.classList.remove('active'));b.classList.add('active');doFilter();}
+});
+</script>
+</body></html>

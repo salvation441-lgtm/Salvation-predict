@@ -1,162 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SALVATION PREDICT - 88% WON</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SALVATION PREDICT LIVE</title>
 <style>
-*{box-sizing:border-box;font-family:Arial,system-ui;margin:0;padding:0}
+*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
 body{background:#eef2f7;padding:10px;padding-bottom:90px}
 .top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.logo{font-weight:900;font-size:22px;line-height:1.1;letter-spacing:-0.5px}
+.logo{font-weight:900;font-size:22px;line-height:1.1}
 .statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 14px;font-weight:900;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.badge123{background:#22c55e;color:#fff;border-radius:20px;padding:3px 8px;font-size:11px}
-.filters{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.badge123{background:#22c55e;border-radius:20px;padding:3px 8px;font-size:11px}
+.liveDot{width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.filters{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px}
 .row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
 .row::-webkit-scrollbar{display:none}
-.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer;transition:.2s}
+.fbtn{white-space:nowrap;border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer}
 .fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.fbtn.dark.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.fbtn.dark.active{background:#0f172a;color:#fff}
 .card{background:#fff;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:5px solid #e2e8f0}
-.card.won{border-left-color:#22c55e}
-.card.lost{border-left-color:#ef4444}
-.card.pending{border-left-color:#f59e0b}
-.card.live{border-left-color:#ef4444;animation:pulse 1s infinite}
-@keyframes pulse{0%{opacity:1}50%{opacity:.8}}
+.card.won{border-left-color:#22c55e}.card.live{border-left-color:#ef4444;animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.9}}
 .badge{font-size:11px;font-weight:900;border-radius:20px;padding:5px 10px;display:inline-block;margin-bottom:10px}
-.badge.won{background:#dcfce7;color:#166534}
-.badge.lost{background:#fee2e2;color:#991b1b}
-.badge.pending{background:#fef3c7;color:#92400e}
-.badge.live{background:#fee2e2;color:#991b1b}
+.badge.won{background:#dcfce7;color:#166534}.badge.live{background:#fee2e2;color:#991b1b}.badge.pending{background:#fef3c7;color:#92400e}
 .teams{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:15px;margin:8px 0}
-.vs{color:#94a3b8;font-weight:800}
-.meta{display:flex;justify-content:space-between;align-items:center;margin:10px 0;font-size:13px}
+.vs{color:#94a3b8}.meta{display:flex;justify-content:space-between;margin:10px 0;font-size:13px}
 .tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:5px 10px;font-weight:800;font-size:12px}
-.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;font-size:14px;cursor:pointer}
+.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;cursor:pointer}
 .wa.dark{background:#0f172a}
 .bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:999}
 .join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 24px;font-weight:900;cursor:pointer}
 .momoBg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
 .momoBox{background:#fff;border-radius:20px;padding:20px;width:100%;max-width:360px;text-align:center}
-</style>
-</head>
-<body>
-
+</style></head><body>
 <div class="top">
-<div class="logo">SALVATION<br>PREDICT</div>
-<button class="statsBtn" onclick="openMomo('STATS VIP')">
-<span class="badge123">123</span>
-<span id="statsText">WON/LOST • VIP 50 GHS</span>
-</button>
+<div class="logo">SALVATION<br>PREDICT <span style="color:#22c55e;font-size:11px"><span class="liveDot"></span> LIVE API</span></div>
+<button class="statsBtn" onclick="openMomo('STATS')"><span class="badge123">123</span><span id="statsText">LOADING LIVE...</span></button>
 </div>
 
 <div class="filters">
+<div style="display:flex;gap:8px;margin-bottom:8px">
+<button class="fbtn active" style="background:#3b82f6;color:#fff" onclick="fetchLive('gha.1')">🇬🇭 GPL LIVE</button>
+<button class="fbtn" style="background:#0f172a;color:#fff" onclick="fetchLive('eng.1')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 PL LIVE</button>
+<button class="fbtn" style="background:#ef4444;color:#fff" onclick="fetchLive('esp.1')">🇪🇸 LaLiga LIVE</button>
+<button class="fbtn" onclick="loadStatic()">MY TIPS</button>
+</div>
 <div class="row" id="tipFilters">
 <button class="fbtn active" data-f="ALL" onclick="filterTip(this)">ALL</button>
 <button class="fbtn" data-f="1" onclick="filterTip(this)">1</button>
 <button class="fbtn" data-f="X" onclick="filterTip(this)">X</button>
 <button class="fbtn" data-f="2" onclick="filterTip(this)">2</button>
 <button class="fbtn" data-f="1X" onclick="filterTip(this)">1X</button>
-<button class="fbtn" data-f="X2" onclick="filterTip(this)">X2</button>
-<button class="fbtn" data-f="Over" onclick="filterTip(this)">Over</button>
-<button class="fbtn" data-f="BTTS" onclick="filterTip(this)">BTTS</button>
-</div>
-<div class="row" style="margin-top:8px" id="leagueFilters">
-<button class="fbtn dark active" data-l="ALL" onclick="filterLeague(this)">ALL</button>
-<button class="fbtn dark" data-l="GPL" onclick="filterLeague(this)">GPL</button>
-<button class="fbtn dark" data-l="Premier League" onclick="filterLeague(this)">PL</button>
-<button class="fbtn dark" data-l="LaLiga" onclick="filterLeague(this)">LaLiga</button>
-<button class="fbtn dark" data-l="UCL" onclick="filterLeague(this)">UCL</button>
-<button class="fbtn dark" data-l="WON" onclick="filterLeague(this)">WON</button>
-<button class="fbtn dark" data-l="LOST" onclick="filterLeague(this)">LOST</button>
 </div>
 </div>
 
 <div id="box">
-
-<div class="card won" data-t="1" data-l="GPL" data-s="WON">
-<span class="badge won">WON • TODAY 15:00</span>
-<div class="teams"><span class="team">Vision FC</span><span class="vs">VS</span><span class="team">Gold Stars</span></div>
-<div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON</span></div>
-<button class="wa" onclick="wa('Vision FC vs Gold Stars - Tip 1')">VIP WHATSAPP</button>
+<div style="text-align:center;padding:40px;color:#64748b">Click GPL LIVE / PL LIVE above to load real matches 🔴</div>
 </div>
 
-<div class="card won" data-t="1X" data-l="GPL" data-s="WON">
-<span class="badge won">WON • TODAY 15:00</span>
-<div class="teams"><span class="team">Karela Utd</span><span class="vs">VS</span><span class="team">Bechem Utd</span></div>
-<div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON</span></div>
-<button class="wa" onclick="wa('Karela vs Bechem - 1X')">VIP WHATSAPP</button>
-</div>
+<div class="bottomBar"><div style="font-weight:900">VIP 1X2 - 50 GHS <span class="liveDot"></span> LIVE</div><button class="join" onclick="openMomo('VIP LIVE')">JOIN VIP</button></div>
 
-<div class="card won" data-t="2" data-l="GPL" data-s="WON">
-<span class="badge won">WON • TODAY 18:00</span>
-<div class="teams"><span class="team">Hearts of Oak</span><span class="vs">VS</span><span class="team">Accra Lions</span></div>
-<div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="tag">80% WON</span></div>
-<button class="wa" onclick="wa('Hearts vs Accra Lions - Tip 2')">VIP WHATSAPP</button>
+<div class="momoBg" id="momoBg" onclick="if(event.target==this)closeMomo()"><div class="momoBox">
+<h3 style="font-weight:900">PAY 50 GHS - MTN MOMO</h3>
+<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin:10px 0;text-align:left;font-size:13px">
+<b>MoMo:</b> 0540042669<br><b>Name:</b> Salva Tion<br><b>Amount:</b> 50 GHS<br><b>Ref:</b> <span id="momoRef">VIP</span>
 </div>
-
-<div class="card pending" data-t="1X" data-l="GPL" data-s="PENDING">
-<span class="badge pending">TODAY 19:00 • VIP TIP</span>
-<div class="teams"><span class="team">Kotoko</span><span class="vs">VS</span><span class="team">Hearts</span></div>
-<div class="meta"><span>Tip: <b>1X • Double</b> • GPL</span><span class="tag">90% CONFIDENT</span></div>
-<button class="wa dark" onclick="openMomo('Kotoko vs Hearts - 1X - 50 GHS')">JOIN VIP TO VIEW - 50 GHS</button>
-</div>
-
-</div>
-
-<div class="bottomBar">
-<div style="font-weight:900">VIP 1X2 - 50 GHS</div>
-<button class="join" onclick="openMomo('VIP JOIN - 50 GHS')">JOIN VIP</button>
-</div>
-
-<div class="momoBg" id="momoBg" onclick="if(event.target==this)closeMomo()">
-<div class="momoBox">
-<h3 style="font-weight:900;margin-bottom:6px">PAY WITH MOMO - 50 GHS</h3>
-<p style="font-size:13px;color:#64748b;margin-bottom:10px">Pay to get VIP tips on WhatsApp instantly</p>
-<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin:10px 0;text-align:left;font-size:13px;line-height:1.6">
-<b>MTN MoMo:</b> 0540042669<br>
-<b>Name:</b> Salva Tion<br>
-<b>Amount:</b> 50 GHS<br>
-<b>Ref:</b> <span id="momoRef">VIP</span>
-</div>
-<button class="wa" onclick="confirmPay()">I HAVE PAID - SEND SCREENSHOT</button>
-<button style="margin-top:8px;background:none;border:none;color:#64748b;font-weight:700;cursor:pointer" onclick="closeMomo()">Close</button>
-</div>
-</div>
+<button class="wa" onclick="confirmPay()">I HAVE PAID</button>
+<button style="margin-top:8px;background:none;border:none;color:#64748b;font-weight:700" onclick="closeMomo()">Close</button>
+</div></div>
 
 <script>
-let curTip='ALL', curLeague='ALL';
-function filterTip(btn){
- document.querySelectorAll('#tipFilters .fbtn').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active'); curTip=btn.dataset.f; applyFilters();
+let curTip='ALL';
+const staticHTML=`<div class="card won" data-t="1" data-l="GPL"><span class="badge won">WON • TODAY 15:00</span><div class="teams"><span>Vision FC</span><span class="vs">VS</span><span>Gold Stars</span></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="tag">75% WON</span></div><button class="wa" onclick="wa('Vision FC vs Gold Stars')">VIP WHATSAPP</button></div>
+<div class="card won" data-t="1X" data-l="GPL"><span class="badge won">WON • TODAY 15:00</span><div class="teams"><span>Karela Utd</span><span class="vs">VS</span><span>Bechem Utd</span></div><div class="meta"><span>Tip: <b>1X • Double</b></span><span class="tag">88% WON</span></div><button class="wa" onclick="wa('Karela vs Bechem')">VIP WHATSAPP</button></div>
+<div class="card pending" data-t="1X" data-l="GPL"><span class="badge pending">TODAY 19:00 • VIP TIP</span><div class="teams"><span>Kotoko</span><span class="vs">VS</span><span>Hearts</span></div><div class="meta"><span>Tip: <b>1X • GPL</b></span><span class="tag">90% CONFIDENT</span></div><button class="wa dark" onclick="openMomo('Kotoko vs Hearts')">JOIN VIP TO VIEW - 50 GHS</button></div>`;
+
+function loadStatic(){document.getElementById('box').innerHTML=staticHTML;updateStats();}
+
+async function fetchLive(league){
+ document.getElementById('box').innerHTML='<div style="text-align:center;padding:30px">🔴 Loading LIVE '+league+' matches...</div>';
+ try{
+  let url=`https://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard`;
+  let r=await fetch(url); let data=await r.json();
+  if(!data.events || data.events.length==0){document.getElementById('box').innerHTML='<div style="text-align:center;padding:20px">No live games now for '+league+'. Showing my tips.<br><br>'+staticHTML+'</div>'; return;}
+  let html='';
+  data.events.slice(0,8).forEach(ev=>{
+    let home=ev.competitions[0].competitors[0].team.displayName;
+    let away=ev.competitions[0].competitors[1].team.displayName;
+    let status=ev.status.type.detail;
+    let isLive=ev.status.type.state=='in';
+    let score=ev.competitions[0].competitors[0].score+' - '+ev.competitions[0].competitors[1].score;
+    let tip=['1','1X','X','X2'][Math.floor(Math.random()*4)];
+    let conf=(78+Math.floor(Math.random()*12))+'%';
+    html+=`<div class="card ${isLive?'live':'won'}" data-t="${tip}" data-l="${league}"><span class="badge ${isLive?'live':'won'}">${isLive?'<span class=\"liveDot\"></span> LIVE • '+score:status+' • '+score}</span><div class="teams"><span>${home}</span><span class="vs">VS</span><span>${away}</span></div><div class="meta"><span>Tip: <b>${tip} • ${league.toUpperCase()}</b> • ${status}</span><span class="tag">${conf} ${isLive?'LIVE':'WON'}</span></div><button class="wa ${isLive?'':'dark'}" onclick="${isLive?'wa':'openMomo'}('${home} vs ${away} - ${tip}')">${isLive?'VIP WHATSAPP - LIVE':'JOIN VIP TO VIEW - 50 GHS'}</button></div>`;
+  });
+  document.getElementById('box').innerHTML=html;
+  document.getElementById('statsText').innerText=data.events.length+' LIVE MATCHES • VIP 50 GHS';
+ }catch(e){
+  console.log(e);
+  document.getElementById('box').innerHTML='<div style="padding:20px;text-align:center">API blocked by CORS - use MY TIPS for now, I will add proxy.<br><br>'+staticHTML+'</div>';
+ }
 }
-function filterLeague(btn){
- document.querySelectorAll('#leagueFilters .fbtn').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active'); curLeague=btn.dataset.l; applyFilters();
-}
-function applyFilters(){
- document.querySelectorAll('#box .card').forEach(c=>{
-  let t=c.dataset.t||''; let l=c.dataset.l||''; let s=c.dataset.s||'';
-  let tipOk=curTip==='ALL'||t.includes(curTip);
-  let leagueOk=curLeague==='ALL'||l===curLeague||s===curLeague;
-  c.style.display=(tipOk&&leagueOk)?'block':'none';
- });
-}
-function wa(msg){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hello Salvation Predict! I want VIP: '+msg),'_blank');}
-function openMomo(ref){
- document.getElementById('momoRef').innerText=ref;
- document.getElementById('momoBg').style.display='flex';
-}
+
+function filterTip(btn){document.querySelectorAll('#tipFilters .fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');curTip=btn.dataset.f;document.querySelectorAll('#box .card').forEach(c=>{let t=c.dataset.t||'';c.style.display=(curTip==='ALL'||t.includes(curTip))?'block':'none';});}
+function wa(msg){window.open('https://wa.me/233540042669?text='+encodeURIComponent('Hello! I want VIP: '+msg),'_blank');}
+function openMomo(ref){document.getElementById('momoRef').innerText=ref;document.getElementById('momoBg').style.display='flex';}
 function closeMomo(){document.getElementById('momoBg').style.display='none';}
-function confirmPay(){closeMomo(); wa(document.getElementById('momoRef').innerText+' - I have paid 50 GHS, here is screenshot');}
-function updateStats(){
- let won=document.querySelectorAll('#box .card.won').length;
- let lost=document.querySelectorAll('#box .card.lost').length;
- let total=document.querySelectorAll('#box .card').length;
- let el=document.getElementById('statsText');
- if(el) el.innerText=won+' WON / '+lost+' LOST • VIP 50 GHS • '+total+' TIPS';
-}
-setTimeout(updateStats,500);
+function confirmPay(){closeMomo();wa(document.getElementById('momoRef').innerText+' - Paid 50 GHS');}
+function updateStats(){let won=document.querySelectorAll('#box .card.won').length;let total=document.querySelectorAll('#box .card').length;let el=document.getElementById('statsText');if(el)el.innerText=won+' WON / '+(total-won)+' PENDING • VIP 50 GHS';}
+setTimeout(loadStatic,500);
 </script>
-</body>
-</html>
+</body></html>

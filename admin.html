@@ -1,33 +1,100 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ADMIN - Salvation Predict</title>
 <style>
-*{box-sizing:border-box;font-family:Arial}body{background:#0f172a;color:#fff;padding:16px;max-width:500px;margin:auto}
-h1{font-size:20px;margin-bottom:12px}input,select{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:none;font-size:14px}
-label{font-size:11px;color:#94a3b8;margin-top:10px;display:block;font-weight:800}
-button{width:100%;padding:14px;border:none;border-radius:10px;font-weight:900;margin-top:10px;cursor:pointer}
-.green{background:#22c55e;color:#fff}.dark{background:#1e293b;color:#fff}
-#out{width:100%;height:160px;margin-top:12px;padding:10px;font-size:11px;background:#020617;color:#22c55e;border-radius:8px}
+*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
+body{background:#0f172a;color:#fff;padding:16px}
+h1{font-size:22px;font-weight:900;margin-bottom:4px}
+.small{font-size:11px;color:#94a3b8;margin-bottom:12px}
+.card{background:#fff;color:#000;border-radius:12px;padding:14px;margin-bottom:10px}
+input,select{width:100%;padding:11px;border-radius:8px;border:1px solid #cbd5e1;margin:6px 0;font-weight:700}
+.row2{display:flex;gap:8px}.row2>*{flex:1}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:900;cursor:pointer;margin-top:8px}
+.green{background:#22c55e;color:#fff}.yellow{background:#facc15}.black{background:#fff;color:#000;border:1px solid #000}
+pre{background:#1e293b;color:#22c55e;padding:12px;border-radius:10px;overflow:auto;font-size:11px;margin-top:10px;white-space:pre-wrap}
+.preview{background:#f1f5f9;padding:10px;border-radius:12px;margin-top:12px}
 </style></head><body>
-<h1>🔧 SALVATION ADMIN</h1>
-<label>HOME</label><input id="home" placeholder="Vision FC">
-<label>AWAY</label><input id="away" placeholder="Gold Stars">
-<label>LEAGUE</label><select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>SerieA</option></select>
-<label>TYPE</label><select id="type"><option value="1">1</option><option value="X">X</option><option value="2">2</option><option value="1X">1X</option><option value="X2">X2</option><option value="12">12</option></select>
-<label>PREDICTION</label><input id="pred" value="1 • HOME WIN">
-<label>CONFIDENCE</label><input id="conf" value="80% WON ✅">
-<label>TIME</label><input id="time" value="TODAY 15:00">
-<label>STATUS</label><select id="status"><option value="won">WON ✅ Green</option><option value="lost">LOST ❌ Red</option><option value="live">LIVE 🔴</option></select>
-<label>YOUR WHATSAPP</label><input id="waNum" value="233540042669">
+<h1>🔐 SALVATION ADMIN</h1>
+<div class="small">Add Ghana games fast → Copy → Paste inside index.html #box</div>
 
-<button class="green" onclick="gen()">⚡ GENERATE</button>
-<textarea id="out"></textarea>
-<button class="green" onclick="navigator.clipboard.writeText(out.value);alert('Copied! Paste inside #box in index.html')">📋 COPY</button>
+<div class="card">
+<div class="row2">
+<div><label>Team A</label><input id="ta" placeholder="e.g. Kotoko"></div>
+<div><label>Team B</label><input id="tb" placeholder="e.g. Hearts"></div>
+</div>
+<div class="row2">
+<div><label>Tip Type</label>
+<select id="tipT">
+<option value="1">1 - Home Win</option>
+<option value="X">X - Draw</option>
+<option value="2">2 - Away Win</option>
+<option value="1X" selected>1X - Double</option>
+<option value="X2">X2 - Double</option>
+<option value="12">12 - No Draw</option>
+</select></div>
+<div><label>Tip Text</label><input id="tipTxt" value="1X • Double"></div>
+</div>
+<div class="row2">
+<div><label>League</label><select id="league"><option>GPL</option><option>PL</option><option>LaLiga</option><option>UCL</option><option>VIP</option></select></div>
+<div><label>Status</label><select id="status"><option value="WON">WON ✅</option><option value="PENDING">PENDING ⏳</option><option value="LOST">LOST ❌</option><option value="LIVE">LIVE 🔴</option></select></div>
+</div>
+<div class="row2">
+<div><label>Time</label><input id="time" value="TODAY 18:00"></div>
+<div><label>Win %</label><input id="perc" value="88% WON ✅"></div>
+</div>
+<label>WhatsApp Message</label><input id="wamsg" placeholder="e.g. Kotoko vs Hearts - 1X">
+<button class="btn green" onclick="addGame()">➕ ADD GAME TO LIST</button>
+<button class="btn yellow" onclick="generate()">📋 GENERATE CODE FOR INDEX.HTML</button>
+<button class="btn black" onclick="clearAll()">🗑️ CLEAR ALL</button>
+</div>
+
+<div id="preview" class="preview"></div>
+<pre id="output">// Your code go show here...</pre>
+
 <script>
-function gen(){
- let h=home.value||"Home",aw=away.value||"Away",lg=league.value,tp=type.value,pr=pred.value,cf=conf.value,tm=time.value,st=status.value;
- let badge=st==='won'?'✅ WON':st==='lost'?'❌ LOST':st==='live'?'🔴 LIVE':'⏳ PENDING';
- let code=`<div class="card ${st}" data-t="${tp}" data-l="${lg}" data-s="${st.toUpperCase()}"><span class="badge ${st}">${badge} • ${tm}</span><div class="row"><div class="team">${h}</div><div class="vs">VS</div><div class="team">${aw}</div></div><div class="meta"><span>Tip: <b>${pr}</b></span><span class="tag"> ${cf}</span></div><button class="wa" onclick="wa('${h} vs ${aw} - ${tp}')">💬 VIP WHATSAPP</button></div>`;
- out.value=code;return code;
+let games=[];
+function addGame(){
+  let g={
+    ta:document.getElementById('ta').value||'Team A',
+    tb:document.getElementById('tb').value||'Team B',
+    t:document.getElementById('tipT').value,
+    tipTxt:document.getElementById('tipTxt').value,
+    l:document.getElementById('league').value,
+    s:document.getElementById('status').value,
+    time:document.getElementById('time').value,
+    perc:document.getElementById('perc').value,
+    wa:document.getElementById('wamsg').value|| (document.getElementById('ta').value+' vs '+document.getElementById('tb').value+' - '+document.getElementById('tipT').value)
+  };
+  games.push(g);
+  renderPreview();
+  document.getElementById('ta').value='';document.getElementById('tb').value='';
 }
+function renderPreview(){
+  let h='';
+  games.forEach(g=>{
+    let badgeClass = g.s==='WON'?'won': g.s==='LOST'?'lost':'pending';
+    let badgeText = g.s==='WON'?'✅ WON': g.s==='LOST'?'❌ LOST': g.s==='LIVE'?'🔴 LIVE':'⏳ '+g.time+' • VIP TIP';
+    let btn = g.s==='PENDING'?`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:`<button class="wa" onclick="wa('${g.wa}')">💬 VIP WHATSAPP</button>`;
+    h+=`<div style="background:#fff;color:#000;border-left:6px solid #22c55e;border-radius:12px;padding:12px;margin-bottom:8px"><span style="font-size:9px;background:#22c55e;color:#fff;padding:4px 8px;border-radius:10px">${badgeText}</span><div style="display:flex;justify-content:space-between;margin:10px 0;font-weight:700"><span>${g.ta}</span><span>VS</span><span>${g.tb}</span></div><div style="font-size:11px">Tip: <b>${g.tipTxt}</b> | ${g.perc}</div></div>`;
+  });
+  document.getElementById('preview').innerHTML=h||'<small style="color:#64748b">No games yet — add one!</small>';
+}
+function generate(){
+  let code='';
+  games.forEach(g=>{
+    let badgeClass = g.s==='WON'?'won': g.s==='LOST'?'lost': g.s==='LIVE'?'live':'pending';
+    let badgeStyle = g.s==='WON'?'won': g.s==='LOST'?'lost': g.s==='LIVE'?'live':'pending';
+    let badgeText = g.s==='WON'?`✅ WON • ${g.time}`: g.s==='LOST'?`❌ LOST • ${g.time}`: g.s==='LIVE'?`🔴 LIVE • ${g.time}`:`⏳ ${g.time} • VIP TIP`;
+    let tagClass = g.s==='WON'?'':' lost';
+    let btn = g.s==='PENDING'?
+`<button class="wa" style="background:#0f172a" onclick="openMomo('${g.wa.replace(/'/g,"\\'")}')">🔒 JOIN VIP TO VIEW - 50 GHS</button>`:
+`<button class="wa" onclick="wa('${g.wa.replace(/'/g,"\\'")}')">💬 VIP WHATSAPP</button>`;
+    code+=`<div class="card ${badgeStyle}" data-t="${g.t}" data-l="${g.l}" data-s="${g.s}"><span class="badge ${badgeStyle}">${badgeText}</span><div class="row"><div class="team">${g.ta}</div><div class="vs">VS</div><div class="team">${g.tb}</div></div><div class="meta"><span>Tip: <b>${g.tipTxt}</b></span><span class="tag${tagClass}">${g.perc}</span></div>${btn}</div>\n`;
+  });
+  document.getElementById('output').textContent=code;
+  navigator.clipboard.writeText(code);
+  alert('✅ CODE COPIED! Now go paste inside index.html → inside <div id="box">');
+}
+function clearAll(){games=[];renderPreview();document.getElementById('output').textContent='// cleared';}
 </script>
 </body></html>

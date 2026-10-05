@@ -1,51 +1,28 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT - FINAL</title>
+<title>SALVATION PREDICT PRO MAX</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#eef2f7;padding-bottom:90px}
 .top{background:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #e2e8f0}
 .fil{padding:8px 10px;background:#fff;display:flex;gap:6px;overflow-x:auto;position:sticky;border-bottom:1px solid #e2e8f0}.fil::-webkit-scrollbar{display:none}
 #f1{top:53px;z-index:98}#f2{top:96px;z-index:97}
-.b{padding:7px 15px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:700;white-space:nowrap}.b.active{background:#22c55e;color:#fff}
+.b{padding:7px 14px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-size:11px;font-weight:700;white-space:nowrap}.b.active{background:#22c55e;color:#fff;border-color:#22c55e}
 .b2{padding:6px 12px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:10px;white-space:nowrap}.b2.active{background:#0f172a;color:#fff}
-.card{background:#fff;border-left:5px solid #22c55e;border-radius:14px;padding:12px;margin:8px 10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.card{background:#fff;border-left:5px solid #22c55e;border-radius:14px;padding:12px;margin:8px 10px}
 .card.won{border-left-color:#22c55e;background:#f0fdf4}.card.lost{border-left-color:#ef4444;background:#fef2f2}.card.live{border-left-color:#ef4444}
 .badge{font-size:9px;padding:4px 9px;border-radius:20px;font-weight:800;color:#fff;display:inline-block}
-.badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444;animation:pulse 1s infinite}.badge.pending{background:#64748b}
-@keyframes pulse{0%{opacity:1}50%{opacity:.6}100%{opacity:1}}
-.head{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
-.team{text-align:center;width:110px}.team b{font-size:12px;display:block;margin-top:4px}
-.vs{font-weight:900;color:#94a3b8}
-.meta{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;align-items:center}
-.conf{padding:4px 10px;border-radius:20px;font-weight:900;font-size:11px}.conf.won{background:#22c55e;color:#fff}.conf.lost{background:#ef4444;color:#fff}
+.badge.won{background:#22c55e}.badge.lost{background:#ef4444}.badge.live{background:#ef4444}.badge.pending{background:#64748b}
+.head{display:flex;justify-content:space-between;align-items:center;margin:12px 0}.team{text-align:center;width:100px}.team b{font-size:12px}
+.vs{font-weight:900;color:#94a3b8}.meta{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;align-items:center}
+.conf{padding:4px 10px;border-radius:20px;font-weight:900;font-size:11px;background:#dcfce7;color:#166534}.conf.lost{background:#fecaca;color:#991b1b}
 .wa{width:100%;margin-top:10px;background:#25D366;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:900;font-size:12px}
-.float{position:fixed;bottom:14px;left:10px;right:10px;background:#0f172a;color:#fff;padding:14px;border-radius:14px;display:flex;justify-content:space-between;align-items:center}
+.float{position:fixed;bottom:14px;left:10px;right:10px;background:#0f172a;color:#fff;padding:14px;border-radius:14px;display:flex;justify-content:space-between;align-items:center;z-index:100}
 .float a{background:#25D366;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;font-weight:900}
+#adminBox{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.75);z-index:200;padding:20px;overflow:auto}
+.inner{background:#fff;border-radius:14px;padding:16px;max-width:380px;margin:30px auto}
+.inner input,.inner select{width:100%;padding:10px;margin:5px 0;border:1px solid #e2e8f0;border-radius:8px}
+.inner button{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;margin-top:8px}
 </style></head><body>
 
-<div class="top"><h1>SALVATION<br>PREDICT</h1><div style="background:#0f172a;color:#fff;padding:8px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center">WON/LOST ✅<br>VIP 50 GHS</div></div>
+<div class="top"><h1>SALVATION<br>PREDICT</h1><div style="background:#0f172a;color:#fff;padding:8px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center">123 • WON/LOST<br>VIP 50 GHS</div></div>
 
-<div class="fil" id="f1">
-<button class="b active" data-f="ALL">ALL</button><button class="b" data-f="1">1</button><button class="b" data-f="X">X</button><button class="b" data-f="2">2</button><button class="b" data-f="1X">1X</button><button class="b" data-f="X2">X2</button><button class="b" data-f="12">12</button>
-</div>
-<div class="fil" id="f2">
-<button class="b2 active" data-l="ALL">ALL</button><button class="b2" data-l="GPL">GPL 🇬🇭</button><button class="b2" data-l="PL">PL</button><button class="b2" data-l="WON">WON ✅</button><button class="b2" data-l="LOST">LOST ❌</button>
-</div>
-
-<div id="games">
-<!-- WON GREEN -->
-<div class="card won" data-t="1" data-league="GPL" data-status="WON"><span class="badge won">✅ WON • TODAY 15:00 • Vision</span><div class="head"><div class="team"><b>Vision FC</b></div><div class="vs">VS</div><div class="team"><b>Gold Stars</b></div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="conf won">75% WON</span></div><button class="wa" onclick="wa('Vision vs Gold Stars 1')">💬 VIP WHATSAPP</button></div>
-
-<div class="card live" data-t="2" data-league="GPL" data-status="LIVE"><span class="badge live">🔴 LIVE • Tuba Accra</span><div class="head"><div class="team"><b>Dreams FC</b></div><div class="vs">VS</div><div class="team"><b>Hearts of Oak</b></div></div><div class="meta"><span>Tip: <b>2 • AWAY WIN</b></span><span class="conf won">80%</span></div><button class="wa" onclick="wa('Dreams vs Hearts 2')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="1X" data-league="GPL" data-status="WON"><span class="badge won">✅ WON • Anyinase</span><div class="head"><div class="team"><b>Karela Utd</b></div><div class="vs">VS</div><div class="team"><b>Bechem Utd</b></div></div><div class="meta"><span>Tip: <b>1X</b></span><span class="conf won">88% WON</span></div><button class="wa" onclick="wa('Karela 1X')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="X2" data-league="GPL" data-status="WON"><span class="badge won">✅ WON • Samreboi</span><div class="head"><div class="team"><b>Samartex</b></div><div class="vs">VS</div><div class="team"><b>Kotoko</b></div></div><div class="meta"><span>Tip: <b>X2</b></span><span class="conf won">82% WON</span></div><button class="wa" onclick="wa('Samartex X2')">💬 VIP WHATSAPP</button></div>
-
-<div class="card lost" data-t="X" data-league="GPL" data-status="LOST"><span class="badge lost">❌ LOST • Berekum</span><div class="head"><div class="team"><b>B. Chelsea</b></div><div class="vs">VS</div><div class="team"><b>Nations FC</b></div></div><div class="meta"><span>Tip: <b>X • DRAW</b></span><span class="conf lost">72% LOST</span></div><button class="wa" onclick="wa('Berekum X')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="12" data-league="GPL" data-status="WON"><span class="badge won">✅ WON • Wenchi</span><div class="head"><div class="team"><b>Young Apostles</b></div><div class="vs">VS</div><div class="team"><b>Holy Stars</b></div></div><div class="meta"><span>Tip: <b>12</b></span><span class="conf won">90% WON</span></div><button class="wa" onclick="wa('Apostles 12')">💬 VIP WHATSAPP</button></div>
-
-<div class="card won" data-t="1" data-league="PL" data-status="WON"><span class="badge won">✅ WON • FT 2-0</span><div class="head"><div class="team"><b>Arsenal</b></div><div class="vs">VS</div><div class="team"><b>Bournemouth</b></div></div><div class="meta"><span>Tip: <b>1 • HOME WIN</b></span><span class="conf won">88% WON</span></div><button class="wa" onclick="wa('Arsenal 1')">💬 VIP WHATSAPP</button></div>
-</div>
-
-<div class="float"><div><b>🔥 VIP 1X2 - 50 GHS</b><br><span style="font-size:10px;color:#94a3b8">Green=W
+<!-- ROW 1: 123

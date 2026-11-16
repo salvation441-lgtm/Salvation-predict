@@ -1,15 +1,80 @@
-<!-- SALVATION PREDICT VIP - PAYSTACK PAYMENT READY -->
-<div class="card" style="border:2px solid gold;text-align:center;background:#1e293b;padding:15px;border-radius:15px;margin:12px" id="vipCard">
-<span style="background:gold;color:black;padding:5px 10px;border-radius:5px;font-size:12px;font-weight:bold">VIP - GHS 15</span>
-<h2 style="color:white">VIP BANKER 10+ ODDS</h2>
-<p style="font-size:30px;text-align:center">🔒 LOCKED</p>
-<p style="text-align:center">5 Sure Banker Tips - Odds 12.50</p>
-<button onclick="payWithPaystack()" style="background:#facc15;color:black;padding:14px;border-radius:10px;font-weight:bold;width:100%;border:none;font-size:16px;cursor:pointer">UNLOCK - PAY GHS 15 MOMO</button>
-<p style="font-size:10px;color:#94a3b8;margin-top:8px;text-align:center">MTN MoMo | Telecel | AT Money | VISA Secured by Paystack</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalvationPredict - Sure Banker Tips</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI}
+body{background:#020617;color:white;padding:10px}
+.header{background:linear-gradient(135deg,#0f172a,#1e293b);padding:15px;border-radius:15px;text-align:center;border:1px solid #334155;margin-bottom:12px}
+.header h1{color:#facc15;font-size:22px}
+.header p{color:#94a3b8;font-size:12px;margin-top:4px}
+.card{background:#1e293b;border-radius:15px;padding:15px;margin:12px 0;border:1px solid #334155}
+.badge{background:#16a34a;color:white;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold}
+.odd{background:#facc15;color:black;padding:4px 10px;border-radius:8px;font-weight:bold;font-size:13px}
+.vip{border:2px solid gold !important;background:linear-gradient(135deg,#1e293b,#0f172a)}
+.btn-gold{background:#facc15;color:black;border:none;padding:14px;width:100%;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
+.btn-gold:active{transform:scale(0.98)}
+/* VIP MODAL */
+#vipModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:99999;padding:15px;backdrop-filter:blur(6px)}
+.modalCard{background:#0f172a;border:2px solid #facc15;border-radius:22px;padding:28px 20px;text-align:center;max-width:340px;width:100%;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
+@keyframes popIn{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.checkWrap{width:110px;height:110px;margin:0 auto 18px;position:relative}
+.checkCircle{width:110px;height:110px;border-radius:50%;border:4px solid #22c55e;background:rgba(34,197,94,0.15);display:flex;justify-content:center;align-items:center;box-shadow:0 0 30px rgba(34,197,94,0.6);animation:glow 1.5s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(34,197,94,0.4)}50%{box-shadow:0 0 40px rgba(34,197,94,0.8)}}
+.checkmark{width:50px;height:50px;stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.6s 0.3s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.brand{color:#facc15;font-weight:900;font-size:20px;letter-spacing:0.5px;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>🛡️ SalvationPredict</h1>
+<p>Daily Sure Banker Tips • Ghana's #1 Prediction Site</p>
+</div>
+
+<!-- FREE TIPS -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<span class="badge">FREE</span><span style="font-size:11px;color:#94a3b8">Today • 16 Nov</span>
+</div>
+<p>⚽ Arsenal vs Chelsea - Over 1.5 Goals <span class="odd">1.35</span></p>
+<p style="margin-top:8px">⚽ Real Madrid WIN <span class="odd">1.65</span></p>
+<p style="margin-top:6px;font-size:11px;color:#16a34a">✅ Won Yesterday</p>
+</div>
+
+<!-- VIP CARD -->
+<div class="card vip" id="vipCard">
+<span style="background:gold;color:black;padding:4px 10px;border-radius:5px;font-size:11px;font-weight:900">VIP - GHS 15</span>
+<h2 style="color:white;margin:10px 0">VIP BANKER 10+ ODDS</h2>
+<p style="font-size:32px;text-align:center;margin:10px 0">🔒 LOCKED</p>
+<p style="text-align:center;color:#cbd5e1;font-size:13px">5 Sure Banker Tips - Combined 12.50 Odds<br>Win Daily with our Bankers</p>
+<button onclick="payWithPaystack()" class="btn-gold">UNLOCK - PAY GHS 15 MOMO</button>
+<p style="font-size:10px;color:#64748b;text-align:center;margin-top:8px">MTN MoMo • Telecel • AT Money • VISA via Paystack Secured</p>
+</div>
+
+<!-- SUCCESS MODAL - BRANDED -->
+<div id="vipModal" onclick="closeVIPModal()">
+<div class="modalCard" onclick="event.stopPropagation()">
+<div class="brand">🛡️ SalvationPredict</div>
+<div class="checkWrap"><div class="checkCircle">
+<svg viewBox="0 0 52 52"><path class="checkmark" d="M14 27 L22 35 L38 16"/></svg>
+</div></div>
+<h2 style="color:#facc15;margin:5px 0;font-size:26px">Payment Successful!</h2>
+<p style="color:#facc15;opacity:0.9;font-weight:600;margin:5px 0 15px;font-size:13px;letter-spacing:0.5px">VIP BANKER 10+ ODDS UNLOCKED</p>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#facc15,transparent);margin:15px 0"></div>
+<p style="color:#94a3b8;font-size:10px;letter-spacing:1px">REFERENCE ID</p>
+<p id="refId" style="color:white;font-weight:bold;font-size:18px;margin:5px 0">REF: #SP-000000</p>
+<p style="color:#64748b;font-size:11px;margin:8px 0 18px">Paid via Secure Gateway • <span id="payTime"></span></p>
+<button onclick="closeVIPModal()" style="background:#facc15;color:#0f172a;border:none;padding:14px;width:100%;border-radius:14px;font-weight:900;font-size:18px">VIEW VIP TIPS 🏆</button>
+</div>
 </div>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
+// PAYSTACK PAYMENT
 function payWithPaystack(){
   var handler = PaystackPop.setup({
     key: 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
@@ -17,19 +82,28 @@ function payWithPaystack(){
     amount: 1500,
     currency: 'GHS',
     ref: 'SPVIP_'+Math.floor(Math.random()*1000000000),
-    metadata: { custom_fields: [{ display_name: "App", variable_name: "app", value: "SalvationPredict VIP" }] },
     callback: function(response){
       localStorage.setItem('vipPaid','true');
       localStorage.setItem('vipRef',response.reference);
-      alert('✅ Payment Success! Ref: '+response.reference+' VIP Unlocked!');
-      unlockVIP();
+      showVIPModal(response.reference);
     },
-    onClose: function(){ alert('You cancelled payment'); }
+    onClose: function(){}
   });
   handler.openIframe();
 }
+function showVIPModal(ref){
+  document.getElementById('refId').innerText='REF: #'+ref;
+  document.getElementById('payTime').innerText=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('vipModal').style.display='flex';
+}
+function closeVIPModal(){
+  document.getElementById('vipModal').style.display='none';
+  unlockVIP();
+}
 function unlockVIP(){
-  document.getElementById('vipCard').innerHTML = '<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p>Welcome Rockson!</p><div style="background:#0f172a;padding:10px;border-radius:10px;text-align:left;margin-top:10px"><p>🏆 TODAY VIP TIPS:</p><p>1. Arsenal WIN + Over 1.5 @2.10</p><p>2. Real Madrid vs Barca - BTTS YES @1.80</p><p>3. Man City Over 2.5 @1.90</p><p>4. Double Chance: Inter or Draw @1.35</p><p>5. Correct Score: 2-1 @8.50</p></div><p style="color:#16a34a;font-size:12px;margin-top:10px">Ref: '+localStorage.getItem('vipRef')+'</p></div>';
+  document.getElementById('vipCard').innerHTML = '<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p style="margin:8px 0">Welcome Boss!</p><div style="background:#0f172a;padding:12px;border-radius:12px;text-align:left;margin-top:10px;font-size:13px;line-height:1.8"><p>🏆 TODAY VIP BANKER:</p><p>1. Arsenal WIN + Over 1.5 @2.10</p><p>2. Real Madrid vs Barca - BTTS YES @1.80</p><p>3. Man City Over 2.5 @1.90</p><p>4. Double Chance: Inter or Draw @1.35</p><p>5. Correct Score: 2-1 @8.50</p><p style="color:gold;margin-top:8px;font-weight:bold">Total Odds: 12.50</p></div><p style="color:#16a34a;font-size:11px;margin-top:10px">'+localStorage.getItem('vipRef')+'</p></div>';
 }
 if(localStorage.getItem('vipPaid')=='true'){ unlockVIP(); }
 </script>
+</body>
+</html>

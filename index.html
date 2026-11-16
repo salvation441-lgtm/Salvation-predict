@@ -1,40 +1,35 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SALVATION PREDICT LIVE</title>
-<style>
-*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
-body{background:#eef2f7;padding:12px}
-.top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:18px;padding:16px 18px;margin-bottom:12px}
-.logo{font-weight:900;font-size:20px;line-height:1.1}
-.statsBtn{background:#0f172a;color:#fff;border:none;border-radius:30px;padding:10px 16px;font-weight:800;font-size:12px}
-.tabs{background:#fff;border-radius:18px;padding:12px;margin-bottom:14px;overflow-x:auto}
-.row{display:flex;gap:8px;flex-wrap:nowrap}
-.fbtn{border:1.5px solid #e2e8f0;background:#fff;border-radius:30px;padding:10px 18px;font-weight:800;font-size:13px;white-space:nowrap;flex-shrink:0}
-.fbtn.active{background:#22c55e;color:#fff;border-color:#22c55e}
-.fbtn.live{background:#0f172a;color:#fff}
-.card{background:#fff;border-radius:20px;padding:16px;margin-bottom:14px;border-left:6px solid #22c55e;width:100%;display:block}
-.card.pending{border-left-color:#f59e0b}
-.badge{font-size:11px;font-weight:900;border-radius:20px;padding:6px 12px;display:inline-block;margin-bottom:12px}
-.badge.won{background:#dcfce7;color:#166534}.badge.pending{background:#fef3c7;color:#92400e}
-.teams{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:16px;margin-bottom:8px}
-.vs{color:#94a3b8;font-size:14px}
-.meta{display:flex;justify-content:space-between;align-items:center;margin:12px 0 14px 0}
-.tag{background:#f0fdf4;color:#166534;border-radius:20px;padding:6px 12px;font-weight:800;font-size:12px}
-.wa{width:100%;background:#22c55e;color:#fff;border:none;border-radius:14px;padding:14px;font-weight:900;font-size:14px;display:block}
-.wa.dark{background:#0f172a}
-.liveTitle{font-weight:900;margin:18px 0 10px 4px;font-size:15px}
-.bottomSpace{height:90px}
-.bottomBar{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
-.join{background:#22c55e;color:#fff;border:none;border-radius:30px;padding:12px 26px;font-weight:900}
-</style></head><body>
-
-<div class="top">
-<div class="logo">SALVATION<br>PREDICT <span style="color:#22c55e;font-size:10px">LIVE</span></div>
-<div class="statsBtn">3 TIPS - VIP 50 GHS</div>
+<!-- SALVATION PREDICT VIP - PAYSTACK PAYMENT READY -->
+<div class="card" style="border:2px solid gold;text-align:center;background:#1e293b;padding:15px;border-radius:15px;margin:12px" id="vipCard">
+<span style="background:gold;color:black;padding:5px 10px;border-radius:5px;font-size:12px;font-weight:bold">VIP - GHS 15</span>
+<h2 style="color:white">VIP BANKER 10+ ODDS</h2>
+<p style="font-size:30px;text-align:center">🔒 LOCKED</p>
+<p style="text-align:center">5 Sure Banker Tips - Odds 12.50</p>
+<button onclick="payWithPaystack()" style="background:#facc15;color:black;padding:14px;border-radius:10px;font-weight:bold;width:100%;border:none;font-size:16px;cursor:pointer">UNLOCK - PAY GHS 15 MOMO</button>
+<p style="font-size:10px;color:#94a3b8;margin-top:8px;text-align:center">MTN MoMo | Telecel | AT Money | VISA Secured by Paystack</p>
 </div>
 
-<div class="tabs">
-<div class="row">
-<button class="fbtn active" id="b1" onclick="showAll()">MY TIPS</button>
-<button class="fbtn" id="b2" onclick="getLive('gha.1','GPL')">GPL LIVE</button>
-<button class="fbtn" id="b3" onclick="getLive('eng.1','PL')">PL LIVE</button>
-<button class="fbtn" id="b
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+function payWithPaystack(){
+  var handler = PaystackPop.setup({
+    key: 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
+    email: 'salvation441@gmail.com',
+    amount: 1500,
+    currency: 'GHS',
+    ref: 'SPVIP_'+Math.floor(Math.random()*1000000000),
+    metadata: { custom_fields: [{ display_name: "App", variable_name: "app", value: "SalvationPredict VIP" }] },
+    callback: function(response){
+      localStorage.setItem('vipPaid','true');
+      localStorage.setItem('vipRef',response.reference);
+      alert('✅ Payment Success! Ref: '+response.reference+' VIP Unlocked!');
+      unlockVIP();
+    },
+    onClose: function(){ alert('You cancelled payment'); }
+  });
+  handler.openIframe();
+}
+function unlockVIP(){
+  document.getElementById('vipCard').innerHTML = '<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p>Welcome Rockson!</p><div style="background:#0f172a;padding:10px;border-radius:10px;text-align:left;margin-top:10px"><p>🏆 TODAY VIP TIPS:</p><p>1. Arsenal WIN + Over 1.5 @2.10</p><p>2. Real Madrid vs Barca - BTTS YES @1.80</p><p>3. Man City Over 2.5 @1.90</p><p>4. Double Chance: Inter or Draw @1.35</p><p>5. Correct Score: 2-1 @8.50</p></div><p style="color:#16a34a;font-size:12px;margin-top:10px">Ref: '+localStorage.getItem('vipRef')+'</p></div>';
+}
+if(localStorage.getItem('vipPaid')=='true'){ unlockVIP(); }
+</script>

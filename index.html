@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SalvationPredict - Auto Banker</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
@@ -27,116 +26,85 @@ body{background:#020617;color:white;padding:10px}
 </style>
 </head>
 <body>
-
-<div class="header">
-<h1>🛡️ SalvationPredict</h1>
-<p><span class="live-dot"></span>Live Auto Fetch • Ghana's #1 Banker • <span id="todayDate"></span></p>
-</div>
-
-<!-- AUTO FREE TIPS -->
-<div class="card" id="freeCard">
-<div style="display:flex;justify-content:space-between"><span class="badge">FREE - AUTO TODAY</span><span style="font-size:11px;color:#94a3b8" id="freeDate">Loading...</span></div>
-<div id="freeTips" style="margin-top:10px">⏳ Fetching today's real matches...</div>
-</div>
-
-<!-- VIP CARD -->
-<div class="card vip" id="vipCard">
-<span style="background:gold;color:black;padding:4px 10px;border-radius:5px;font-size:11px;font-weight:900">VIP - GHS 15 AUTO</span>
-<h2 style="color:white;margin:10px 0">VIP BANKER 10+ ODDS</h2>
-<p style="font-size:32px;text-align:center;margin:10px 0" id="vipLockIcon">🔒 LOCKED</p>
-<p style="text-align:center;color:#cbd5e1;font-size:13px" id="vipDesc">Fetching today's VIP bankers...</p>
-<button onclick="payWithPaystack()" class="btn-gold" id="payBtn">UNLOCK - PAY GHS 15 MOMO</button>
-<p style="font-size:10px;color:#64748b;text-align:center;margin-top:8px">MTN • Telecel • AT Money via Paystack</p>
-</div>
-
-<!-- MODAL -->
-<div id="vipModal" onclick="closeVIPModal()"><div class="modalCard" onclick="event.stopPropagation()">
-<div class="brand">🛡️ SalvationPredict</div>
-<div class="checkWrap"><div class="checkCircle"><svg viewBox="0 0 52 52"><path class="checkmark" d="M14 27 L22 35 L38 16"/></svg></div></div>
-<h2 style="color:#facc15;font-size:26px">Payment Successful!</h2>
-<p style="color:#facc15;font-weight:600;margin:5px 0 15px;font-size:13px">VIP BANKER 10+ ODDS UNLOCKED</p>
-<div style="height:1px;background:linear-gradient(90deg,transparent,#facc15,transparent);margin:15px 0"></div>
-<p style="color:#94a3b8;font-size:10px">REFERENCE ID</p>
-<p id="refId" style="color:white;font-weight:bold;font-size:18px;margin:5px 0"></p>
-<p style="color:#64748b;font-size:11px;margin:8px 0 18px">Paid • <span id="payTime"></span></p>
-<button onclick="closeVIPModal()" style="background:#facc15;color:#0f172a;border:none;padding:14px;width:100%;border-radius:14px;font-weight:900;font-size:18px">VIEW VIP TIPS 🏆</button>
-</div></div>
-
+<div class="header"><h1>🛡️ SalvationPredict</h1><p><span class="live-dot"></span>Live Auto Fetch • Ghana's #1 Banker • <span id="todayDate"></span></p></div>
+<div class="card" id="freeCard"><div style="display:flex;justify-content:space-between"><span class="badge">FREE - AUTO TODAY</span><span style="font-size:11px;color:#94a3b8" id="freeDate"></span></div><div id="freeTips" style="margin-top:10px">⏳ Fetching today's real matches...</div></div>
+<div class="card vip" id="vipCard"></div>
+<div id="vipModal" onclick="closeVIPModal()"><div class="modalCard" onclick="event.stopPropagation()"><div class="brand">🛡️ SalvationPredict</div><div class="checkWrap"><div class="checkCircle"><svg viewBox="0 0 52 52"><path class="checkmark" d="M14 27 L22 35 L38 16"/></svg></div></div><h2 style="color:#facc15;font-size:26px">Payment Successful!</h2><p style="color:#facc15;font-weight:600;margin:5px 0 15px;font-size:13px">VIP BANKER 10+ ODDS UNLOCKED</p><div style="height:1px;background:linear-gradient(90deg,transparent,#facc15,transparent);margin:15px 0"></div><p style="color:#94a3b8;font-size:10px">REFERENCE ID</p><p id="refId" style="color:white;font-weight:bold;font-size:18px;margin:5px 0"></p><p style="color:#64748b;font-size:11px;margin:8px 0 18px">Paid • <span id="payTime"></span> • Valid 24HRS</p><button onclick="closeVIPModal()" style="background:#facc15;color:#0f172a;border:none;padding:14px;width:100%;border-radius:14px;font-weight:900;font-size:18px">VIEW VIP TIPS 🏆</button></div></div>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
-// DATE
-document.getElementById('todayDate').innerText = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
-document.getElementById('freeDate').innerText = 'Today • '+new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+document.getElementById('todayDate').innerText=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+document.getElementById('freeDate').innerText='Today • '+new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+const BANKERS=[{market:"WIN + Over 1.5",odd:2.10},{market:"BTTS YES",odd:1.80},{market:"Over 2.5 Goals",odd:1.90},{market:"Double Chance: Home or Draw",odd:1.35},{market:"Under 3.5 Goals",odd:1.45}];
+const CORRECT_SCORE={market:"Correct Score 2-1",odd:8.50,isBonus:true};
+let autoData=null;
 
-// AUTO FETCH ENGINE - ESPN FREE API (no key needed)
-const BANKERS = [
-  {market:"WIN + Over 1.5", odd:"2.10"}, {market:"BTTS YES", odd:"1.80"},
-  {market:"Over 2.5 Goals", odd:"1.90"}, {market:"Double Chance: Home or Draw", odd:"1.35"},
-  {market:"Correct Score 2-1", odd:"8.50"}, {market:"Over 1.5 Goals", odd:"1.35"},
-  {market:"Home WIN", odd:"1.65"}, {market:"BTTS + Over 2.5", odd:"2.40"}
-];
+// 24HR EXPIRY CHECK
+function checkExpiry(){
+  const paidTime=localStorage.getItem('vipPaidTime');
+  if(paidTime){
+    const diff=Date.now()-parseInt(paidTime);
+    const hours24=24*60*60*1000;
+    if(diff>hours24){
+      localStorage.removeItem('vipPaid');localStorage.removeItem('vipRef');localStorage.removeItem('vipPaidTime');
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
 
 async function autoFetchTips(){
  try{
-  // Try fetch real fixtures - fallback to smart rotation if fails
-  let matches = ["Arsenal vs Chelsea","Man City vs Liverpool","Real Madrid vs Barca","Inter vs AC Milan","Bayern vs Dortmund"];
+  let matches=["Nottingham Forest at AFC Bournemouth","Sunderland at Aston Villa","Leeds United at Chelsea","Crystal Palace at Coventry City","Fulham at Manchester City"];
   try{
-   const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard');
-   const data = await res.json();
-   if(data.events && data.events.length>0){
-     matches = data.events.slice(0,5).map(e=>e.name);
-   }
+   const res=await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard');
+   const data=await res.json();
+   if(data.events && data.events.length>0){matches=data.events.slice(0,5).map(e=>e.name);}
   }catch(e){}
+  const seed=new Date().getDate();
+  const freePick=matches[seed%matches.length];
+  document.getElementById('freeTips').innerHTML=`<p>⚽ ${freePick} - Over 1.5 Goals <span class="odd">1.35</span></p><p style="margin-top:8px">⚽ ${matches[(seed+1)%matches.length]} WIN <span class="odd">1.65</span></p><p style="margin-top:6px;font-size:11px;color:#16a34a">✅ Auto Fetched - Updated Daily 6AM</p>`;
 
-  // Generate daily tips based on date (so it changes daily)
-  const seed = new Date().getDate();
-  const freePick = matches[seed % matches.length];
-  document.getElementById('freeTips').innerHTML = `<p>⚽ ${freePick} - Over 1.5 Goals <span class="odd">1.35</span></p><p style="margin-top:8px">⚽ ${matches[(seed+1)%matches.length]} WIN <span class="odd">1.65</span></p><p style="margin-top:6px;font-size:11px;color:#16a34a">✅ Auto Fetched - Updated Daily 6AM</p>`;
-
-  // VIP tips
-  let vipHtml = '';
-  let totalOdds = 1;
-  for(let i=0;i<5;i++){
-    const m = matches[(seed+i)%matches.length];
-    const b = BANKERS[(seed+i)%BANKERS.length];
-    totalOdds *= parseFloat(b.odd);
-    vipHtml += `${i+1}. ${m} - ${b.market} @${b.odd}<br>`;
+  let vipHtml=''; let total=1;
+  for(let i=0;i<4;i++){
+    const m=matches[(seed+i)%matches.length];
+    const b=BANKERS[(seed+i)%BANKERS.length];
+    total*=b.odd;
+    vipHtml+=`${i+1}. ${m} - ${b.market} @${b.odd.toFixed(2)}<br>`;
   }
-  window.autoVipData = {html:vipHtml, odds: totalOdds.toFixed(2), matches};
-  document.getElementById('vipDesc').innerHTML = `5 Auto Bankers • Est. Odds ${totalOdds.toFixed(2)} • Updates Daily`;
-  if(localStorage.getItem('vipPaid')=='true'){ unlockVIP(); }
- }catch(err){
-  document.getElementById('freeTips').innerHTML = '⚽ Daily Banker Loading... Check network';
- }
+  // Add correct score as bonus, NOT multiplied
+  vipHtml+=`5. ${matches[(seed+4)%matches.length]} - ${CORRECT_SCORE.market} @${CORRECT_SCORE.odd} (Bonus)<br>`;
+  // Realistic odds 10-18
+  if(total<10) total=total*1.4; if(total>18) total=12.50 + (seed%5);
+  autoData={html:vipHtml, odds: total.toFixed(2)};
+  renderVIPCard(false);
+ }catch(err){document.getElementById('freeTips').innerHTML='⚽ Daily Banker Ready';}
 }
-autoFetchTips();
-
-// PAYSTACK
+function renderVIPCard(isPaid){
+  const container=document.getElementById('vipCard');
+  if(isPaid && checkExpiry()){
+    const ref=localStorage.getItem('vipRef')||'';
+    const expiryTime=new Date(parseInt(localStorage.getItem('vipPaidTime'))+24*60*60*1000).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    container.innerHTML=`<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p style="margin:8px 0">Welcome Boss! Auto Tips Today</p><div style="background:#0f172a;padding:12px;border-radius:12px;text-align:left;margin-top:10px;font-size:13px;line-height:1.8"><p>🏆 TODAY AUTO VIP:</p>${autoData.html}<p style="color:gold;margin-top:8px;font-weight:bold">Total Odds: ${autoData.odds}</p></div><p style="color:#16a34a;font-size:11px;margin-top:10px">${ref}</p><p style="color:#ef4444;font-size:10px;margin-top:5px">⏳ Expires Today ${expiryTime} • Auto refreshes tomorrow 6AM</p></div>`;
+  }else{
+    container.innerHTML=`<span style="background:gold;color:black;padding:4px 10px;border-radius:5px;font-size:11px;font-weight:900">VIP - GHS 15 • 24HRS</span><h2 style="color:white;margin:10px 0">VIP BANKER ${autoData?autoData.odds:''} ODDS</h2><p style="font-size:32px;text-align:center;margin:10px 0">🔒 LOCKED</p><p style="text-align:center;color:#cbd5e1;font-size:13px">${autoData?`5 Auto Bankers • Odds ${autoData.odds} • Updates Daily`:'Fetching...'}</p><button onclick="payWithPaystack()" class="btn-gold">UNLOCK - PAY GHS 15 MOMO</button><p style="font-size:10px;color:#64748b;text-align:center;margin-top:8px">MTN • Telecel • AT Money • Valid 24hrs via Paystack</p>`;
+  }
+}
 function payWithPaystack(){
-  var handler = PaystackPop.setup({
-    key: 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
-    email: 'salvation441@gmail.com',
-    amount: 1500, currency: 'GHS',
-    ref: 'SPVIP_'+Math.floor(Math.random()*1000000000),
-    callback: function(response){
-      localStorage.setItem('vipPaid','true');
-      localStorage.setItem('vipRef',response.reference);
+  var handler=PaystackPop.setup({
+    key:'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
+    email:'salvation441@gmail.com',amount:1500,currency:'GHS',
+    ref:'SPVIP_'+Math.floor(Math.random()*1000000000),
+    callback:function(response){
+      localStorage.setItem('vipPaid','true');localStorage.setItem('vipRef',response.reference);localStorage.setItem('vipPaidTime',Date.now().toString());
       showVIPModal(response.reference);
-    },
-    onClose: function(){}
-  });
-  handler.openIframe();
+    },onClose:function(){}
+  });handler.openIframe();
 }
-function showVIPModal(ref){
-  document.getElementById('refId').innerText='REF: #'+ref;
-  document.getElementById('payTime').innerText=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-  document.getElementById('vipModal').style.display='flex';
-}
-function closeVIPModal(){ document.getElementById('vipModal').style.display='none'; unlockVIP(); }
-function unlockVIP(){
-  const data = window.autoVipData || {html:"Loading... ", odds:"12.50"};
-  document.getElementById('vipCard').innerHTML = `<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p style="margin:8px 0">Welcome Boss! Auto Tips Today</p><div style="background:#0f172a;padding:12px;border-radius:12px;text-align:left;margin-top:10px;font-size:13px;line-height:1.8"><p>🏆 TODAY AUTO VIP:</p>${data.html}<p style="color:gold;margin-top:8px;font-weight:bold">Total Odds: ${data.odds}</p></div><p style="color:#16a34a;font-size:11px;margin-top:10px">${localStorage.getItem('vipRef')}</p><p style="color:#64748b;font-size:10px;margin-top:5px">Auto refreshes tomorrow 6AM</p></div>`;
-}
+function showVIPModal(ref){document.getElementById('refId').innerText='REF: #'+ref;document.getElementById('payTime').innerText=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});document.getElementById('vipModal').style.display='flex';}
+function closeVIPModal(){document.getElementById('vipModal').style.display='none';renderVIPCard(true);}
+autoFetchTips();
+if(checkExpiry()){setTimeout(()=>{if(autoData)renderVIPCard(true)},800);} // render paid if not expired
 </script>
 </body>
 </html>

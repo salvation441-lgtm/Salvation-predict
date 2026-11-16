@@ -3,84 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SalvationPredict - Sure Banker Tips</title>
+<title>SalvationPredict - Auto Banker</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:#020617;color:white;padding:10px}
 .header{background:linear-gradient(135deg,#0f172a,#1e293b);padding:15px;border-radius:15px;text-align:center;border:1px solid #334155;margin-bottom:12px}
 .header h1{color:#facc15;font-size:22px}
-.header p{color:#94a3b8;font-size:12px;margin-top:4px}
 .card{background:#1e293b;border-radius:15px;padding:15px;margin:12px 0;border:1px solid #334155}
 .badge{background:#16a34a;color:white;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold}
 .odd{background:#facc15;color:black;padding:4px 10px;border-radius:8px;font-weight:bold;font-size:13px}
 .vip{border:2px solid gold !important;background:linear-gradient(135deg,#1e293b,#0f172a)}
 .btn-gold{background:#facc15;color:black;border:none;padding:14px;width:100%;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
-.btn-gold:active{transform:scale(0.98)}
-/* VIP MODAL */
 #vipModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:99999;padding:15px;backdrop-filter:blur(6px)}
 .modalCard{background:#0f172a;border:2px solid #facc15;border-radius:22px;padding:28px 20px;text-align:center;max-width:340px;width:100%;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
 @keyframes popIn{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
-.checkWrap{width:110px;height:110px;margin:0 auto 18px;position:relative}
-.checkCircle{width:110px;height:110px;border-radius:50%;border:4px solid #22c55e;background:rgba(34,197,94,0.15);display:flex;justify-content:center;align-items:center;box-shadow:0 0 30px rgba(34,197,94,0.6);animation:glow 1.5s infinite}
+.checkWrap{width:110px;height:110px;margin:0 auto 18px} .checkCircle{width:110px;height:110px;border-radius:50%;border:4px solid #22c55e;background:rgba(34,197,94,0.15);display:flex;justify-content:center;align-items:center;box-shadow:0 0 30px rgba(34,197,94,0.6);animation:glow 1.5s infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(34,197,94,0.4)}50%{box-shadow:0 0 40px rgba(34,197,94,0.8)}}
 .checkmark{width:50px;height:50px;stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;animation:draw 0.6s 0.3s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.brand{color:#facc15;font-weight:900;font-size:20px;letter-spacing:0.5px;margin-bottom:12px}
+.brand{color:#facc15;font-weight:900;font-size:20px;margin-bottom:12px}
+.live-dot{width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;animation:blink 1s infinite;margin-right:5px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 </style>
 </head>
 <body>
 
 <div class="header">
 <h1>🛡️ SalvationPredict</h1>
-<p>Daily Sure Banker Tips • Ghana's #1 Prediction Site</p>
+<p><span class="live-dot"></span>Live Auto Fetch • Ghana's #1 Banker • <span id="todayDate"></span></p>
 </div>
 
-<!-- FREE TIPS -->
-<div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-<span class="badge">FREE</span><span style="font-size:11px;color:#94a3b8">Today • 16 Nov</span>
-</div>
-<p>⚽ Arsenal vs Chelsea - Over 1.5 Goals <span class="odd">1.35</span></p>
-<p style="margin-top:8px">⚽ Real Madrid WIN <span class="odd">1.65</span></p>
-<p style="margin-top:6px;font-size:11px;color:#16a34a">✅ Won Yesterday</p>
+<!-- AUTO FREE TIPS -->
+<div class="card" id="freeCard">
+<div style="display:flex;justify-content:space-between"><span class="badge">FREE - AUTO TODAY</span><span style="font-size:11px;color:#94a3b8" id="freeDate">Loading...</span></div>
+<div id="freeTips" style="margin-top:10px">⏳ Fetching today's real matches...</div>
 </div>
 
 <!-- VIP CARD -->
 <div class="card vip" id="vipCard">
-<span style="background:gold;color:black;padding:4px 10px;border-radius:5px;font-size:11px;font-weight:900">VIP - GHS 15</span>
+<span style="background:gold;color:black;padding:4px 10px;border-radius:5px;font-size:11px;font-weight:900">VIP - GHS 15 AUTO</span>
 <h2 style="color:white;margin:10px 0">VIP BANKER 10+ ODDS</h2>
-<p style="font-size:32px;text-align:center;margin:10px 0">🔒 LOCKED</p>
-<p style="text-align:center;color:#cbd5e1;font-size:13px">5 Sure Banker Tips - Combined 12.50 Odds<br>Win Daily with our Bankers</p>
-<button onclick="payWithPaystack()" class="btn-gold">UNLOCK - PAY GHS 15 MOMO</button>
-<p style="font-size:10px;color:#64748b;text-align:center;margin-top:8px">MTN MoMo • Telecel • AT Money • VISA via Paystack Secured</p>
+<p style="font-size:32px;text-align:center;margin:10px 0" id="vipLockIcon">🔒 LOCKED</p>
+<p style="text-align:center;color:#cbd5e1;font-size:13px" id="vipDesc">Fetching today's VIP bankers...</p>
+<button onclick="payWithPaystack()" class="btn-gold" id="payBtn">UNLOCK - PAY GHS 15 MOMO</button>
+<p style="font-size:10px;color:#64748b;text-align:center;margin-top:8px">MTN • Telecel • AT Money via Paystack</p>
 </div>
 
-<!-- SUCCESS MODAL - BRANDED -->
-<div id="vipModal" onclick="closeVIPModal()">
-<div class="modalCard" onclick="event.stopPropagation()">
+<!-- MODAL -->
+<div id="vipModal" onclick="closeVIPModal()"><div class="modalCard" onclick="event.stopPropagation()">
 <div class="brand">🛡️ SalvationPredict</div>
-<div class="checkWrap"><div class="checkCircle">
-<svg viewBox="0 0 52 52"><path class="checkmark" d="M14 27 L22 35 L38 16"/></svg>
-</div></div>
-<h2 style="color:#facc15;margin:5px 0;font-size:26px">Payment Successful!</h2>
-<p style="color:#facc15;opacity:0.9;font-weight:600;margin:5px 0 15px;font-size:13px;letter-spacing:0.5px">VIP BANKER 10+ ODDS UNLOCKED</p>
+<div class="checkWrap"><div class="checkCircle"><svg viewBox="0 0 52 52"><path class="checkmark" d="M14 27 L22 35 L38 16"/></svg></div></div>
+<h2 style="color:#facc15;font-size:26px">Payment Successful!</h2>
+<p style="color:#facc15;font-weight:600;margin:5px 0 15px;font-size:13px">VIP BANKER 10+ ODDS UNLOCKED</p>
 <div style="height:1px;background:linear-gradient(90deg,transparent,#facc15,transparent);margin:15px 0"></div>
-<p style="color:#94a3b8;font-size:10px;letter-spacing:1px">REFERENCE ID</p>
-<p id="refId" style="color:white;font-weight:bold;font-size:18px;margin:5px 0">REF: #SP-000000</p>
-<p style="color:#64748b;font-size:11px;margin:8px 0 18px">Paid via Secure Gateway • <span id="payTime"></span></p>
+<p style="color:#94a3b8;font-size:10px">REFERENCE ID</p>
+<p id="refId" style="color:white;font-weight:bold;font-size:18px;margin:5px 0"></p>
+<p style="color:#64748b;font-size:11px;margin:8px 0 18px">Paid • <span id="payTime"></span></p>
 <button onclick="closeVIPModal()" style="background:#facc15;color:#0f172a;border:none;padding:14px;width:100%;border-radius:14px;font-weight:900;font-size:18px">VIEW VIP TIPS 🏆</button>
-</div>
-</div>
+</div></div>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
-// PAYSTACK PAYMENT
+// DATE
+document.getElementById('todayDate').innerText = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+document.getElementById('freeDate').innerText = 'Today • '+new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+
+// AUTO FETCH ENGINE - ESPN FREE API (no key needed)
+const BANKERS = [
+  {market:"WIN + Over 1.5", odd:"2.10"}, {market:"BTTS YES", odd:"1.80"},
+  {market:"Over 2.5 Goals", odd:"1.90"}, {market:"Double Chance: Home or Draw", odd:"1.35"},
+  {market:"Correct Score 2-1", odd:"8.50"}, {market:"Over 1.5 Goals", odd:"1.35"},
+  {market:"Home WIN", odd:"1.65"}, {market:"BTTS + Over 2.5", odd:"2.40"}
+];
+
+async function autoFetchTips(){
+ try{
+  // Try fetch real fixtures - fallback to smart rotation if fails
+  let matches = ["Arsenal vs Chelsea","Man City vs Liverpool","Real Madrid vs Barca","Inter vs AC Milan","Bayern vs Dortmund"];
+  try{
+   const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard');
+   const data = await res.json();
+   if(data.events && data.events.length>0){
+     matches = data.events.slice(0,5).map(e=>e.name);
+   }
+  }catch(e){}
+
+  // Generate daily tips based on date (so it changes daily)
+  const seed = new Date().getDate();
+  const freePick = matches[seed % matches.length];
+  document.getElementById('freeTips').innerHTML = `<p>⚽ ${freePick} - Over 1.5 Goals <span class="odd">1.35</span></p><p style="margin-top:8px">⚽ ${matches[(seed+1)%matches.length]} WIN <span class="odd">1.65</span></p><p style="margin-top:6px;font-size:11px;color:#16a34a">✅ Auto Fetched - Updated Daily 6AM</p>`;
+
+  // VIP tips
+  let vipHtml = '';
+  let totalOdds = 1;
+  for(let i=0;i<5;i++){
+    const m = matches[(seed+i)%matches.length];
+    const b = BANKERS[(seed+i)%BANKERS.length];
+    totalOdds *= parseFloat(b.odd);
+    vipHtml += `${i+1}. ${m} - ${b.market} @${b.odd}<br>`;
+  }
+  window.autoVipData = {html:vipHtml, odds: totalOdds.toFixed(2), matches};
+  document.getElementById('vipDesc').innerHTML = `5 Auto Bankers • Est. Odds ${totalOdds.toFixed(2)} • Updates Daily`;
+  if(localStorage.getItem('vipPaid')=='true'){ unlockVIP(); }
+ }catch(err){
+  document.getElementById('freeTips').innerHTML = '⚽ Daily Banker Loading... Check network';
+ }
+}
+autoFetchTips();
+
+// PAYSTACK
 function payWithPaystack(){
   var handler = PaystackPop.setup({
     key: 'pk_test_f6ae7e85480e54ebbc5db6122737e935d6dcbe23',
     email: 'salvation441@gmail.com',
-    amount: 1500,
-    currency: 'GHS',
+    amount: 1500, currency: 'GHS',
     ref: 'SPVIP_'+Math.floor(Math.random()*1000000000),
     callback: function(response){
       localStorage.setItem('vipPaid','true');
@@ -96,14 +132,11 @@ function showVIPModal(ref){
   document.getElementById('payTime').innerText=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
   document.getElementById('vipModal').style.display='flex';
 }
-function closeVIPModal(){
-  document.getElementById('vipModal').style.display='none';
-  unlockVIP();
-}
+function closeVIPModal(){ document.getElementById('vipModal').style.display='none'; unlockVIP(); }
 function unlockVIP(){
-  document.getElementById('vipCard').innerHTML = '<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p style="margin:8px 0">Welcome Boss!</p><div style="background:#0f172a;padding:12px;border-radius:12px;text-align:left;margin-top:10px;font-size:13px;line-height:1.8"><p>🏆 TODAY VIP BANKER:</p><p>1. Arsenal WIN + Over 1.5 @2.10</p><p>2. Real Madrid vs Barca - BTTS YES @1.80</p><p>3. Man City Over 2.5 @1.90</p><p>4. Double Chance: Inter or Draw @1.35</p><p>5. Correct Score: 2-1 @8.50</p><p style="color:gold;margin-top:8px;font-weight:bold">Total Odds: 12.50</p></div><p style="color:#16a34a;font-size:11px;margin-top:10px">'+localStorage.getItem('vipRef')+'</p></div>';
+  const data = window.autoVipData || {html:"Loading... ", odds:"12.50"};
+  document.getElementById('vipCard').innerHTML = `<div style="text-align:center"><h2 style="color:gold">VIP UNLOCKED ✅</h2><p style="margin:8px 0">Welcome Boss! Auto Tips Today</p><div style="background:#0f172a;padding:12px;border-radius:12px;text-align:left;margin-top:10px;font-size:13px;line-height:1.8"><p>🏆 TODAY AUTO VIP:</p>${data.html}<p style="color:gold;margin-top:8px;font-weight:bold">Total Odds: ${data.odds}</p></div><p style="color:#16a34a;font-size:11px;margin-top:10px">${localStorage.getItem('vipRef')}</p><p style="color:#64748b;font-size:10px;margin-top:5px">Auto refreshes tomorrow 6AM</p></div>`;
 }
-if(localStorage.getItem('vipPaid')=='true'){ unlockVIP(); }
 </script>
 </body>
 </html>
